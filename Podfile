@@ -6,7 +6,6 @@ use_frameworks!
 def pods
   pod 'Alamofire'
   pod 'SwiftyJSON'
-  pod 'AsyncSwift'
 end
 
 target 'SS_Authorisation' do

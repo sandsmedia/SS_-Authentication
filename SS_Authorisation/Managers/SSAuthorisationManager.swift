@@ -11,14 +11,19 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class SSAuthorisationManager {
-    typealias ServiceResponse = (AnyObject?, NSError?) -> Void;
+let TIME_OUT_INTERVAL = 120.0
+let TIME_OUT_RESOURCE = 600.0
+
+let WEB_SERVICE_RETRY = 1
+
+public class SSAuthorisationManager {
+    public typealias ServiceResponse = (AnyObject?, NSError?) -> Void;
     
     private var accessToken: String? = nil;
     
     // MARK: - Singleton Methods
     
-    static let sharedInstance: SSAuthorisationManager = {
+    public static let sharedInstance: SSAuthorisationManager = {
         let instance = SSAuthorisationManager();
         return instance;
     }();
@@ -67,7 +72,7 @@ class SSAuthorisationManager {
     
     // MARK: - Public Methods
     
-    func register(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+    public func register(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.registerURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
@@ -76,14 +81,15 @@ class SSAuthorisationManager {
                     print("register: ", value);
                     completionHandler(value, nil);
                 case .Failure(let error):
+                    print("register error: ", error);
                     completionHandler(nil, error);
                 }
         }
         
     }
     
-    func login(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
-        self.networkManager.request(.POST, self.registerURL, parameters: userDictionary, encoding: .JSON, headers: nil)
+    public func login(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+        self.networkManager.request(.POST, self.loginURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
                 switch response.result {
@@ -91,12 +97,13 @@ class SSAuthorisationManager {
                     print("login: ", value);
                     completionHandler(value, nil);
                 case .Failure(let error):
+                    print("login error: ", error);
                     completionHandler(nil, error);
                 }
         }
     }
     
-    func validate(completionHandler: ServiceResponse) -> Void {
+    public func validate(completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.validateURL, parameters: nil, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
@@ -105,16 +112,17 @@ class SSAuthorisationManager {
                     print("validate: ", value);
                     completionHandler(value, nil);
                 case .Failure(let error):
+                    print("validate error: ", error);
                     completionHandler(nil, error);
                 }
         }
     }
     
-    func logout(completionHandler: ServiceResponse) -> Void {
+    public func logout(completionHandler: ServiceResponse) -> Void {
         self.accessToken = nil;
     }
     
-    func reset(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+    public func reset(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.resetURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
@@ -123,12 +131,13 @@ class SSAuthorisationManager {
                     print("reset: ", value);
                     completionHandler(value, nil);
                 case .Failure(let error):
+                    print("reset error: ", error);
                     completionHandler(nil, error);
                 }
         }
     }
     
-    func update(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+    public func update(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.updateURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
@@ -137,6 +146,7 @@ class SSAuthorisationManager {
                     print("update: ", value);
                     completionHandler(value, nil);
                 case .Failure(let error):
+                    print("update error: ", error);
                     completionHandler(nil, error);
                 }
         }

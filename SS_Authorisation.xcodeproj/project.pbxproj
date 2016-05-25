@@ -12,7 +12,6 @@
 		3821DA241CF5918400867115 /* SS_Authorisation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3821DA191CF5918400867115 /* SS_Authorisation.framework */; };
 		3821DA291CF5918400867115 /* SS_AuthorisationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821DA281CF5918400867115 /* SS_AuthorisationTests.swift */; };
 		3821DA381CF5998200867115 /* SSAuthorisationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821DA361CF5998200867115 /* SSAuthorisationManager.swift */; };
-		3821DA3B1CF59A0800867115 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821DA3A1CF59A0800867115 /* Common.swift */; };
 		94D85FDE756C46DD33832976 /* Pods_SS_Authorisation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C190839D71AD7CA6B95A7FE8 /* Pods_SS_Authorisation.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		3821DA281CF5918400867115 /* SS_AuthorisationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SS_AuthorisationTests.swift; sourceTree = "<group>"; };
 		3821DA2A1CF5918400867115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3821DA361CF5998200867115 /* SSAuthorisationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthorisationManager.swift; sourceTree = "<group>"; };
-		3821DA3A1CF59A0800867115 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		40A44010A1BA17D9523AF59E /* Pods-SS_AuthorisationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SS_AuthorisationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SS_AuthorisationTests/Pods-SS_AuthorisationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		794FCF276ADAC5544D577FEE /* Pods-SS_Authorisation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SS_Authorisation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SS_Authorisation/Pods-SS_Authorisation.debug.xcconfig"; sourceTree = "<group>"; };
 		7F7894877196C1E3E694D667 /* Pods-SS_AuthorisationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SS_AuthorisationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SS_AuthorisationTests/Pods-SS_AuthorisationTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				3821DA1E1CF5918400867115 /* Info.plist */,
-				3821DA3A1CF59A0800867115 /* Common.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -355,7 +352,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3821DA3B1CF59A0800867115 /* Common.swift in Sources */,
 				3821DA381CF5998200867115 /* SSAuthorisationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
