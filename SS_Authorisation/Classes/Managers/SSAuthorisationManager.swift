@@ -110,7 +110,7 @@ public class SSAuthorisationManager {
     
     public func validate(completionHandler completionHandler: ServiceResponse) -> Void {
         let token = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHORISATION_TOKEN_KEY);
-        guard (token != nil) else { completionHandler(nil, NSError.init(domain: "", code: 400, userInfo: nil)); return }
+        guard (token != nil) else { completionHandler(nil, nil); return }
         self.networkManager.request(.POST, self.validateURL, parameters: [TOKEN_KEY: token!], encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
