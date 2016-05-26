@@ -11,15 +11,18 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-let TIME_OUT_INTERVAL = 120.0
-let TIME_OUT_RESOURCE = 600.0
+let TIME_OUT_INTERVAL = 120.0;
+let TIME_OUT_RESOURCE = 600.0;
 
-let WEB_SERVICE_RETRY = 1
+let INVALID_CODE = 401;
+
+let USER_KEY = "user";
+let EMAIL_KEY = "email";
+let TOKEN_KEY = "token";
+let SS_AUTHORISATION_TOKEN_KEY = "SS_AUTHORISATION_TOKEN";
 
 public class SSAuthorisationManager {
-    public typealias ServiceResponse = (AnyObject?, NSError?) -> Void;
-    
-    private var accessToken: String? = nil;
+    public typealias ServiceResponse = (User?, NSError?) -> Void;
     
     // MARK: - Singleton Methods
     
@@ -72,14 +75,15 @@ public class SSAuthorisationManager {
     
     // MARK: - Public Methods
     
-    public func register(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+    public func register(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.registerURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .Success(let value):
                     print("register: ", value);
-                    completionHandler(value, nil);
+                    let user = self.parse(responseJSON: value);
+                    completionHandler(user, nil);
                 case .Failure(let error):
                     print("register error: ", error);
                     completionHandler(nil, error);
@@ -88,14 +92,15 @@ public class SSAuthorisationManager {
         
     }
     
-    public func login(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+    public func login(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.loginURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .Success(let value):
                     print("login: ", value);
-                    completionHandler(value, nil);
+                    let user = self.parse(responseJSON: value);
+                    completionHandler(user, nil);
                 case .Failure(let error):
                     print("login error: ", error);
                     completionHandler(nil, error);
@@ -103,33 +108,42 @@ public class SSAuthorisationManager {
         }
     }
     
-    public func validate(completionHandler: ServiceResponse) -> Void {
-        self.networkManager.request(.POST, self.validateURL, parameters: nil, encoding: .JSON, headers: nil)
+    public func validate(completionHandler completionHandler: ServiceResponse) -> Void {
+        let token = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHORISATION_TOKEN_KEY);
+        guard (token != nil) else { completionHandler(nil, NSError.init(domain: "", code: 400, userInfo: nil)); return }
+        self.networkManager.request(.POST, self.validateURL, parameters: [TOKEN_KEY: token!], encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .Success(let value):
                     print("validate: ", value);
-                    completionHandler(value, nil);
+                    let user = self.parse(responseJSON: value);
+                    completionHandler(user, nil);
                 case .Failure(let error):
                     print("validate error: ", error);
+                    if (response.response?.statusCode == INVALID_CODE) {
+                        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHORISATION_TOKEN_KEY);
+                    }
                     completionHandler(nil, error);
                 }
         }
     }
     
-    public func logout(completionHandler: ServiceResponse) -> Void {
-        self.accessToken = nil;
+    public func logout(completionHandler completionHandler: ServiceResponse) -> Void {
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHORISATION_TOKEN_KEY);
+        completionHandler(nil, nil);
     }
     
-    public func reset(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+    public func reset(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.resetURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .Success(let value):
                     print("reset: ", value);
-                    completionHandler(value, nil);
+                    let user = User();
+                    user.email = (userDictionary[EMAIL_KEY] as! String);
+                    completionHandler(user, nil);
                 case .Failure(let error):
                     print("reset error: ", error);
                     completionHandler(nil, error);
@@ -137,18 +151,31 @@ public class SSAuthorisationManager {
         }
     }
     
-    public func update(userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+    public func update(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.updateURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .Success(let value):
                     print("update: ", value);
-                    completionHandler(value, nil);
+                    let user = self.parse(responseJSON: value);
+                    completionHandler(user, nil);
                 case .Failure(let error):
                     print("update error: ", error);
                     completionHandler(nil, error);
                 }
         }
+    }
+    
+    private func parse(responseJSON responseJSON: AnyObject!) -> User {
+        let responseDictionary = JSON(responseJSON).dictionaryValue;
+        let userDictionary = responseDictionary[USER_KEY]!.dictionaryValue;
+        let email = userDictionary[EMAIL_KEY]?.stringValue;
+        let token = userDictionary[TOKEN_KEY]?.stringValue;
+        NSUserDefaults.standardUserDefaults().setObject(token, forKey: SS_AUTHORISATION_TOKEN_KEY);
+        let user = User();
+        user.email = email;
+        user.token = token;
+        return user;
     }
 }
