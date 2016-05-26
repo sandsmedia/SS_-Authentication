@@ -8,12 +8,12 @@ def pods
   pod 'SwiftyJSON'
 end
 
-target 'SS_ Authentication' do
-  # Pods for SS_ Authentication
+target 'SS_Authentication' do
+  # Pods for SS_Authentication
   pods
 end
 
-target 'SS_ AuthenticationTests' do
+target 'SS_AuthenticationTests' do
   inherit! :search_paths
   # Pods for testing
   pods

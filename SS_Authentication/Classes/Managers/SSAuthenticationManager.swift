@@ -1,6 +1,6 @@
 //
-//  SSAuthorisationManager.swift
-//  SS_Authorisation
+//  SSAuthenticationManager.swift
+//  SS_Authentication
 //
 //  Created by Eddie Li on 23/03/16.
 //  Copyright © 2016 Software and Support Media GmbH. All rights reserved.
@@ -19,15 +19,15 @@ let INVALID_CODE = 401;
 let USER_KEY = "user";
 let EMAIL_KEY = "email";
 let TOKEN_KEY = "token";
-let SS_AUTHORISATION_TOKEN_KEY = "SS_AUTHORISATION_TOKEN";
+let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN";
 
-public class SSAuthorisationManager {
+public class SSAuthenticationManager {
     public typealias ServiceResponse = (User?, NSError?) -> Void;
     
     // MARK: - Singleton Methods
     
-    public static let sharedInstance: SSAuthorisationManager = {
-        let instance = SSAuthorisationManager();
+    public static let sharedInstance: SSAuthenticationManager = {
+        let instance = SSAuthenticationManager();
         return instance;
     }();
     
@@ -109,7 +109,7 @@ public class SSAuthorisationManager {
     }
     
     public func validate(completionHandler completionHandler: ServiceResponse) -> Void {
-        let token = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHORISATION_TOKEN_KEY);
+        let token = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY);
         guard (token != nil) else { completionHandler(nil, nil); return }
         self.networkManager.request(.POST, self.validateURL, parameters: [TOKEN_KEY: token!], encoding: .JSON, headers: nil)
             .validate()
@@ -122,7 +122,7 @@ public class SSAuthorisationManager {
                 case .Failure(let error):
                     print("validate error: ", error);
                     if (response.response?.statusCode == INVALID_CODE) {
-                        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHORISATION_TOKEN_KEY);
+                        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHENTICATION_TOKEN_KEY);
                     }
                     completionHandler(nil, error);
                 }
@@ -130,7 +130,7 @@ public class SSAuthorisationManager {
     }
     
     public func logout(completionHandler completionHandler: ServiceResponse) -> Void {
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHORISATION_TOKEN_KEY);
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHENTICATION_TOKEN_KEY);
         completionHandler(nil, nil);
     }
     
@@ -172,7 +172,7 @@ public class SSAuthorisationManager {
         let userDictionary = responseDictionary[USER_KEY]!.dictionaryValue;
         let email = userDictionary[EMAIL_KEY]?.stringValue;
         let token = userDictionary[TOKEN_KEY]?.stringValue;
-        NSUserDefaults.standardUserDefaults().setObject(token, forKey: SS_AUTHORISATION_TOKEN_KEY);
+        NSUserDefaults.standardUserDefaults().setObject(token, forKey: SS_AUTHENTICATION_TOKEN_KEY);
         let user = User();
         user.email = email;
         user.token = token;

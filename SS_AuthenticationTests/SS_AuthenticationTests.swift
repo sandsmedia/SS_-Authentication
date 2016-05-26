@@ -1,15 +1,15 @@
 //
-//  SS_AuthorisationTests.swift
-//  SS_AuthorisationTests
+//  SS_AuthenticationTests.swift
+//  SS_AuthenticationTests
 //
 //  Created by Eddie Li on 25/05/16.
 //  Copyright © 2016 Software and Support Media GmbH. All rights reserved.
 //
 
 import XCTest
-@testable import SS_Authorisation
+@testable import SS_Authentication
 
-class SS_AuthorisationTests: XCTestCase {
+class SS_AuthenticationTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
