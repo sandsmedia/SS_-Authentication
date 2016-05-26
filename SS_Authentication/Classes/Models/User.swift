@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class User : NSObject {
+public class User: NSObject {
     public var email: String?;
     public var token: String?;
 }

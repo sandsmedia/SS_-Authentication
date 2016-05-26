@@ -14,7 +14,7 @@ import SwiftyJSON
 let TIME_OUT_INTERVAL = 120.0;
 let TIME_OUT_RESOURCE = 600.0;
 
-let INVALID_CODE = 401;
+let INVALID_STATUS_CODE = 401;
 
 let USER_KEY = "user";
 let EMAIL_KEY = "email";
@@ -121,7 +121,7 @@ public class SSAuthenticationManager {
                     completionHandler(user, nil);
                 case .Failure(let error):
                     print("validate error: ", error);
-                    if (response.response?.statusCode == INVALID_CODE) {
+                    if (response.response?.statusCode == INVALID_STATUS_CODE) {
                         NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHENTICATION_TOKEN_KEY);
                     }
                     completionHandler(nil, error);
