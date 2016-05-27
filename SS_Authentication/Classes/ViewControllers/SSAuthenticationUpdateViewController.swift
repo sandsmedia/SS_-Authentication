@@ -1,5 +1,5 @@
 //
-//  SS_AuthenticationLoginViewController.swift
+//  SSAuthenticationUpdateViewController.swift
 //  SS_Authentication
 //
 //  Created by Eddie Li on 25/05/16.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class SS_AuthenticationLoginViewController: SS_AuthenticationBaseViewController {
-    
+class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
+    private var hasLoadedConstraints: Bool = false;
+
     // MARK: - Initialisation
     
     convenience init() {
@@ -36,6 +37,16 @@ class SS_AuthenticationLoginViewController: SS_AuthenticationBaseViewController 
     
     override func setupSubviews() {
         super.setupSubviews();
+        
+        self.navigationBar?.skipButton?.hidden = true;
+    }
+    
+    override func updateViewConstraints() {
+        if (self.hasLoadedConstraints == false) {
+            
+            self.hasLoadedConstraints = true;
+        }
+        super.updateViewConstraints();
     }
     
     // MARK: - View lifecycle

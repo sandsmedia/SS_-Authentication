@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  SSUser.swift
 //  SS_Authentication
 //
 //  Created by Eddie Li on 25/05/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class User: NSObject {
+public class SSUser: NSObject {
     public var email: String?;
     public var token: String?;
 }

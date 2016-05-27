@@ -1,5 +1,5 @@
 //
-//  SS_AuthenticationLoadingView.swift
+//  SSAuthenticationLoadingView.swift
 //  SS_Authentication
 //
 //  Created by Eddie Li on 26/05/16.
@@ -10,8 +10,8 @@ import UIKit
 
 let LOADING_RADIUS = CGFloat.init(5.0);
 
-class SS_AuthenticationLoadingView: UIView {
-    private var loadingStackView: UIStackView?;
+class SSAuthenticationLoadingView: UIView {
+    private var dotsStackView: UIStackView?;
     private var dotOne: UIImageView?;
     private var dotTwo: UIImageView?;
     private var dotThree: UIImageView?;
@@ -72,12 +72,12 @@ class SS_AuthenticationLoadingView: UIView {
     
     // MARK: - Subviews
     
-    private func setupLoadingStackView() {
-        self.loadingStackView = UIStackView.init();
-        self.loadingStackView!.axis = .Horizontal;
-        self.loadingStackView!.alignment = .Center;
-        self.loadingStackView!.distribution = .EqualCentering;
-        self.loadingStackView?.spacing = LOADING_RADIUS;
+    private func setupDotsStackView() {
+        self.dotsStackView = UIStackView.init();
+        self.dotsStackView!.axis = .Horizontal;
+        self.dotsStackView!.alignment = .Center;
+        self.dotsStackView!.distribution = .EqualCentering;
+        self.dotsStackView?.spacing = LOADING_RADIUS;
     }
     
     private func setupDotOne() {
@@ -99,26 +99,26 @@ class SS_AuthenticationLoadingView: UIView {
     }
     
     private func setupSubviews() {
-        self.setupLoadingStackView();
-        self.loadingStackView?.translatesAutoresizingMaskIntoConstraints = false;
-        self.addSubview(self.loadingStackView!);
+        self.setupDotsStackView();
+        self.dotsStackView?.translatesAutoresizingMaskIntoConstraints = false;
+        self.addSubview(self.dotsStackView!);
         
         self.setupDotOne();
         self.dotOne?.translatesAutoresizingMaskIntoConstraints = false;
-        self.loadingStackView?.addArrangedSubview(self.dotOne!);
+        self.dotsStackView?.addArrangedSubview(self.dotOne!);
         
         self.setupDotTwo();
         self.dotTwo?.translatesAutoresizingMaskIntoConstraints = false;
-        self.loadingStackView?.addArrangedSubview(self.dotTwo!);
+        self.dotsStackView?.addArrangedSubview(self.dotTwo!);
         
         self.setupDotThree();
         self.dotThree?.translatesAutoresizingMaskIntoConstraints = false;
-        self.loadingStackView?.addArrangedSubview(self.dotThree!);
+        self.dotsStackView?.addArrangedSubview(self.dotThree!);
     }
     
     override func updateConstraints() {
         if (self.hasLoadedConstraints == false) {
-            let views = ["stack": self.loadingStackView!,
+            let views = ["stack": self.dotsStackView!,
                          "dotOne": self.dotOne!,
                          "dotTwo": self.dotTwo!,
                          "dotThree": self.dotThree!];
@@ -129,21 +129,21 @@ class SS_AuthenticationLoadingView: UIView {
             
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[stack]", options: .DirectionMask, metrics: nil, views: views));
             
-            self.addConstraint(NSLayoutConstraint.init(item: self.loadingStackView!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
+            self.addConstraint(NSLayoutConstraint.init(item: self.dotsStackView!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
             
-            self.addConstraint(NSLayoutConstraint.init(item: self.loadingStackView!, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
+            self.addConstraint(NSLayoutConstraint.init(item: self.dotsStackView!, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
             
-            self.loadingStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotOne(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views));
+            self.dotsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotOne(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.loadingStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotTwo(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views));
+            self.dotsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotTwo(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.loadingStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotThree(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views));
+            self.dotsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotThree(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.loadingStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotOne(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views));
+            self.dotsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotOne(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.loadingStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotTwo(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views));
+            self.dotsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotTwo(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.loadingStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotThree(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views));
+            self.dotsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotThree(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views));
             
             self.hasLoadedConstraints = true;
         }
@@ -157,5 +157,5 @@ class SS_AuthenticationLoadingView: UIView {
 }
 
 private extension Selector {
-    static let applicationDidBecomeActive = #selector(SS_AuthenticationLoadingView.applicationDidBecomeActive);
+    static let applicationDidBecomeActive = #selector(SSAuthenticationLoadingView.applicationDidBecomeActive);
 }

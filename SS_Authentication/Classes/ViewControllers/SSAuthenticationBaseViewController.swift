@@ -1,5 +1,5 @@
 //
-//  SS_AuthenticationBaseViewController.swift
+//  SSAuthenticationBaseViewController.swift
 //  SS_Authentication
 //
 //  Created by Eddie Li on 25/05/16.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-public class SS_AuthenticationBaseViewController: UIViewController {
-    private var loadingView: SS_AuthenticationLoadingView?;
+public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticationNavigationBarDelegate {
+    var navigationBar: SSAuthenticationNavigationBar?;
+    private var loadingView: SSAuthenticationLoadingView?;
     
     public var hideStatusBar: Bool = false;
     
@@ -35,22 +36,56 @@ public class SS_AuthenticationBaseViewController: UIViewController {
 
     }
     
+    // MARK: - Implementation of SSAuthenticationNavigationBarDelegate protocols
+    
+    func skip() {
+        
+    }
+    
+    func back() {
+        self.navigationController?.popViewControllerAnimated(true);
+    }
+    
     // MARK: - Public Methods
     
     func setup() {
         self.setNeedsStatusBarAppearanceUpdate();
     }
     
+    func showLoadingView() {
+        self.view.bringSubviewToFront(self.loadingView!);
+        UIView.animateWithDuration(0.3) { 
+            self.loadingView?.alpha = 1.0;
+        }
+    }
+    
+    func hideLoadingView() {
+        UIView.animateWithDuration(0.3) {
+            self.loadingView?.alpha = 0.0;
+        }
+    }
+    
     // MARK: - Subviews
     
+    private func setupNavigationBar() {
+        self.navigationBar = SSAuthenticationNavigationBar.init();
+        self.navigationBar?.delegate = self;
+        self.navigationBar?.backgroundColor = UIColor.yellowColor();
+    }
+    
     private func setupLoadingView() {
-        self.loadingView = SS_AuthenticationLoadingView.init();
+        self.loadingView = SSAuthenticationLoadingView.init();
+        self.loadingView?.alpha = 0.0;
     }
     
     func setupSubviews() {
         self.setupLoadingView();
         self.loadingView!.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.loadingView!);
+        
+        self.setupNavigationBar();
+        self.navigationBar?.translatesAutoresizingMaskIntoConstraints = false;
+        self.view.addSubview(self.navigationBar!);
     }
     
     override public func prefersStatusBarHidden() -> Bool {
@@ -63,12 +98,17 @@ public class SS_AuthenticationBaseViewController: UIViewController {
     
     override public func updateViewConstraints() {
         if (self.hasLoadedConstraints == false) {
-            let views = ["loading": self.loadingView!];
+            let views = ["loading": self.loadingView!,
+                         "bar": self.navigationBar!];
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[loading]", options: .DirectionMask, metrics: nil, views: views));
-            
+
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[bar]|", options: .DirectionMask, metrics: nil, views: views));
+
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[loading]", options: .DirectionMask, metrics: nil, views: views));
-            
+
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[bar(64)]", options: .DirectionMask, metrics: nil, views: views));
+
             self.view.addConstraint(NSLayoutConstraint.init(item: self.loadingView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
 
             self.view.addConstraint(NSLayoutConstraint.init(item: self.loadingView!, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1.0, constant: 0.0));

@@ -16,13 +16,8 @@ let TIME_OUT_RESOURCE = 600.0;
 
 let INVALID_STATUS_CODE = 401;
 
-let USER_KEY = "user";
-let EMAIL_KEY = "email";
-let TOKEN_KEY = "token";
-let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN";
-
 public class SSAuthenticationManager {
-    public typealias ServiceResponse = (User?, NSError?) -> Void;
+    public typealias ServiceResponse = (SSUser?, NSError?) -> Void;
     
     // MARK: - Singleton Methods
     
@@ -141,7 +136,7 @@ public class SSAuthenticationManager {
                 switch response.result {
                 case .Success(let value):
                     print("reset: ", value);
-                    let user = User();
+                    let user = SSUser();
                     user.email = (userDictionary[EMAIL_KEY] as! String);
                     completionHandler(user, nil);
                 case .Failure(let error):
@@ -167,13 +162,13 @@ public class SSAuthenticationManager {
         }
     }
     
-    private func parse(responseJSON responseJSON: AnyObject!) -> User {
+    private func parse(responseJSON responseJSON: AnyObject!) -> SSUser {
         let responseDictionary = JSON(responseJSON).dictionaryValue;
         let userDictionary = responseDictionary[USER_KEY]!.dictionaryValue;
         let email = userDictionary[EMAIL_KEY]?.stringValue;
         let token = userDictionary[TOKEN_KEY]?.stringValue;
         NSUserDefaults.standardUserDefaults().setObject(token, forKey: SS_AUTHENTICATION_TOKEN_KEY);
-        let user = User();
+        let user = SSUser();
         user.email = email;
         user.token = token;
         return user;
