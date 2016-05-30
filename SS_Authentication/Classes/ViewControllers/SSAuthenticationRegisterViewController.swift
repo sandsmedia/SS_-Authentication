@@ -48,6 +48,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     
     func registerButtonAction() {
         guard (self.emailTextField?.text?.characters.count > 0 && self.passwordTextField?.text?.characters.count > 0 && self.confirmPasswordTextField?.text?.characters.count > 0) else { return }
+        guard (self.passwordTextField?.text == self.confirmPasswordTextField?.text) else { return }
         
         self.showLoadingView();
         let email = self.emailTextField?.text as String!;

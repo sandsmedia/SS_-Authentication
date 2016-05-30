@@ -18,6 +18,7 @@ let INVALID_STATUS_CODE = 401;
 
 public class SSAuthenticationManager {
     public typealias ServiceResponse = (SSUser?, NSError?) -> Void;
+    public var accessToken = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY) as? String;
     
     // MARK: - Singleton Methods
     
@@ -118,6 +119,7 @@ public class SSAuthenticationManager {
                     print("validate error: ", error);
                     if (response.response?.statusCode == INVALID_STATUS_CODE) {
                         NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHENTICATION_TOKEN_KEY);
+                        self.accessToken = nil;
                     }
                     completionHandler(nil, error);
                 }
@@ -126,6 +128,7 @@ public class SSAuthenticationManager {
     
     public func logout(completionHandler completionHandler: ServiceResponse) -> Void {
         NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHENTICATION_TOKEN_KEY);
+        self.accessToken = nil;
         completionHandler(nil, nil);
     }
     
@@ -171,6 +174,7 @@ public class SSAuthenticationManager {
         let user = SSUser();
         user.email = email;
         user.token = token;
+        self.accessToken = token;
         return user;
     }
 }
