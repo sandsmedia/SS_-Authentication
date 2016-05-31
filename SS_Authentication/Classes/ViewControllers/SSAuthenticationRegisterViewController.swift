@@ -55,11 +55,17 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         let password = self.passwordTextField?.text as String!;
         let userDict = [EMAIL_KEY: email,
                         PASSWORD_KEY: password];
-        SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user, error) in
-            if (user != nil) {
-                self.delegate?.registerSuccess(user!);
+        SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool, error) in
+            if (bool) {
+                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user, error) in
+                    if (user != nil) {
+                        self.delegate?.registerSuccess(user!);
+                    }
+                    self.hideLoadingView();
+                }
+            } else {
+                self.hideLoadingView();
             }
-            self.hideLoadingView();
         }
     }
     

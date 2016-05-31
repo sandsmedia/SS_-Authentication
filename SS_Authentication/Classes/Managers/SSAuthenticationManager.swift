@@ -17,6 +17,7 @@ let TIME_OUT_RESOURCE = 600.0;
 let INVALID_STATUS_CODE = 401;
 
 public class SSAuthenticationManager {
+    public typealias EmailValidResponse = (Bool, NSError?) -> Void;
     public typealias ServiceResponse = (SSUser?, NSError?) -> Void;
     public var accessToken = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY) as? String;
     
@@ -69,7 +70,30 @@ public class SSAuthenticationManager {
         return _updateURL;
     }();
     
+    private lazy var emailValidateURL: String = {
+        let _emailValidateURL = "https://api.mailgun.net/v3/address/validate";
+        return _emailValidateURL;
+    }();
+    
     // MARK: - Public Methods
+    
+    public func emailValidate(email email: String, completionHandler: EmailValidResponse) -> Void {
+        let parameters = ["address": email,
+                          "api_key": "pubkey-4118f4788e8461be95dd1784e27c7162"];
+        self.networkManager.request(.GET, self.emailValidateURL, parameters: parameters, encoding: .URLEncodedInURL, headers: nil)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .Success(let value):
+                    print("emailValidate: ", value);
+                    let isValid = self.parseMailgun(responseJSON: value);
+                    completionHandler(isValid, nil);
+                case .Failure(let error):
+                    print("emailValidate error: ", error);
+                    completionHandler(false, error);
+                }
+        }
+    }
     
     public func register(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.registerURL, parameters: userDictionary, encoding: .JSON, headers: nil)
@@ -78,7 +102,7 @@ public class SSAuthenticationManager {
                 switch response.result {
                 case .Success(let value):
                     print("register: ", value);
-                    let user = self.parse(responseJSON: value);
+                    let user = self.parseSSUser(responseJSON: value);
                     completionHandler(user, nil);
                 case .Failure(let error):
                     print("register error: ", error);
@@ -95,7 +119,7 @@ public class SSAuthenticationManager {
                 switch response.result {
                 case .Success(let value):
                     print("login: ", value);
-                    let user = self.parse(responseJSON: value);
+                    let user = self.parseSSUser(responseJSON: value);
                     completionHandler(user, nil);
                 case .Failure(let error):
                     print("login error: ", error);
@@ -113,7 +137,7 @@ public class SSAuthenticationManager {
                 switch response.result {
                 case .Success(let value):
                     print("validate: ", value);
-                    let user = self.parse(responseJSON: value);
+                    let user = self.parseSSUser(responseJSON: value);
                     completionHandler(user, nil);
                 case .Failure(let error):
                     print("validate error: ", error);
@@ -156,7 +180,7 @@ public class SSAuthenticationManager {
                 switch response.result {
                 case .Success(let value):
                     print("update: ", value);
-                    let user = self.parse(responseJSON: value);
+                    let user = self.parseSSUser(responseJSON: value);
                     completionHandler(user, nil);
                 case .Failure(let error):
                     print("update error: ", error);
@@ -164,8 +188,14 @@ public class SSAuthenticationManager {
                 }
         }
     }
-    
-    private func parse(responseJSON responseJSON: AnyObject!) -> SSUser {
+
+    private func parseMailgun(responseJSON responseJSON: AnyObject!) -> Bool {
+        let responseDictionary = JSON(responseJSON).dictionaryValue;
+        let isValid = responseDictionary["is_valid"]?.boolValue;
+        return isValid!;
+    }
+
+    private func parseSSUser(responseJSON responseJSON: AnyObject!) -> SSUser {
         let responseDictionary = JSON(responseJSON).dictionaryValue;
         let userDictionary = responseDictionary[USER_KEY]!.dictionaryValue;
         let email = userDictionary[EMAIL_KEY]?.stringValue;
