@@ -15,6 +15,7 @@
 		383775EF1CF6E6B9001156AC /* SSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383775EB1CF6E6B9001156AC /* SSUser.swift */; };
 		383775F11CF6E6B9001156AC /* SS_Authentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 383775ED1CF6E6B9001156AC /* SS_Authentication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		383775F81CF6E7A6001156AC /* SS_AuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383775F51CF6E6D4001156AC /* SS_AuthenticationTests.swift */; };
+		3875D59C1CFEF1F80038F2B9 /* SS_Authentication.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3875D59E1CFEF1F80038F2B9 /* SS_Authentication.strings */; };
 		3882E0851CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0751CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift */; };
 		3882E0871CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0771CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift */; };
 		3882E0891CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0791CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift */; };
@@ -52,6 +53,8 @@
 		383775ED1CF6E6B9001156AC /* SS_Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SS_Authentication.h; sourceTree = "<group>"; };
 		383775F41CF6E6D4001156AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		383775F51CF6E6D4001156AC /* SS_AuthenticationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SS_AuthenticationTests.swift; sourceTree = "<group>"; };
+		3875D59D1CFEF1F80038F2B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SS_Authentication.strings; sourceTree = "<group>"; };
+		3875D59F1CFEF2040038F2B9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SS_Authentication.strings; sourceTree = "<group>"; };
 		3882E0751CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationBaseViewController.swift; sourceTree = "<group>"; };
 		3882E0771CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationResetPasswordViewController.swift; sourceTree = "<group>"; };
 		3882E0791CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationLoginViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				383775EC1CF6E6B9001156AC /* Info.plist */,
+				3875D59E1CFEF1F80038F2B9 /* SS_Authentication.strings */,
 				3882E0A21CF7392F007528BA /* Common.swift */,
 			);
 			name = "Supporting Files";
@@ -314,6 +318,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
 			);
 			mainGroup = 3821DA0F1CF5918400867115;
 			productRefGroup = 3821DA1A1CF5918400867115 /* Products */;
@@ -331,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3875D59C1CFEF1F80038F2B9 /* SS_Authentication.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +463,18 @@
 			targetProxy = 3821DA251CF5918400867115 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3875D59E1CFEF1F80038F2B9 /* SS_Authentication.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3875D59D1CFEF1F80038F2B9 /* en */,
+				3875D59F1CFEF2040038F2B9 /* de */,
+			);
+			name = SS_Authentication.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3821DA2B1CF5918400867115 /* Debug */ = {

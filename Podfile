@@ -6,6 +6,7 @@ use_frameworks!
 def pods
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'Validator'
 end
 
 target 'SS_Authentication' do

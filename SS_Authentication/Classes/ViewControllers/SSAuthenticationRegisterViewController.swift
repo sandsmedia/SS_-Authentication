@@ -16,9 +16,6 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     weak var delegate: SSAuthenticationRegisterDelegate?;
     
     private var textFieldsStackView: UIStackView?;
-    private var emailTextField: UITextField?;
-    private var passwordTextField: UITextField?;
-    private var confirmPasswordTextField: UITextField?;
     private var buttonsStackView: UIStackView?;
     private var registerButton: UIButton?;
     
@@ -47,12 +44,11 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     // MARK: - Events
     
     func registerButtonAction() {
-        guard (self.emailTextField?.text?.characters.count > 0 && self.passwordTextField?.text?.characters.count > 0 && self.confirmPasswordTextField?.text?.characters.count > 0) else { return }
-        guard (self.passwordTextField?.text == self.confirmPasswordTextField?.text) else { return }
-        
+        guard (self.isEmailValid && self.isPasswordValid && self.isRetypePasswordValid) else { return }
+
         self.showLoadingView();
-        let email = self.emailTextField?.text as String!;
-        let password = self.passwordTextField?.text as String!;
+        let email = self.emailTextField.text as String!;
+        let password = self.passwordTextField.text as String!;
         let userDict = [EMAIL_KEY: email,
                         PASSWORD_KEY: password];
         SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool, error) in
@@ -87,30 +83,6 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         self.textFieldsStackView?.spacing = 20.0;
     }
     
-    private func setupEmailTextField() {
-        self.emailTextField = UITextField.init();
-        self.emailTextField?.keyboardType = .EmailAddress;
-        self.emailTextField?.attributedPlaceholder = NSAttributedString.init(string: "Email", attributes: nil);
-        self.emailTextField?.leftView = UIView.init(frame: CGRectMake(0, 0, 10, 0));
-        self.emailTextField?.leftViewMode = .Always;
-    }
-    
-    private func setupPasswordTextField() {
-        self.passwordTextField = UITextField.init();
-        self.passwordTextField?.secureTextEntry = true;
-        self.passwordTextField?.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: nil);
-        self.passwordTextField?.leftView = UIView.init(frame: CGRectMake(0, 0, 10, 0));
-        self.passwordTextField?.leftViewMode = .Always;
-    }
-
-    private func setupConfirmPasswordTextField() {
-        self.confirmPasswordTextField = UITextField.init();
-        self.confirmPasswordTextField?.secureTextEntry = true;
-        self.confirmPasswordTextField?.attributedPlaceholder = NSAttributedString.init(string: "Confirm Password", attributes: nil);
-        self.confirmPasswordTextField?.leftView = UIView.init(frame: CGRectMake(0, 0, 10, 0));
-        self.confirmPasswordTextField?.leftViewMode = .Always;
-    }
-
     private func setupButtonsStackView() {
         self.buttonsStackView = UIStackView.init();
         self.buttonsStackView!.axis = .Vertical;
@@ -132,17 +104,14 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         self.textFieldsStackView?.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.textFieldsStackView!);
         
-        self.setupEmailTextField();
-        self.emailTextField?.translatesAutoresizingMaskIntoConstraints = false;
-        self.textFieldsStackView?.addArrangedSubview(self.emailTextField!);
+        self.emailTextField.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.emailTextField);
         
-        self.setupPasswordTextField();
-        self.passwordTextField?.translatesAutoresizingMaskIntoConstraints = false;
-        self.textFieldsStackView?.addArrangedSubview(self.passwordTextField!);
+        self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
 
-        self.setupConfirmPasswordTextField();
-        self.confirmPasswordTextField?.translatesAutoresizingMaskIntoConstraints = false;
-        self.textFieldsStackView?.addArrangedSubview(self.confirmPasswordTextField!);
+        self.retypePasswordTextField.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.retypePasswordTextField);
 
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
@@ -161,9 +130,9 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     override func updateViewConstraints() {
         if (self.hasLoadedConstraints == false) {
             let views = ["texts": self.textFieldsStackView!,
-                         "email": self.emailTextField!,
-                         "password": self.passwordTextField!,
-                         "confirm": self.confirmPasswordTextField!,
+                         "email": self.emailTextField,
+                         "password": self.passwordTextField,
+                         "retype": self.retypePasswordTextField,
                          "buttons": self.buttonsStackView!,
                          "register": self.registerButton!];
             
@@ -175,17 +144,17 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[buttons]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[email]|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[password]|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[confirm]|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[retype]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
 
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[confirm(44)]", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[retype(44)]", options: .DirectionMask, metrics: nil, views: views));
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[register]|", options: .DirectionMask, metrics: nil, views: views));
             
@@ -203,7 +172,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
     }
 }
 

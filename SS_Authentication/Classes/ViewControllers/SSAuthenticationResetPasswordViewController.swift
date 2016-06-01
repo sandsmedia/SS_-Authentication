@@ -15,7 +15,6 @@ protocol SSAuthenticationResetDelegate: class {
 class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewController {
     weak var delegate: SSAuthenticationResetDelegate?;
     
-    private var emailTextField: UITextField?;
     private var resetButton: UIButton?;
 
     private var hasLoadedConstraints: Bool = false;
@@ -43,10 +42,10 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     // MARK: - Events
     
     func resetButtonAction() {
-        guard (self.emailTextField?.text?.characters.count > 0) else { return }
+        guard (self.isEmailValid) else { return }
 
         self.showLoadingView();
-        let email = self.emailTextField?.text as String!;
+        let email = self.emailTextField.text as String!;
         let userDict = [EMAIL_KEY: email];
         SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict) { (user, error) in
             if (user != nil) {
@@ -66,14 +65,6 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     // MARK: - Subviews
     
-    private func setupEmailTextField() {
-        self.emailTextField = UITextField.init();
-        self.emailTextField?.keyboardType = .EmailAddress;
-        self.emailTextField?.attributedPlaceholder = NSAttributedString.init(string: "Email", attributes: nil);
-        self.emailTextField?.leftView = UIView.init(frame: CGRectMake(0, 0, 10, 0));
-        self.emailTextField?.leftViewMode = .Always;
-    }
-    
     private func setupResetButton() {
         self.resetButton = UIButton.init(type: .System);
         self.resetButton?.setAttributedTitle(NSAttributedString.init(string: "Reset", attributes: nil), forState: .Normal);
@@ -83,9 +74,8 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     override func setupSubviews() {
         super.setupSubviews();
         
-        self.setupEmailTextField();
-        self.emailTextField?.translatesAutoresizingMaskIntoConstraints = false;
-        self.view.addSubview(self.emailTextField!);
+        self.emailTextField.translatesAutoresizingMaskIntoConstraints = false;
+        self.view.addSubview(self.emailTextField);
 
         self.setupResetButton();
         self.resetButton?.translatesAutoresizingMaskIntoConstraints = false;
@@ -99,10 +89,10 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     override func updateViewConstraints() {
         if (self.hasLoadedConstraints == false) {
-            let views = ["email": self.emailTextField!,
+            let views = ["email": self.emailTextField,
                          "reset": self.resetButton!];
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[email]|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[reset]|", options: .DirectionMask, metrics: nil, views: views));
 

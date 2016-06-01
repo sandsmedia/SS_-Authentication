@@ -79,3 +79,6 @@ let PASSWORD_KEY = "password"
 let TOKEN_KEY = "token";
 let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN";
 
+let PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$"
+
+

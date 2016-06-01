@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  SS_Authentication
+
+  Created by Eddie Li on 01/06/16.
+  Copyright © 2016 Software and Support Media GmbH. All rights reserved.
+*/
+
+// User
+"user.skip" = "Später";
+"user.login" = "Anmelden";
+"user.register" = "Registrieren";
+"user.update" = "Aktualisieren";
+"user.email" = "E-Mail";
+"user.password" = "Passwort";
+"user.confirmPassword" = "Passwort bestätigen";
+"user.forgetPassword" = "Passwort vergessen?";
+"user.restore" = "Zurücksetzen";
+"user.newPassword" = "Neues Passwort";
+
+"cancelButtonTitle" = "OK";
+// User Register Failure
+"userRegisterFail.message" = "Registrierung fehlgeschlagen.\nBitte versuchen Sie es erneut.";
+// Email Format Error
+"emailFormatError.message" = "Diese E-Mail-Adresse ist ungültig.";
+// Email Exist Error
+"emailExistError.message" = "Diese E-Mail-Adresse existiert bereits, bitte melden Sie sich an.";
+// Invalid Credentials Error
+"invalidCredentials.message" = "Ungültige Zugangsdaten.\nBitte versuchen Sie es erneut.";
+"invalidCredentials.jx.message" = "Ungültige Zugangsdaten. Bitte beachten Sie, dass ein jaxenter.com-Konto hier nicht genutzt werden kann.";
+// User Login Failure
+"userLoginFail.message" = "Login fehlgeschlagen.\nBitte versuchen Sie es erneut.";
+// Password Not Match Error
+"passwordNotMatchError.message" = "Passwörter stimmen nicht überein.";
+// User Forgot Password Failure
+"forgotPasswordFail.message" = "Das Passwort konnte nicht zurückgesetzt werden, bitte versuchen Sie es erneut.";
+// User Forgot Password Success
+"forgotPasswordSuccess.message" = "Bitte überprüfen Sie Ihre E-Mails für weitere Anweisungen.";
+// User Email Update Success
+"emailUpdateSuccess.message" = "Ihre E-Mail-Adresse wurde erfolgreich aktualisiert.";
+// User Email Update Failure
+"emailUpdateFail.message" = "Ihre E-Mail-Adresse kann momentan nicht geändert werden, bitte versuchen Sie es später noch einmal.";
+// User Password Update Success
+"passwordUpdateSuccess.message" = "Ihr Passwort wurde erfolgreich aktualisiert.";
+// User Password Update Failure
+"passwordUpdateFail.message" = "Ihr Passwort kann momentan nicht geändert werden, bitte versuchen Sie es später noch einmal.";
+// Password Valid Failure
+"passwordValidFail.message" = "Bitte erhöhen Sie die Sicherheit Ihres Passwortes, indem Sie Groß- und Kleinbuchstaben sowie Nummern verwenden.\nDas Passwort sollte 8-20 Zeichen lang sein.";

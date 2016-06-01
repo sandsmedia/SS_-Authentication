@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  SS_Authentication
+
+  Created by Eddie Li on 01/06/16.
+  Copyright © 2016 Software and Support Media GmbH. All rights reserved.
+*/
+
+// User
+"user.skip" = "Later";
+"user.login" = "Login";
+"user.register" = "Register";
+"user.update" = "Update";
+"user.email" = "Email";
+"user.password" = "Password";
+"user.confirmPassword" = "Confirm Password";
+"user.forgetPassword" = "Forgot your password?";
+"user.restore" = "Reset";
+"user.newPassword" = "New Password";
+
+"cancelButtonTitle" = "Okay";
+// User Register Failure
+"userRegisterFail.message" = "Registration failed.\nPlease try again.";
+// Email Format Error
+"emailFormatError.message" = "Invalid email address.";
+// Email Exist Error
+"emailExistError.message" = "Email address exists.\nPlease log in.";
+// Invalid Credentials Error
+"invalidCredentials.message" = "Invalid login credentials.\nPlease try again.";
+"invalidCredentials.jx.message" = "Invalid login credentials.\nPlease note: you can't use\na jaxenter.com account here.";
+// User Login Failure
+"userLoginFail.message" = "Login failed.\nPlease try again.";
+// Password Not Match Error
+"passwordNotMatchError.message" = "Passwords do not match.";
+// User Forgot Password Failure
+"forgotPasswordFail.message" = "Restoring your password failed.\nPlease try again.";
+// User Forgot Password Success
+"forgotPasswordSuccess.message" = "Please check your email for instructions.";
+// User Email Update Success
+"emailUpdateSuccess.message" = "Your email address has been updated successfully.";
+// User Email Update Failure
+"emailUpdateFail.message" = "Your email address cannot be changed right now.\nPlease try again later.";
+// User Password Update Success
+"passwordUpdateSuccess.message" = "Your password has been updated successfully.";
+// User Password Update Failure
+"passwordUpdateFail.message" = "Your password cannot be changed.\nPlease try again later.";
+// Password Valid Failure
+"passwordValidFail.message" = "Make your password more secure by including upper & lower case letters and numbers.\nUse 8-20 characters.";

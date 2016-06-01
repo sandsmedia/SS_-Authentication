@@ -102,7 +102,7 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
+  s.resources = "SS_Authentication/**/*.strings"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
@@ -131,5 +131,6 @@ Pod::Spec.new do |s|
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency "Alamofire", "~> 3.4.0"
   s.dependency "SwiftyJSON", "~> 2.3.2"
+  s.dependency "Validator", "~> 1.1.2"
 
 end
