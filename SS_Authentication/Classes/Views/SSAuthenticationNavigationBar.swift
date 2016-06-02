@@ -17,7 +17,7 @@ class SSAuthenticationNavigationBar: UIView {
     weak var delegate: SSAuthenticationNavigationBarDelegate?;
     
     var skipButton: UIButton?;
-    var backButton: UIButton?;
+    var backButton: SSAuthenticationBackButton?;
     
     private var hasLoadedConstraints: Bool = false;
     
@@ -62,13 +62,11 @@ class SSAuthenticationNavigationBar: UIView {
     private func setupSkipButton() {
         self.skipButton = UIButton.init(type: .System);
         self.skipButton?.addTarget(self, action: Selector.skipButtonAction, forControlEvents: .TouchUpInside);
-        self.skipButton?.backgroundColor = UIColor.redColor();
     }
     
     private func setupBackButton() {
-        self.backButton = UIButton.init(type: .System);
+        self.backButton = SSAuthenticationBackButton.init(type: .Custom);
         self.backButton?.addTarget(self, action: Selector.backButtonAction, forControlEvents: .TouchUpInside);
-        self.backButton?.backgroundColor = UIColor.blueColor();
     }
     
     private func setupSubviews() {
@@ -86,7 +84,7 @@ class SSAuthenticationNavigationBar: UIView {
             let views = ["skip": self.skipButton!,
                          "back": self.backButton!];
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[back(44)]-(>=1)-[skip(44)]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[back]-(>=1)-[skip]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[back(44)]", options: .DirectionMask, metrics: nil, views: views));
             

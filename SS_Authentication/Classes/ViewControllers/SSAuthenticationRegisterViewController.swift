@@ -41,9 +41,30 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         self.delegate = nil;
     }
     
+    // MARK: - Accessors
+
+    private(set) lazy var emailAlreadyExistAlertController: UIAlertController = {
+        let _emailAlreadyExistAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailExistError.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _emailAlreadyExistAlertController.addAction(cancelAction);
+        return _emailAlreadyExistAlertController;
+    }();
+
+    private(set) lazy var registerFailedAlertController: UIAlertController = {
+        let _registerFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "userRegisterFail.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _registerFailedAlertController.addAction(cancelAction);
+        return _registerFailedAlertController;
+    }();
+
     // MARK: - Events
     
     func registerButtonAction() {
+        self.tapAction();
         guard (self.isEmailValid && self.isPasswordValid && self.isRetypePasswordValid) else { return }
 
         self.showLoadingView();
@@ -51,15 +72,26 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         let password = self.passwordTextField.text as String!;
         let userDict = [EMAIL_KEY: email,
                         PASSWORD_KEY: password];
-        SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool, error) in
-            if (bool) {
-                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user, error) in
+        SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool, statusCode, error) in
+            if (bool == true) {
+                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user, statusCode, error) in
                     if (user != nil) {
                         self.delegate?.registerSuccess(user!);
+                    } else {
+                        if (statusCode == INVALID_STATUS_CODE) {
+                            self.presentViewController(self.emailAlreadyExistAlertController, animated: true, completion: nil);
+                        } else {
+                            self.presentViewController(self.registerFailedAlertController, animated: true, completion: nil);
+                        }
                     }
                     self.hideLoadingView();
                 }
             } else {
+                if (error != nil) {
+                    self.presentViewController(self.registerFailedAlertController, animated: true, completion: nil);
+                } else {
+                    self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
+                }
                 self.hideLoadingView();
             }
         }
@@ -93,8 +125,10 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
 
     private func setupRegisterButton() {
         self.registerButton = UIButton.init(type: .System);
-        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: "Register", attributes: nil), forState: .Normal);
+        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.registerButton?.addTarget(self, action: Selector.registerButtonAction, forControlEvents: .TouchUpInside);
+        self.registerButton?.layer.borderWidth = 1.0;
+        self.registerButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
     
     override func setupSubviews() {
@@ -156,7 +190,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
 
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[retype(44)]", options: .DirectionMask, metrics: nil, views: views));
 
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[register]|", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[register]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[register(44)]", options: .DirectionMask, metrics: nil, views: views));
             

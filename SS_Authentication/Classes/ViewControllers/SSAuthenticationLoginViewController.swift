@@ -42,6 +42,26 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         self.delegate = nil;
     }
     
+    // MARK: - Accessors
+    
+    private(set) lazy var credentialsIncorrectAlertController: UIAlertController = {
+        let _credentialsIncorrectAlertController = UIAlertController(title: nil, message: self.localizedString(key: "invalidCredentials.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _credentialsIncorrectAlertController.addAction(cancelAction);
+        return _credentialsIncorrectAlertController;
+    }();
+
+    private(set) lazy var loginFailedAlertController: UIAlertController = {
+        let _loginFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "userLoginFail.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _loginFailedAlertController.addAction(cancelAction);
+        return _loginFailedAlertController;
+    }();
+
     // MARK: - Implementation of SSAuthenticationResetDelegate protocols
 
     func resetSuccess() {
@@ -51,6 +71,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     // MARK: - Events
     
     func loginButtonAction() {
+        self.tapAction();
         guard (self.isEmailValid && self.isPasswordValid) else { return }
 
         self.showLoadingView();
@@ -58,9 +79,15 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         let password = self.passwordTextField.text as String!;
         let userDict = [EMAIL_KEY: email,
                         PASSWORD_KEY: password];
-        SSAuthenticationManager.sharedInstance.login(userDictionary: userDict) { (user, error) in
+        SSAuthenticationManager.sharedInstance.login(userDictionary: userDict) { (user, statusCode, error) in
             if (user != nil) {
                 self.delegate?.loginSuccess(user!);
+            } else {
+                if (statusCode == INVALID_STATUS_CODE) {
+                    self.presentViewController(self.credentialsIncorrectAlertController, animated: true, completion: nil);
+                } else {
+                    self.presentViewController(self.loginFailedAlertController, animated: true, completion: nil);
+                }
             }
             self.hideLoadingView();
         };
@@ -95,18 +122,19 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         self.buttonsStackView!.axis = .Vertical;
         self.buttonsStackView!.alignment = .Center;
         self.buttonsStackView!.distribution = .EqualSpacing;
-        self.buttonsStackView?.spacing = 20.0;
     }
     
     private func setupLoginButton() {
         self.loginButton = UIButton.init(type: .System);
-        self.loginButton?.setAttributedTitle(NSAttributedString.init(string: "Login", attributes: nil), forState: .Normal);
+        self.loginButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.loginButton?.addTarget(self, action: Selector.loginButtonAction, forControlEvents: .TouchUpInside);
+        self.loginButton?.layer.borderWidth = 1.0;
+        self.loginButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
     
     private func setupResetButton() {
         self.resetButton = UIButton.init(type: .System);
-        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: "Forgot Password", attributes: nil), forState: .Normal);
+        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_WHITE), forState: .Normal);
         self.resetButton?.addTarget(self, action: Selector.resetButtonAction, forControlEvents: .TouchUpInside);
     }
 
@@ -166,9 +194,9 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
 
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[login]|", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[login]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[reset]|", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[reset]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[login(44)]", options: .DirectionMask, metrics: nil, views: views));
             
@@ -187,6 +215,8 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message");
     }
 }
 

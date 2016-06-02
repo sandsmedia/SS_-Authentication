@@ -11,14 +11,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-let TIME_OUT_INTERVAL = 120.0;
-let TIME_OUT_RESOURCE = 600.0;
-
-let INVALID_STATUS_CODE = 401;
-
 public class SSAuthenticationManager {
-    public typealias EmailValidResponse = (Bool, NSError?) -> Void;
-    public typealias ServiceResponse = (SSUser?, NSError?) -> Void;
+    public typealias EmailValidResponse = (Bool, Int, NSError?) -> Void;
+    public typealias ServiceResponse = (SSUser?, Int, NSError?) -> Void;
     public var accessToken = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY) as? String;
     
     // MARK: - Singleton Methods
@@ -83,14 +78,15 @@ public class SSAuthenticationManager {
         self.networkManager.request(.GET, self.emailValidateURL, parameters: parameters, encoding: .URLEncodedInURL, headers: nil)
             .validate()
             .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
                 switch response.result {
                 case .Success(let value):
                     print("emailValidate: ", value);
                     let isValid = self.parseMailgun(responseJSON: value);
-                    completionHandler(isValid, nil);
+                    completionHandler(isValid, statusCode, nil);
                 case .Failure(let error):
                     print("emailValidate error: ", error);
-                    completionHandler(false, error);
+                    completionHandler(false, statusCode, error);
                 }
         }
     }
@@ -99,14 +95,15 @@ public class SSAuthenticationManager {
         self.networkManager.request(.POST, self.registerURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
                 switch response.result {
                 case .Success(let value):
                     print("register: ", value);
                     let user = self.parseSSUser(responseJSON: value);
-                    completionHandler(user, nil);
+                    completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     print("register error: ", error);
-                    completionHandler(nil, error);
+                    completionHandler(nil, statusCode, error);
                 }
         }
         
@@ -116,36 +113,38 @@ public class SSAuthenticationManager {
         self.networkManager.request(.POST, self.loginURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
                 switch response.result {
                 case .Success(let value):
                     print("login: ", value);
                     let user = self.parseSSUser(responseJSON: value);
-                    completionHandler(user, nil);
+                    completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     print("login error: ", error);
-                    completionHandler(nil, error);
+                    completionHandler(nil, statusCode, error);
                 }
         }
     }
     
     public func validate(completionHandler completionHandler: ServiceResponse) -> Void {
         let token = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY);
-        guard (token != nil) else { completionHandler(nil, nil); return }
+        guard (token != nil) else { completionHandler(nil, ERROR_STATUS_CODE, nil); return }
         self.networkManager.request(.POST, self.validateURL, parameters: [TOKEN_KEY: token!], encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
                 switch response.result {
                 case .Success(let value):
                     print("validate: ", value);
                     let user = self.parseSSUser(responseJSON: value);
-                    completionHandler(user, nil);
+                    completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     print("validate error: ", error);
-                    if (response.response?.statusCode == INVALID_STATUS_CODE) {
+                    if (statusCode == INVALID_STATUS_CODE) {
                         NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHENTICATION_TOKEN_KEY);
                         self.accessToken = nil;
                     }
-                    completionHandler(nil, error);
+                    completionHandler(nil, statusCode, error);
                 }
         }
     }
@@ -153,22 +152,23 @@ public class SSAuthenticationManager {
     public func logout(completionHandler completionHandler: ServiceResponse) -> Void {
         NSUserDefaults.standardUserDefaults().setObject(nil, forKey: SS_AUTHENTICATION_TOKEN_KEY);
         self.accessToken = nil;
-        completionHandler(nil, nil);
+        completionHandler(nil, ERROR_STATUS_CODE, nil);
     }
     
     public func reset(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         self.networkManager.request(.POST, self.resetURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
                 switch response.result {
                 case .Success(let value):
                     print("reset: ", value);
                     let user = SSUser();
                     user.email = (userDictionary[EMAIL_KEY] as! String);
-                    completionHandler(user, nil);
+                    completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     print("reset error: ", error);
-                    completionHandler(nil, error);
+                    completionHandler(nil, statusCode, error);
                 }
         }
     }
@@ -177,14 +177,15 @@ public class SSAuthenticationManager {
         self.networkManager.request(.POST, self.updateURL, parameters: userDictionary, encoding: .JSON, headers: nil)
             .validate()
             .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
                 switch response.result {
                 case .Success(let value):
                     print("update: ", value);
                     let user = self.parseSSUser(responseJSON: value);
-                    completionHandler(user, nil);
+                    completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     print("update error: ", error);
-                    completionHandler(nil, error);
+                    completionHandler(nil, statusCode, error);
                 }
         }
     }

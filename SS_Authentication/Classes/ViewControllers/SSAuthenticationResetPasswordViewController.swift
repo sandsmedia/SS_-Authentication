@@ -39,6 +39,26 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         self.delegate = nil;
     }
     
+    // MARK: - Accessors
+    
+    private(set) lazy var forgotPasswordSuccessAlertController: UIAlertController = {
+        let _forgotPasswordSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordSuccess.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _forgotPasswordSuccessAlertController.addAction(cancelAction);
+        return _forgotPasswordSuccessAlertController;
+    }();
+
+    private(set) lazy var forgotPasswordFailedAlertController: UIAlertController = {
+        let _forgotPasswordFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordFail.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _forgotPasswordFailedAlertController.addAction(cancelAction);
+        return _forgotPasswordFailedAlertController;
+    }();
+
     // MARK: - Events
     
     func resetButtonAction() {
@@ -47,9 +67,12 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         self.showLoadingView();
         let email = self.emailTextField.text as String!;
         let userDict = [EMAIL_KEY: email];
-        SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict) { (user, error) in
+        SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict) { (user, statusCode, error) in
             if (user != nil) {
+                self.presentViewController(self.forgotPasswordSuccessAlertController, animated: true, completion: nil);
                 self.delegate?.resetSuccess();
+            } else {
+                self.presentViewController(self.forgotPasswordFailedAlertController, animated: true, completion: nil);
             }
             self.hideLoadingView();
         };
@@ -67,8 +90,10 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     private func setupResetButton() {
         self.resetButton = UIButton.init(type: .System);
-        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: "Reset", attributes: nil), forState: .Normal);
+        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.resetButton?.addTarget(self, action: Selector.resetButtonAction, forControlEvents: .TouchUpInside);
+        self.resetButton?.layer.borderWidth = 1.0;
+        self.resetButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
     
     override func setupSubviews() {
@@ -94,7 +119,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[reset]|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[reset]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(84)-[email(44)]-(>=1)-[reset(44)]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 

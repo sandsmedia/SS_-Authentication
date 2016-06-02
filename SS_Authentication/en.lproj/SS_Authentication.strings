@@ -19,6 +19,8 @@
 "user.newPassword" = "New Password";
 
 "cancelButtonTitle" = "Okay";
+// No Internet Connection Error
+"noInternetConnectionError.message" = "Please enable an Internet connection and try again.";
 // User Register Failure
 "userRegisterFail.message" = "Registration failed.\nPlease try again.";
 // Email Format Error

@@ -94,14 +94,18 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     
     private func setupLoginButton() {
         self.loginButton = UIButton.init(type: .System);
-        self.loginButton?.setAttributedTitle(NSAttributedString.init(string: "Login", attributes: nil), forState: .Normal);
+        self.loginButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.loginButton?.addTarget(self, action: Selector.loginButtonAction, forControlEvents: .TouchUpInside);
+        self.loginButton?.layer.borderWidth = 1.0;
+        self.loginButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
     
     private func setupRegisterButton() {
         self.registerButton = UIButton.init(type: .System);
-        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: "Register", attributes: nil), forState: .Normal);
+        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.registerButton?.addTarget(self, action: Selector.registerButtonAction, forControlEvents: .TouchUpInside);
+        self.registerButton?.layer.borderWidth = 1.0;
+        self.registerButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
 
     override func setupSubviews() {
@@ -132,9 +136,9 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[stack]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[login]|", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[login]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[register]|", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[register]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[login(44)]", options: .DirectionMask, metrics: nil, views: views));
 

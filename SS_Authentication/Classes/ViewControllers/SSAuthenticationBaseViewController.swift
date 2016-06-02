@@ -66,6 +66,8 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _emailTextField.leftViewMode = .Always;
         _emailTextField.layer.borderColor = UIColor.grayColor().CGColor;
         _emailTextField.layer.borderWidth = 1.0;
+        _emailTextField.font = FONT_MEDIUM;
+        _emailTextField.textColor = FONT_COLOUR_BLACK;
         var rules = ValidationRuleSet<String>();
         let emailRule = ValidationRulePattern(pattern: .EmailAddress, failureError: ValidationError(message: self.localizedString(key: "emailFormatError.message")));
         rules.addRule(emailRule);
@@ -90,6 +92,8 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _passwordTextField.leftViewMode = .Always;
         _passwordTextField.layer.borderColor = UIColor.grayColor().CGColor;
         _passwordTextField.layer.borderWidth = 1.0;
+        _passwordTextField.font = FONT_MEDIUM;
+        _passwordTextField.textColor = FONT_COLOUR_BLACK;
         var rules = ValidationRuleSet<String>();
         let passwordRule = ValidationRulePattern(pattern: PASSWORD_VALIDATION_REGEX, failureError: ValidationError(message: self.localizedString(key: "passwordValidFail.message")));
         rules.addRule(passwordRule);
@@ -114,6 +118,8 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _retypePasswordTextField.leftViewMode = .Always;
         _retypePasswordTextField.layer.borderColor = UIColor.grayColor().CGColor;
         _retypePasswordTextField.layer.borderWidth = 1.0;
+        _retypePasswordTextField.font = FONT_MEDIUM;
+        _retypePasswordTextField.textColor = FONT_COLOUR_BLACK;
         var rules = ValidationRuleSet<String>();
         let retypePasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, failureError: ValidationError(message: self.localizedString(key: "passwordNotMatchError.message")));
         rules.addRule(retypePasswordRule);
@@ -152,6 +158,15 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return _passwordNotMatchAlertController;
     }();
 
+    private(set) lazy var noInternetAlertController: UIAlertController = {
+        let _noInternetAlertController = UIAlertController(title: nil, message: self.localizedString(key: "noInternetConnectionError.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.retypePasswordTextField.becomeFirstResponder();
+        });
+        _noInternetAlertController.addAction(cancelAction);
+        return _noInternetAlertController;
+    }();
+
     // MARK: - Implementation of SSAuthenticationNavigationBarDelegate protocols
     
     func skip() {
@@ -159,9 +174,6 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     }
     
     func back() {
-        self.emailTextField.delegate = nil;
-        self.passwordTextField.delegate = nil;
-        self.retypePasswordTextField.delegate = nil;
         self.navigationController?.popViewControllerAnimated(true);
     }
     
@@ -224,7 +236,8 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     private func setupNavigationBar() {
         self.navigationBar = SSAuthenticationNavigationBar.init();
         self.navigationBar?.delegate = self;
-        self.navigationBar?.backgroundColor = UIColor.yellowColor();
+        self.navigationBar?.skipButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.skip"), attributes: FONT_ATTR_XLARGE_WHITE), forState: .Normal);
+        self.navigationBar?.backgroundColor = UIColor.redColor();
     }
     
     private func setupLoadingView() {
@@ -276,7 +289,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     
     override public func loadView() {
         self.view = UIView.init();
-        self.view.backgroundColor = UIColor.whiteColor();
+        self.view.backgroundColor = UIColor.lightGrayColor();
         self.view.translatesAutoresizingMaskIntoConstraints = true;
         
         self.setupSubviews();
@@ -285,6 +298,22 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override public func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        
+        self.emailTextField.delegate = self;
+        self.passwordTextField.delegate = self;
+        self.retypePasswordTextField.delegate = self;
+    }
+    
+    override public func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated);
+        
+        self.emailTextField.delegate = nil;
+        self.passwordTextField.delegate = nil;
+        self.retypePasswordTextField.delegate = nil;
     }
     
     override public func didReceiveMemoryWarning() {

@@ -16,6 +16,7 @@
 		383775F11CF6E6B9001156AC /* SS_Authentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 383775ED1CF6E6B9001156AC /* SS_Authentication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		383775F81CF6E7A6001156AC /* SS_AuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383775F51CF6E6D4001156AC /* SS_AuthenticationTests.swift */; };
 		3875D59C1CFEF1F80038F2B9 /* SS_Authentication.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3875D59E1CFEF1F80038F2B9 /* SS_Authentication.strings */; };
+		3875D5A81D002F480038F2B9 /* SSAuthenticationBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3875D5A71D002F480038F2B9 /* SSAuthenticationBackButton.swift */; };
 		3882E0851CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0751CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift */; };
 		3882E0871CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0771CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift */; };
 		3882E0891CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0791CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift */; };
@@ -55,6 +56,7 @@
 		383775F51CF6E6D4001156AC /* SS_AuthenticationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SS_AuthenticationTests.swift; sourceTree = "<group>"; };
 		3875D59D1CFEF1F80038F2B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SS_Authentication.strings; sourceTree = "<group>"; };
 		3875D59F1CFEF2040038F2B9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SS_Authentication.strings; sourceTree = "<group>"; };
+		3875D5A71D002F480038F2B9 /* SSAuthenticationBackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationBackButton.swift; sourceTree = "<group>"; };
 		3882E0751CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationBaseViewController.swift; sourceTree = "<group>"; };
 		3882E0771CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationResetPasswordViewController.swift; sourceTree = "<group>"; };
 		3882E0791CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationLoginViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				3882E0A01CF6FCF1007528BA /* SSAuthenticationLoadingView.swift */,
 				3821BFFB1CF892AB00C3F424 /* SSAuthenticationNavigationBar.swift */,
+				3875D5A71D002F480038F2B9 /* SSAuthenticationBackButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				3882E0851CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift in Sources */,
 				383775EF1CF6E6B9001156AC /* SSUser.swift in Sources */,
 				3882E0891CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift in Sources */,
+				3875D5A81D002F480038F2B9 /* SSAuthenticationBackButton.swift in Sources */,
 				3882E0A11CF6FCF1007528BA /* SSAuthenticationLoadingView.swift in Sources */,
 				3882E0871CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift in Sources */,
 				3882E0A31CF7392F007528BA /* Common.swift in Sources */,
