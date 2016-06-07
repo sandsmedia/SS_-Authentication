@@ -44,7 +44,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     private(set) lazy var forgotPasswordSuccessAlertController: UIAlertController = {
         let _forgotPasswordSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordSuccess.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
-            self.emailTextField.becomeFirstResponder();
+            self.navigationController?.popViewControllerAnimated(true);
         });
         _forgotPasswordSuccessAlertController.addAction(cancelAction);
         return _forgotPasswordSuccessAlertController;
@@ -62,6 +62,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     // MARK: - Events
     
     func resetButtonAction() {
+        self.tapAction();
         guard (self.isEmailValid) else { return }
 
         self.showLoadingView();

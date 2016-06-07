@@ -56,12 +56,12 @@ public class SSAuthenticationManager {
     }();
     
     private lazy var resetURL: String = {
-        let _resetURL = self.baseURL + "";
+        let _resetURL = self.baseURL + "user/reset";
         return _resetURL;
     }();
     
     private lazy var updateURL: String = {
-        let _updateURL = self.baseURL + "";
+        let _updateURL = self.baseURL + "user";
         return _updateURL;
     }();
     

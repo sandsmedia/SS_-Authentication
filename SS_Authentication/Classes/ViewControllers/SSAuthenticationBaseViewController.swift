@@ -40,10 +40,8 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     deinit {
         self.emailTextField.validateOnEditingEnd(false);
         self.passwordTextField.validateOnEditingEnd(false);
-        self.retypePasswordTextField.validateOnEditingEnd(false);
         self.emailTextField.delegate = nil;
         self.passwordTextField.delegate = nil;
-        self.retypePasswordTextField.delegate = nil;
     }
     
     // MARK: - Accessors
@@ -105,30 +103,13 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return _passwordTextField;
     }();
 
-    private(set) lazy var retypePasswordTextField: UITextField = {
-        let _retypePasswordTextField = UITextField();
-        _retypePasswordTextField.delegate = self;
-        _retypePasswordTextField.spellCheckingType = .No;
-        _retypePasswordTextField.autocorrectionType = .No;
-        _retypePasswordTextField.autocapitalizationType = .None;
-        _retypePasswordTextField.secureTextEntry = true;
-        _retypePasswordTextField.clearsOnBeginEditing = true;
-        _retypePasswordTextField.attributedPlaceholder = NSAttributedString.init(string: self.localizedString(key: "user.confirmPassword"), attributes: nil);
-        _retypePasswordTextField.leftView = UIView.init(frame: CGRectMake(0, 0, 10, 0));
-        _retypePasswordTextField.leftViewMode = .Always;
-        _retypePasswordTextField.layer.borderColor = UIColor.grayColor().CGColor;
-        _retypePasswordTextField.layer.borderWidth = 1.0;
-        _retypePasswordTextField.font = FONT_MEDIUM;
-        _retypePasswordTextField.textColor = FONT_COLOUR_BLACK;
-        var rules = ValidationRuleSet<String>();
-        let retypePasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, failureError: ValidationError(message: self.localizedString(key: "passwordNotMatchError.message")));
-        rules.addRule(retypePasswordRule);
-        _retypePasswordTextField.validationRules = rules;
-        _retypePasswordTextField.validationHandler = { result, control in
-            self.isRetypePasswordValid = result.isValid;
-        }
-        _retypePasswordTextField.validateOnEditingEnd(true);
-        return _retypePasswordTextField;
+    private(set) lazy var passwordToggleButton: UIButton = {
+        let _passwordToggleButton = UIButton(type: .System);
+        _passwordToggleButton.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.showPassword"), attributes: FONT_ATTR_MEDIUM_WHITE), forState: .Normal);
+        _passwordToggleButton.contentVerticalAlignment = .Top;
+        _passwordToggleButton.contentHorizontalAlignment = .Left;
+        _passwordToggleButton.addTarget(self, action: .passwordToggleButtonAction, forControlEvents: .TouchUpInside);
+        return _passwordToggleButton;
     }();
     
     private(set) lazy var emailFailureAlertController: UIAlertController = {
@@ -149,19 +130,10 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return _passwordValidFailAlertController;
     }();
 
-    private(set) lazy var passwordNotMatchAlertController: UIAlertController = {
-        let _passwordNotMatchAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordNotMatchError.message"), preferredStyle: .Alert);
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
-            self.retypePasswordTextField.becomeFirstResponder();
-        });
-        _passwordNotMatchAlertController.addAction(cancelAction);
-        return _passwordNotMatchAlertController;
-    }();
-
     private(set) lazy var noInternetAlertController: UIAlertController = {
         let _noInternetAlertController = UIAlertController(title: nil, message: self.localizedString(key: "noInternetConnectionError.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
-            self.retypePasswordTextField.becomeFirstResponder();
+            
         });
         _noInternetAlertController.addAction(cancelAction);
         return _noInternetAlertController;
@@ -195,11 +167,6 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
                     textField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil);
                 }
-            } else {
-                if (self.isRetypePasswordValid == false) {
-                    textField.layer.borderColor = UIColor.redColor().CGColor;
-                    self.presentViewController(self.passwordNotMatchAlertController, animated: true, completion: nil);
-                }
             }
         }
     }
@@ -229,6 +196,12 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     
     func localizedString(key key: String) -> String {
         return self.resourceBundle.localizedStringForKey(key, value: nil, table: "SS_Authentication");
+    }
+    
+    func passwordToggleButtonAction() {
+        self.passwordTextField.secureTextEntry = !self.passwordTextField.secureTextEntry;
+        let string = ((self.passwordTextField.secureTextEntry) ? self.localizedString(key: "user.showPassword") : self.localizedString(key: "user.hidePassword"));
+        self.passwordToggleButton.setAttributedTitle(NSAttributedString(string: string, attributes: FONT_ATTR_MEDIUM_WHITE), forState: .Normal);
     }
     
     // MARK: - Subviews
@@ -305,7 +278,6 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         
         self.emailTextField.delegate = self;
         self.passwordTextField.delegate = self;
-        self.retypePasswordTextField.delegate = self;
     }
     
     override public func viewWillDisappear(animated: Bool) {
@@ -313,11 +285,14 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         
         self.emailTextField.delegate = nil;
         self.passwordTextField.delegate = nil;
-        self.retypePasswordTextField.delegate = nil;
     }
     
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
+
+private extension Selector {
+    static let passwordToggleButtonAction = #selector(SSAuthenticationBaseViewController.passwordToggleButtonAction);
 }

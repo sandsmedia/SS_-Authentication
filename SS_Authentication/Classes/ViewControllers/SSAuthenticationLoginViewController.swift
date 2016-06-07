@@ -96,6 +96,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     func resetButtonAction() {
         let resetViewController = SSAuthenticationResetPasswordViewController.init();
         resetViewController.delegate = self;
+        resetViewController.emailTextField.text = self.emailTextField.text;
         self.navigationController?.pushViewController(resetViewController, animated: true);
     }
     
@@ -110,7 +111,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     // MARK: - Subviews
     
     private func setupTextFieldsStackView() {
-        self.textFieldsStackView = UIStackView.init();
+        self.textFieldsStackView = UIStackView();
         self.textFieldsStackView?.axis = .Vertical;
         self.textFieldsStackView?.alignment = .Center;
         self.textFieldsStackView!.distribution = .EqualSpacing;
@@ -118,23 +119,23 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     }
     
     private func setupButtonsStackView() {
-        self.buttonsStackView = UIStackView.init();
+        self.buttonsStackView = UIStackView();
         self.buttonsStackView!.axis = .Vertical;
         self.buttonsStackView!.alignment = .Center;
         self.buttonsStackView!.distribution = .EqualSpacing;
     }
     
     private func setupLoginButton() {
-        self.loginButton = UIButton.init(type: .System);
-        self.loginButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.loginButton = UIButton(type: .System);
+        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.loginButton?.addTarget(self, action: Selector.loginButtonAction, forControlEvents: .TouchUpInside);
         self.loginButton?.layer.borderWidth = 1.0;
         self.loginButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
     
     private func setupResetButton() {
-        self.resetButton = UIButton.init(type: .System);
-        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_WHITE), forState: .Normal);
+        self.resetButton = UIButton(type: .System);
+        self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_WHITE), forState: .Normal);
         self.resetButton?.addTarget(self, action: Selector.resetButtonAction, forControlEvents: .TouchUpInside);
     }
 
@@ -150,6 +151,9 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         
         self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
+        
+        self.passwordToggleButton.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.passwordToggleButton);
         
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
@@ -174,6 +178,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
+                         "toggle": self.passwordToggleButton,
                          "buttons": self.buttonsStackView!,
                          "login": self.loginButton!,
                          "reset": self.resetButton!];
@@ -190,9 +195,13 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
+
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[toggle]", options: .DirectionMask, metrics: nil, views: views));
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[login]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
@@ -217,6 +226,13 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         super.viewDidLoad()
         
         self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message");
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated);
+        
+        self.emailTextField.text = nil;
+        self.passwordTextField.text = nil;
     }
 }
 

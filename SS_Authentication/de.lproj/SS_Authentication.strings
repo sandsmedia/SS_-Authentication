@@ -13,7 +13,8 @@
 "user.update" = "Aktualisieren";
 "user.email" = "E-Mail";
 "user.password" = "Passwort";
-"user.confirmPassword" = "Passwort bestätigen";
+"user.showPassword" = "Show Passwort";
+"user.hidePassword" = "Hide Passwort";
 "user.forgetPassword" = "Passwort vergessen?";
 "user.restore" = "Zurücksetzen";
 "user.newPassword" = "Neues Passwort";
@@ -29,11 +30,8 @@
 "emailExistError.message" = "Diese E-Mail-Adresse existiert bereits, bitte melden Sie sich an.";
 // Invalid Credentials Error
 "invalidCredentials.message" = "Ungültige Zugangsdaten.\nBitte versuchen Sie es erneut.";
-"invalidCredentials.jx.message" = "Ungültige Zugangsdaten. Bitte beachten Sie, dass ein jaxenter.com-Konto hier nicht genutzt werden kann.";
 // User Login Failure
 "userLoginFail.message" = "Login fehlgeschlagen.\nBitte versuchen Sie es erneut.";
-// Password Not Match Error
-"passwordNotMatchError.message" = "Passwörter stimmen nicht überein.";
 // User Forgot Password Failure
 "forgotPasswordFail.message" = "Das Passwort konnte nicht zurückgesetzt werden, bitte versuchen Sie es erneut.";
 // User Forgot Password Success

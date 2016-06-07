@@ -13,7 +13,8 @@
 "user.update" = "Update";
 "user.email" = "Email";
 "user.password" = "Password";
-"user.confirmPassword" = "Confirm Password";
+"user.showPassword" = "Show Password";
+"user.hidePassword" = "Hide Password";
 "user.forgetPassword" = "Forgot your password?";
 "user.restore" = "Reset";
 "user.newPassword" = "New Password";
@@ -29,11 +30,8 @@
 "emailExistError.message" = "Email address exists.\nPlease log in.";
 // Invalid Credentials Error
 "invalidCredentials.message" = "Invalid login credentials.\nPlease try again.";
-"invalidCredentials.jx.message" = "Invalid login credentials.\nPlease note: you can't use\na jaxenter.com account here.";
 // User Login Failure
 "userLoginFail.message" = "Login failed.\nPlease try again.";
-// Password Not Match Error
-"passwordNotMatchError.message" = "Passwords do not match.";
 // User Forgot Password Failure
 "forgotPasswordFail.message" = "Restoring your password failed.\nPlease try again.";
 // User Forgot Password Success
