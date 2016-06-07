@@ -17,7 +17,6 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     var hideStatusBar: Bool = false;
     var isEmailValid: Bool = false;
     var isPasswordValid: Bool = false;
-    var isRetypePasswordValid: Bool = false;
     
     private var hasLoadedConstraints: Bool = false;
 

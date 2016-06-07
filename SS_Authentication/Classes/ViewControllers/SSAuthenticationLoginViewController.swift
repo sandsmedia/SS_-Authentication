@@ -70,6 +70,12 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     
     // MARK: - Events
     
+    func tapAction() {
+        for textField in (self.textFieldsStackView?.arrangedSubviews)! {
+            textField.resignFirstResponder();
+        }
+    }
+    
     func loginButtonAction() {
         self.tapAction();
         guard (self.isEmailValid && self.isPasswordValid) else { return }
@@ -99,13 +105,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         resetViewController.emailTextField.text = self.emailTextField.text;
         self.navigationController?.pushViewController(resetViewController, animated: true);
     }
-    
-    func tapAction() {
-        for textField in (self.textFieldsStackView?.arrangedSubviews)! {
-            textField.resignFirstResponder();
-        }
-    }
-    
+        
     // MARK: - Public Methods
     
     // MARK: - Subviews

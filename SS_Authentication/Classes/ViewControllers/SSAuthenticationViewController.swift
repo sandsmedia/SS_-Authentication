@@ -13,13 +13,14 @@ public protocol SSAuthenticationDelegate: class {
     func authenticationGranted(user: SSUser);
 }
 
-public class SSAuthenticationViewController: SSAuthenticationBaseViewController, SSAuthenticationLoginDelegate, SSAuthenticationRegisterDelegate {
+public class SSAuthenticationViewController: SSAuthenticationBaseViewController, SSAuthenticationLoginDelegate, SSAuthenticationRegisterDelegate, SSAuthenticationUpdateDelegate {
     public weak var delegate: SSAuthenticationDelegate?;
     public var baseNavigationController: UINavigationController?;
     
     private var buttonsStackView: UIStackView?;
     private var loginButton: UIButton?;
     private var registerButton: UIButton?;
+    private var updateButton: UIButton?;
     
     private var hasLoadedConstraints: Bool = false;
     
@@ -58,15 +59,21 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     // MARK: - Events
     
     func loginButtonAction() {
-        let loginViewController = SSAuthenticationLoginViewController.init();
+        let loginViewController = SSAuthenticationLoginViewController();
         loginViewController.delegate = self;
         self.navigationController?.pushViewController(loginViewController, animated: true);
     }
 
     func registerButtonAction() {
-        let registerViewController = SSAuthenticationRegisterViewController.init();
+        let registerViewController = SSAuthenticationRegisterViewController();
         registerViewController.delegate = self;
         self.navigationController?.pushViewController(registerViewController, animated: true);
+    }
+    
+    func updateButtonAction() {
+        let updateViewController = SSAuthenticationUpdateViewController();
+        updateViewController.delegate = self;
+        self.navigationController?.pushViewController(updateViewController, animated: true);
     }
     
     override func skip() {
@@ -78,7 +85,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     override func setup() {
         super.setup();
         
-        self.baseNavigationController = UINavigationController.init(rootViewController: self);
+        self.baseNavigationController = UINavigationController(rootViewController: self);
         self.baseNavigationController?.navigationBarHidden = true;
     }
 
@@ -93,7 +100,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     }
     
     private func setupLoginButton() {
-        self.loginButton = UIButton.init(type: .System);
+        self.loginButton = UIButton(type: .System);
         self.loginButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.loginButton?.addTarget(self, action: Selector.loginButtonAction, forControlEvents: .TouchUpInside);
         self.loginButton?.layer.borderWidth = 1.0;
@@ -101,11 +108,19 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     }
     
     private func setupRegisterButton() {
-        self.registerButton = UIButton.init(type: .System);
+        self.registerButton = UIButton(type: .System);
         self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.registerButton?.addTarget(self, action: Selector.registerButtonAction, forControlEvents: .TouchUpInside);
         self.registerButton?.layer.borderWidth = 1.0;
         self.registerButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+    }
+    
+    private func setupUpdateButton() {
+        self.updateButton = UIButton(type: .System);
+        self.updateButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.updateButton?.addTarget(self, action: Selector.updateButtonAction, forControlEvents: .TouchUpInside);
+        self.updateButton?.layer.borderWidth = 1.0;
+        self.updateButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
 
     override func setupSubviews() {
@@ -123,6 +138,10 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         self.registerButton?.translatesAutoresizingMaskIntoConstraints = false;
         self.buttonsStackView?.addArrangedSubview(self.registerButton!);
         
+        self.setupUpdateButton();
+        self.updateButton?.translatesAutoresizingMaskIntoConstraints = false;
+        self.buttonsStackView?.addArrangedSubview(self.updateButton!);
+        
         self.navigationBar?.backButton?.hidden = true;
     }
 
@@ -130,7 +149,8 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         if (self.hasLoadedConstraints == false) {
             let views = ["stack": self.buttonsStackView!,
                          "login": self.loginButton!,
-                         "register": self.registerButton!];
+                         "register": self.registerButton!,
+                         "update": self.updateButton!];
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[stack]|", options: .DirectionMask, metrics: nil, views: views));
             
@@ -140,9 +160,13 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[register]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
+            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[update]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[login(44)]", options: .DirectionMask, metrics: nil, views: views));
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[register(44)]", options: .DirectionMask, metrics: nil, views: views));
+
+            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[update(44)]", options: .DirectionMask, metrics: nil, views: views));
 
             self.hasLoadedConstraints = true;
         }
@@ -163,4 +187,5 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
 private extension Selector {
     static let loginButtonAction = #selector(SSAuthenticationViewController.loginButtonAction);
     static let registerButtonAction = #selector(SSAuthenticationViewController.registerButtonAction);
+    static let updateButtonAction = #selector(SSAuthenticationViewController.updateButtonAction);
 }

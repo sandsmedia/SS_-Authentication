@@ -63,9 +63,15 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
 
     // MARK: - Events
     
+    func tapAction() {
+        for textField in (self.textFieldsStackView?.arrangedSubviews)! {
+            textField.resignFirstResponder();
+        }
+    }
+
     func registerButtonAction() {
         self.tapAction();
-        guard (self.isEmailValid && self.isPasswordValid && self.isRetypePasswordValid) else { return }
+        guard (self.isEmailValid && self.isPasswordValid) else { return }
 
         self.showLoadingView();
         let email = self.emailTextField.text as String!;
@@ -96,13 +102,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
             }
         }
     }
-    
-    func tapAction() {
-        for textField in (self.textFieldsStackView?.arrangedSubviews)! {
-            textField.resignFirstResponder();
-        }
-    }
-    
+        
     // MARK: - Public Methods
     
     // MARK: - Subviews
