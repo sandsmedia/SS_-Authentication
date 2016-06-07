@@ -200,6 +200,12 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     override func viewDidLoad() {
         super.viewDidLoad();
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        self.emailTextField.becomeFirstResponder();
+    }
 }
 
 private extension Selector {

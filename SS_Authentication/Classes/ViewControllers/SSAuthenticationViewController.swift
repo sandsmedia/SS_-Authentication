@@ -180,7 +180,12 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     }
     
     override public func viewDidLoad() {
-        super.viewDidLoad();        
+        super.viewDidLoad();
+        
+        if (SSAuthenticationManager.sharedInstance.accessToken == nil) {
+            self.buttonsStackView?.removeArrangedSubview(self.updateButton!);
+            self.updateButton?.removeFromSuperview();
+        }
     }
 }
 

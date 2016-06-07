@@ -14,6 +14,7 @@ import SwiftyJSON
 public class SSAuthenticationManager {
     public typealias EmailValidResponse = (Bool, Int, NSError?) -> Void;
     public typealias ServiceResponse = (SSUser?, Int, NSError?) -> Void;
+    public var user: SSUser?;
     public var accessToken = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY) as? String;
     
     // MARK: - Singleton Methods
@@ -174,7 +175,9 @@ public class SSAuthenticationManager {
     }
     
     public func update(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
-        self.networkManager.request(.POST, self.updateURL, parameters: userDictionary, encoding: .JSON, headers: nil)
+        let url = self.updateURL + "/" + (self.user?.userId)!;
+        let headers = ["X-Token": self.accessToken!];
+        self.networkManager.request(.PUT, url, parameters: userDictionary, encoding: .JSON, headers: headers)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
@@ -199,12 +202,15 @@ public class SSAuthenticationManager {
     private func parseSSUser(responseJSON responseJSON: AnyObject!) -> SSUser {
         let responseDictionary = JSON(responseJSON).dictionaryValue;
         let userDictionary = responseDictionary[USER_KEY]!.dictionaryValue;
+        let userId = userDictionary[ID_KEY]?.stringValue;
         let email = userDictionary[EMAIL_KEY]?.stringValue;
         let token = userDictionary[TOKEN_KEY]?.stringValue;
         NSUserDefaults.standardUserDefaults().setObject(token, forKey: SS_AUTHENTICATION_TOKEN_KEY);
         let user = SSUser();
+        user.userId = userId;
         user.email = email;
         user.token = token;
+        self.user = user;
         self.accessToken = token;
         return user;
     }

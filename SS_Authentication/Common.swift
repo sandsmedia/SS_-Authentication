@@ -75,12 +75,13 @@ let FONT_ATTR_MENU_BLACK = [NSFontAttributeName: FONT_MENU!, NSForegroundColorAt
 let FONT_ATTR_MENU_LIGHT_GRAY = [NSFontAttributeName: FONT_MENU!, NSForegroundColorAttributeName: FONT_COLOUR_LIGHT_GRAY]
 
 let USER_KEY = "user";
+let ID_KEY = "id";
 let EMAIL_KEY = "email";
-let PASSWORD_KEY = "password"
+let PASSWORD_KEY = "password";
 let TOKEN_KEY = "token";
 let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN";
 
-let PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$"
+let PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
 
 let TIME_OUT_INTERVAL = 120.0;
 let TIME_OUT_RESOURCE = 600.0;

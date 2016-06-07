@@ -228,6 +228,12 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message");
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        self.emailTextField.becomeFirstResponder();
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated);
         

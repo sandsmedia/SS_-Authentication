@@ -62,11 +62,15 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
 
     func updateButtonAction() {
         self.tapAction();
-        guard (self.isEmailValid && self.isPasswordValid) else { return }
+        guard (self.isEmailValid) else { return }
         
         self.showLoadingView();
         let email = self.emailTextField.text as String!;
         let userDict = [EMAIL_KEY: email];
+        
+        SSAuthenticationManager.sharedInstance.update(userDictionary: userDict) { (user, statusCode, error) in
+            self.hideLoadingView();
+        }
     }
     
     // MARK: - Public Methods
