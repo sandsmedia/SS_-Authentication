@@ -61,11 +61,21 @@ public class SSAuthenticationManager {
         return _resetURL;
     }();
     
-    private lazy var updateURL: String = {
-        let _updateURL = self.baseURL + "user";
-        return _updateURL;
+    private lazy var updateEmailURL: String = {
+        let _updateEmailURL = self.baseURL + "user/%@/email";
+        return _updateEmailURL;
     }();
-    
+
+    private lazy var updatePasswordURL: String = {
+        let _updatePasswordURL = self.baseURL + "user/%@/password";
+        return _updatePasswordURL;
+    }();
+
+    private lazy var updateProfileURL: String = {
+        let _updateProfileURL = self.baseURL + "user/%@";
+        return _updateProfileURL;
+    }();
+
     private lazy var emailValidateURL: String = {
         let _emailValidateURL = "https://api.mailgun.net/v3/address/validate";
         return _emailValidateURL;
@@ -174,10 +184,45 @@ public class SSAuthenticationManager {
         }
     }
     
-    public func update(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
-        let url = self.updateURL + "/" + (self.user?.userId)!;
+    public func updateEmail(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
         let headers = ["X-Token": self.accessToken!];
-        self.networkManager.request(.PUT, url, parameters: userDictionary, encoding: .JSON, headers: headers)
+        self.networkManager.request(.PUT, String(format: self.updateEmailURL, (self.user?.userId)!), parameters: userDictionary, encoding: .JSON, headers: headers)
+            .validate()
+            .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
+                switch response.result {
+                case .Success(let value):
+                    print("update: ", value);
+                    let user = self.parseSSUser(responseJSON: value);
+                    completionHandler(user, statusCode, nil);
+                case .Failure(let error):
+                    print("update error: ", error);
+                    completionHandler(nil, statusCode, error);
+                }
+        }
+    }
+
+    public func updatePassword(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+        let headers = ["X-Token": self.accessToken!];
+        self.networkManager.request(.PUT, String(format: self.updatePasswordURL, (self.user?.userId)!), parameters: userDictionary, encoding: .JSON, headers: headers)
+            .validate()
+            .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
+                switch response.result {
+                case .Success(let value):
+                    print("update: ", value);
+                    let user = self.parseSSUser(responseJSON: value);
+                    completionHandler(user, statusCode, nil);
+                case .Failure(let error):
+                    print("update error: ", error);
+                    completionHandler(nil, statusCode, error);
+                }
+        }
+    }
+
+    public func updateProfile(userDictionary userDictionary: [String: AnyObject], completionHandler: ServiceResponse) -> Void {
+        let headers = ["X-Token": self.accessToken!];
+        self.networkManager.request(.PUT, String(format: self.updateProfileURL, (self.user?.userId)!), parameters: userDictionary, encoding: .JSON, headers: headers)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;

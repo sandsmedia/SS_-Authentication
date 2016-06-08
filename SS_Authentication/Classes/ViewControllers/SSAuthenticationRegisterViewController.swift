@@ -108,7 +108,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     // MARK: - Subviews
     
     private func setupTextFieldsStackView() {
-        self.textFieldsStackView = UIStackView.init();
+        self.textFieldsStackView = UIStackView();
         self.textFieldsStackView?.axis = .Vertical;
         self.textFieldsStackView?.alignment = .Center;
         self.textFieldsStackView!.distribution = .EqualSpacing;
@@ -116,7 +116,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     }
     
     private func setupButtonsStackView() {
-        self.buttonsStackView = UIStackView.init();
+        self.buttonsStackView = UIStackView();
         self.buttonsStackView!.axis = .Vertical;
         self.buttonsStackView!.alignment = .Center;
         self.buttonsStackView!.distribution = .EqualSpacing;
@@ -124,7 +124,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     }
 
     private func setupRegisterButton() {
-        self.registerButton = UIButton.init(type: .System);
+        self.registerButton = UIButton(type: .System);
         self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.registerButton?.addTarget(self, action: Selector.registerButtonAction, forControlEvents: .TouchUpInside);
         self.registerButton?.layer.borderWidth = 1.0;
@@ -143,6 +143,9 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         
         self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
+
+        self.passwordToggleButton.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.passwordToggleButton);
 
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
@@ -163,6 +166,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
+                         "toggle": self.passwordToggleButton,
                          "buttons": self.buttonsStackView!,
                          "register": self.registerButton!];
             
@@ -177,10 +181,14 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
+            
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[toggle]", options: .DirectionMask, metrics: nil, views: views));
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[register]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             

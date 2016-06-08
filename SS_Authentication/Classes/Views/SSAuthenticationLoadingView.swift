@@ -73,7 +73,7 @@ class SSAuthenticationLoadingView: UIView {
     // MARK: - Subviews
     
     private func setupDotsStackView() {
-        self.dotsStackView = UIStackView.init();
+        self.dotsStackView = UIStackView();
         self.dotsStackView!.axis = .Horizontal;
         self.dotsStackView!.alignment = .Center;
         self.dotsStackView!.distribution = .EqualCentering;
@@ -81,19 +81,19 @@ class SSAuthenticationLoadingView: UIView {
     }
     
     private func setupDotOne() {
-        self.dotOne = UIImageView.init();
+        self.dotOne = UIImageView();
         self.dotOne?.backgroundColor = UIColor.grayColor();
         self.dotOne?.layer.cornerRadius = LOADING_RADIUS;
     }
     
     private func setupDotTwo() {
-        self.dotTwo = UIImageView.init();
+        self.dotTwo = UIImageView();
         self.dotTwo?.backgroundColor = UIColor.grayColor();
         self.dotTwo?.layer.cornerRadius = LOADING_RADIUS;
     }
     
     private func setupDotThree() {
-        self.dotThree = UIImageView.init();
+        self.dotThree = UIImageView();
         self.dotThree?.backgroundColor = UIColor.grayColor();
         self.dotThree?.layer.cornerRadius = LOADING_RADIUS;
     }
@@ -129,9 +129,9 @@ class SSAuthenticationLoadingView: UIView {
             
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[stack]", options: .DirectionMask, metrics: nil, views: views));
             
-            self.addConstraint(NSLayoutConstraint.init(item: self.dotsStackView!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
+            self.addConstraint(NSLayoutConstraint(item: self.dotsStackView!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
             
-            self.addConstraint(NSLayoutConstraint.init(item: self.dotsStackView!, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
+            self.addConstraint(NSLayoutConstraint(item: self.dotsStackView!, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
             
             self.dotsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotOne(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views));
             

@@ -10,7 +10,9 @@
 "user.skip" = "Später";
 "user.login" = "Anmelden";
 "user.register" = "Registrieren";
-"user.update" = "Aktualisieren";
+"user.update" = "Update";
+"user.updateEmail" = "Update E-Mail";
+"user.updatePassword" = "Update Passwort";
 "user.email" = "E-Mail";
 "user.password" = "Passwort";
 "user.showPassword" = "Show Passwort";

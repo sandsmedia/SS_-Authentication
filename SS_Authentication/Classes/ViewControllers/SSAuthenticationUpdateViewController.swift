@@ -14,10 +14,12 @@ protocol SSAuthenticationUpdateDelegate: class {
 
 class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     weak var delegate: SSAuthenticationUpdateDelegate?;
-
+    
     private var textFieldsStackView: UIStackView?;
     private var buttonsStackView: UIStackView?;
     private var updateButton: UIButton?;
+    
+    var isUpdateEmail: Bool = true;
 
     private var hasLoadedConstraints: Bool = false;
 
@@ -68,17 +70,19 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         let email = self.emailTextField.text as String!;
         let userDict = [EMAIL_KEY: email];
         
-        SSAuthenticationManager.sharedInstance.update(userDictionary: userDict) { (user, statusCode, error) in
+        SSAuthenticationManager.sharedInstance.updateEmail(userDictionary: userDict) { (user, statusCode, error) in
             self.hideLoadingView();
         }
     }
     
     // MARK: - Public Methods
     
+    // MARK: - Private Methods
+    
     // MARK: - Subviews
     
     private func setupTextFieldsStackView() {
-        self.textFieldsStackView = UIStackView.init();
+        self.textFieldsStackView = UIStackView();
         self.textFieldsStackView?.axis = .Vertical;
         self.textFieldsStackView?.alignment = .Center;
         self.textFieldsStackView!.distribution = .EqualSpacing;
@@ -86,7 +90,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     }
     
     private func setupButtonsStackView() {
-        self.buttonsStackView = UIStackView.init();
+        self.buttonsStackView = UIStackView();
         self.buttonsStackView!.axis = .Vertical;
         self.buttonsStackView!.alignment = .Center;
         self.buttonsStackView!.distribution = .EqualSpacing;
@@ -94,8 +98,8 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     }
     
     private func setupUpdateButton() {
-        self.updateButton = UIButton.init(type: .System);
-        self.updateButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.updateButton = UIButton(type: .System);
+        self.updateButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
         self.updateButton?.addTarget(self, action: Selector.updateButtonAction, forControlEvents: .TouchUpInside);
         self.updateButton?.layer.borderWidth = 1.0;
         self.updateButton?.layer.borderColor = UIColor.whiteColor().CGColor;
@@ -111,6 +115,13 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         self.emailTextField.translatesAutoresizingMaskIntoConstraints = false;
         self.textFieldsStackView?.addArrangedSubview(self.emailTextField);
         
+        self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
+        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: FONT_ATTR_MEDIUM_WHITE)
+        self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
+        
+        self.passwordToggleButton.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.passwordToggleButton);
+
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.buttonsStackView!);
@@ -119,7 +130,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         self.updateButton?.translatesAutoresizingMaskIntoConstraints = false;
         self.buttonsStackView?.addArrangedSubview(self.updateButton!);
         
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: Selector.tapAction);
+        let tapGesture = UITapGestureRecognizer(target: self, action: Selector.tapAction);
         self.view.addGestureRecognizer(tapGesture);
         
         self.navigationBar?.skipButton?.hidden = true;
@@ -129,6 +140,8 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         if (self.hasLoadedConstraints == false) {
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
+                         "password": self.passwordTextField,
+                         "toggle": self.passwordToggleButton,
                          "buttons": self.buttonsStackView!,
                          "update": self.updateButton!];
             
@@ -142,7 +155,15 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
+            
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
+            
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[toggle]", options: .DirectionMask, metrics: nil, views: views));
             
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[update]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
@@ -161,6 +182,16 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (self.isUpdateEmail) {
+            self.textFieldsStackView?.removeArrangedSubview(self.passwordTextField);
+            self.passwordTextField.removeFromSuperview();
+            self.textFieldsStackView?.removeArrangedSubview(self.passwordToggleButton);
+            self.passwordToggleButton.removeFromSuperview();
+        } else {
+            self.textFieldsStackView?.removeArrangedSubview(self.emailTextField);
+            self.emailTextField.removeFromSuperview();
+        }
     }
 }
 

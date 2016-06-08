@@ -11,6 +11,8 @@
 "user.login" = "Login";
 "user.register" = "Register";
 "user.update" = "Update";
+"user.updateEmail" = "Update Email";
+"user.updatePassword" = "Update Password";
 "user.email" = "Email";
 "user.password" = "Password";
 "user.showPassword" = "Show Password";

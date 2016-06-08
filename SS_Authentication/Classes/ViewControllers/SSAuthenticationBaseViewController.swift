@@ -58,8 +58,8 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _emailTextField.spellCheckingType = .No;
         _emailTextField.autocorrectionType = .No;
         _emailTextField.autocapitalizationType = .None;
-        _emailTextField.attributedPlaceholder = NSAttributedString.init(string: self.localizedString(key: "user.email"), attributes: nil);
-        _emailTextField.leftView = UIView.init(frame: CGRectMake(0, 0, 10, 0));
+        _emailTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.email"), attributes: FONT_ATTR_MEDIUM_WHITE);
+        _emailTextField.leftView = UIView(frame: CGRectMake(0, 0, 10, 0));
         _emailTextField.leftViewMode = .Always;
         _emailTextField.layer.borderColor = UIColor.grayColor().CGColor;
         _emailTextField.layer.borderWidth = 1.0;
@@ -84,8 +84,8 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _passwordTextField.autocapitalizationType = .None;
         _passwordTextField.secureTextEntry = true;
         _passwordTextField.clearsOnBeginEditing = true;
-        _passwordTextField.attributedPlaceholder = NSAttributedString.init(string: self.localizedString(key: "user.password"), attributes: nil);
-        _passwordTextField.leftView = UIView.init(frame: CGRectMake(0, 0, 10, 0));
+        _passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.password"), attributes: FONT_ATTR_MEDIUM_WHITE);
+        _passwordTextField.leftView = UIView(frame: CGRectMake(0, 0, 10, 0));
         _passwordTextField.leftViewMode = .Always;
         _passwordTextField.layer.borderColor = UIColor.grayColor().CGColor;
         _passwordTextField.layer.borderWidth = 1.0;
@@ -248,9 +248,9 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[bar(64)]", options: .DirectionMask, metrics: nil, views: views));
 
-            self.view.addConstraint(NSLayoutConstraint.init(item: self.loadingView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
+            self.view.addConstraint(NSLayoutConstraint(item: self.loadingView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
 
-            self.view.addConstraint(NSLayoutConstraint.init(item: self.loadingView!, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
+            self.view.addConstraint(NSLayoutConstraint(item: self.loadingView!, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
 
             self.hasLoadedConstraints = true;
         }
@@ -260,7 +260,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     // MARK: - View lifecycle
     
     override public func loadView() {
-        self.view = UIView.init();
+        self.view = UIView();
         self.view.backgroundColor = UIColor.lightGrayColor();
         self.view.translatesAutoresizingMaskIntoConstraints = true;
         
