@@ -57,6 +57,12 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         self.delegate?.authenticationGranted(user);
     }
     
+    // MARK: - Implemetation of SSAuthenticationUpdateDelegate protocols
+    
+    func updateSuccess() {
+        
+    }
+    
     // MARK: - Events
     
     func loginButtonAction() {

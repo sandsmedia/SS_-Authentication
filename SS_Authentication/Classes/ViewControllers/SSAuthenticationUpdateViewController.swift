@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SSAuthenticationUpdateDelegate: class {
-
+    func updateSuccess();
 }
 
 class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
@@ -54,6 +54,42 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         return _emailAlreadyExistAlertController;
     }();
 
+    private(set) lazy var emailUpdateSuccessAlertController: UIAlertController = {
+        let _emailUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailUpdateSuccess.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.navigationController?.popViewControllerAnimated(true);
+        });
+        _emailUpdateSuccessAlertController.addAction(cancelAction);
+        return _emailUpdateSuccessAlertController;
+    }();
+    
+    private(set) lazy var emailUpdateFailedAlertController: UIAlertController = {
+        let _emailUpdateFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailUpdateFail.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _emailUpdateFailedAlertController.addAction(cancelAction);
+        return _emailUpdateFailedAlertController;
+    }();
+
+    private(set) lazy var passwordUpdateSuccessAlertController: UIAlertController = {
+        let _passwordUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordUpdateSuccess.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.navigationController?.popViewControllerAnimated(true);
+        });
+        _passwordUpdateSuccessAlertController.addAction(cancelAction);
+        return _passwordUpdateSuccessAlertController;
+    }();
+    
+    private(set) lazy var passwordUpdateFailedAlertController: UIAlertController = {
+        let _passwordUpdateFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordUpdateFail.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.emailTextField.becomeFirstResponder();
+        });
+        _passwordUpdateFailedAlertController.addAction(cancelAction);
+        return _passwordUpdateFailedAlertController;
+    }();
+
     // MARK: - Events
  
     func tapAction() {
@@ -64,14 +100,36 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
 
     func updateButtonAction() {
         self.tapAction();
-        guard (self.isEmailValid) else { return }
+        guard (self.isEmailValid || self.isPasswordValid) else { return }
         
         self.showLoadingView();
-        let email = self.emailTextField.text as String!;
-        let userDict = [EMAIL_KEY: email];
+        let email = self.emailTextField.text ?? "";
+        let password = self.passwordTextField.text ?? "";
         
-        SSAuthenticationManager.sharedInstance.updateEmail(userDictionary: userDict) { (user, statusCode, error) in
-            self.hideLoadingView();
+        if (self.isUpdateEmail) {
+            let userDict = [EMAIL_KEY: email];
+
+            SSAuthenticationManager.sharedInstance.updateEmail(userDictionary: userDict) { (user, statusCode, error) in
+                if (user != nil) {
+                    self.presentViewController(self.emailUpdateSuccessAlertController, animated: true, completion: nil);
+                    self.delegate?.updateSuccess();
+                } else {
+                    self.presentViewController(self.emailUpdateFailedAlertController, animated: true, completion: nil);
+                }
+                self.hideLoadingView();
+            }
+        } else {
+            let userDict = [PASSWORD_KEY: password];
+            
+            SSAuthenticationManager.sharedInstance.updatePassword(userDictionary: userDict) { (user, statusCode, error) in
+                if (user != nil) {
+                    self.presentViewController(self.passwordUpdateSuccessAlertController, animated: true, completion: nil);
+                    self.delegate?.updateSuccess();
+                } else {
+                    self.presentViewController(self.passwordUpdateFailedAlertController, animated: true, completion: nil);
+                }
+                self.hideLoadingView();
+            }
         }
     }
     
