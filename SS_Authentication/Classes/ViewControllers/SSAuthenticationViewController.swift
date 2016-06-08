@@ -185,6 +185,11 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         if (SSAuthenticationManager.sharedInstance.accessToken == nil) {
             self.buttonsStackView?.removeArrangedSubview(self.updateButton!);
             self.updateButton?.removeFromSuperview();
+        } else {
+            self.buttonsStackView?.removeArrangedSubview(self.loginButton!);
+            self.loginButton?.removeFromSuperview();
+            self.buttonsStackView?.removeArrangedSubview(self.registerButton!);
+            self.registerButton?.removeFromSuperview();
         }
     }
 }
