@@ -61,12 +61,12 @@ class SSAuthenticationNavigationBar: UIView {
 
     private func setupSkipButton() {
         self.skipButton = UIButton(type: .System);
-        self.skipButton?.addTarget(self, action: Selector.skipButtonAction, forControlEvents: .TouchUpInside);
+        self.skipButton?.addTarget(self, action: .skipButtonAction, forControlEvents: .TouchUpInside);
     }
     
     private func setupBackButton() {
         self.backButton = SSAuthenticationBackButton.init(type: .Custom);
-        self.backButton?.addTarget(self, action: Selector.backButtonAction, forControlEvents: .TouchUpInside);
+        self.backButton?.addTarget(self, action: .backButtonAction, forControlEvents: .TouchUpInside);
     }
     
     private func setupSubviews() {

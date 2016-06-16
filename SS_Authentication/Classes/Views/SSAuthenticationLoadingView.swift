@@ -49,7 +49,7 @@ class SSAuthenticationLoadingView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = true;
         self.setupSubviews();
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector.applicationDidBecomeActive, name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: .applicationDidBecomeActive, name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     private func startAnimation() {

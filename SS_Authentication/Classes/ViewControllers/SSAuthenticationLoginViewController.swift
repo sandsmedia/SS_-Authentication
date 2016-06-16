@@ -128,7 +128,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     private func setupLoginButton() {
         self.loginButton = UIButton(type: .System);
         self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
-        self.loginButton?.addTarget(self, action: Selector.loginButtonAction, forControlEvents: .TouchUpInside);
+        self.loginButton?.addTarget(self, action: .loginButtonAction, forControlEvents: .TouchUpInside);
         self.loginButton?.layer.borderWidth = 1.0;
         self.loginButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
@@ -136,7 +136,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     private func setupResetButton() {
         self.resetButton = UIButton(type: .System);
         self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_WHITE), forState: .Normal);
-        self.resetButton?.addTarget(self, action: Selector.resetButtonAction, forControlEvents: .TouchUpInside);
+        self.resetButton?.addTarget(self, action: .resetButtonAction, forControlEvents: .TouchUpInside);
     }
 
     override func setupSubviews() {
@@ -167,7 +167,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         self.resetButton?.translatesAutoresizingMaskIntoConstraints = false;
         self.buttonsStackView?.addArrangedSubview(self.resetButton!);
         
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: Selector.tapAction);
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: .tapAction);
         self.view.addGestureRecognizer(tapGesture);
         
         self.navigationBar?.skipButton?.hidden = true;

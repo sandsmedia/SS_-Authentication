@@ -14,6 +14,8 @@ import SwiftyJSON
 public class SSAuthenticationManager {
     public typealias EmailValidResponse = (Bool, Int, NSError?) -> Void;
     public typealias ServiceResponse = (SSUser?, Int, NSError?) -> Void;
+    
+    public var mailgunKey: String = "";
     public var user: SSUser?;
     public var accessToken = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY) as? String;
     
@@ -85,7 +87,7 @@ public class SSAuthenticationManager {
     
     public func emailValidate(email email: String, completionHandler: EmailValidResponse) -> Void {
         let parameters = ["address": email,
-                          "api_key": "pubkey-4118f4788e8461be95dd1784e27c7162"];
+                          "api_key": self.mailgunKey];
         self.networkManager.request(.GET, self.emailValidateURL, parameters: parameters, encoding: .URLEncodedInURL, headers: nil)
             .validate()
             .responseJSON { response in
@@ -237,6 +239,8 @@ public class SSAuthenticationManager {
                 }
         }
     }
+
+    // MARK: - Private Methods
 
     private func parseMailgun(responseJSON responseJSON: AnyObject!) -> Bool {
         let responseDictionary = JSON(responseJSON).dictionaryValue;

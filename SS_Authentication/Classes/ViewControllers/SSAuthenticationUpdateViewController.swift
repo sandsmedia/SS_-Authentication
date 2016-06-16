@@ -158,7 +158,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     private func setupUpdateButton() {
         self.updateButton = UIButton(type: .System);
         self.updateButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
-        self.updateButton?.addTarget(self, action: Selector.updateButtonAction, forControlEvents: .TouchUpInside);
+        self.updateButton?.addTarget(self, action: .updateButtonAction, forControlEvents: .TouchUpInside);
         self.updateButton?.layer.borderWidth = 1.0;
         self.updateButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
@@ -188,7 +188,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         self.updateButton?.translatesAutoresizingMaskIntoConstraints = false;
         self.buttonsStackView?.addArrangedSubview(self.updateButton!);
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: Selector.tapAction);
+        let tapGesture = UITapGestureRecognizer(target: self, action: .tapAction);
         self.view.addGestureRecognizer(tapGesture);
         
         self.navigationBar?.skipButton?.hidden = true;

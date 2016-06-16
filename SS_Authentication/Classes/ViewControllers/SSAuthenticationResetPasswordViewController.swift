@@ -92,7 +92,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     private func setupResetButton() {
         self.resetButton = UIButton(type: .System);
         self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
-        self.resetButton?.addTarget(self, action: Selector.resetButtonAction, forControlEvents: .TouchUpInside);
+        self.resetButton?.addTarget(self, action: .resetButtonAction, forControlEvents: .TouchUpInside);
         self.resetButton?.layer.borderWidth = 1.0;
         self.resetButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
@@ -107,7 +107,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         self.resetButton?.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.resetButton!);
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: Selector.tapAction);
+        let tapGesture = UITapGestureRecognizer(target: self, action: .tapAction);
         self.view.addGestureRecognizer(tapGesture);
         
         self.navigationBar?.skipButton?.hidden = true;

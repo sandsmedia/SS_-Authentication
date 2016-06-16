@@ -126,7 +126,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
     private func setupRegisterButton() {
         self.registerButton = UIButton(type: .System);
         self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
-        self.registerButton?.addTarget(self, action: Selector.registerButtonAction, forControlEvents: .TouchUpInside);
+        self.registerButton?.addTarget(self, action: .registerButtonAction, forControlEvents: .TouchUpInside);
         self.registerButton?.layer.borderWidth = 1.0;
         self.registerButton?.layer.borderColor = UIColor.whiteColor().CGColor;
     }
@@ -155,7 +155,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         self.registerButton?.translatesAutoresizingMaskIntoConstraints = false;
         self.buttonsStackView?.addArrangedSubview(self.registerButton!);
         
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: Selector.tapAction);
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: .tapAction);
         self.view.addGestureRecognizer(tapGesture);
         
         self.navigationBar?.skipButton?.hidden = true;
