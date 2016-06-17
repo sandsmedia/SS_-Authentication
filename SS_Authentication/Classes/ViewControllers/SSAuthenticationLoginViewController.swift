@@ -100,7 +100,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     }
     
     func resetButtonAction() {
-        let resetViewController = SSAuthenticationResetPasswordViewController.init();
+        let resetViewController = SSAuthenticationResetPasswordViewController();
         resetViewController.delegate = self;
         resetViewController.emailTextField.text = self.emailTextField.text;
         self.navigationController?.pushViewController(resetViewController, animated: true);

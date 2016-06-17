@@ -8,7 +8,7 @@
 
 import UIKit
 
-let LOADING_RADIUS = CGFloat.init(5.0);
+let LOADING_RADIUS = CGFloat(5.0);
 
 class SSAuthenticationLoadingView: UIView {
     private var dotsStackView: UIStackView?;
@@ -148,6 +148,7 @@ class SSAuthenticationLoadingView: UIView {
             self.hasLoadedConstraints = true;
         }
         super.updateConstraints();
+        
         self.startAnimation();
     }
     

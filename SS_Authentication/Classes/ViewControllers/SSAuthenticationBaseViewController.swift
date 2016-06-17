@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 import Validator
 
 public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticationNavigationBarDelegate, UITextFieldDelegate {

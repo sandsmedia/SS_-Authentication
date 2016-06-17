@@ -74,12 +74,20 @@ let FONT_ATTR_XLARGE_WHITE = [NSFontAttributeName: FONT_XLARGE!, NSForegroundCol
 let FONT_ATTR_MENU_BLACK = [NSFontAttributeName: FONT_MENU!, NSForegroundColorAttributeName: FONT_COLOUR_BLACK]
 let FONT_ATTR_MENU_LIGHT_GRAY = [NSFontAttributeName: FONT_MENU!, NSForegroundColorAttributeName: FONT_COLOUR_LIGHT_GRAY]
 
+let ADDRESS_KEY = "address";
+let API_KEY = "api_key";
+let X_TOKEN_KEY = "X-Token";
+let VALID_KEY = "is_valid";
 let USER_KEY = "user";
 let ID_KEY = "id";
 let EMAIL_KEY = "email";
 let PASSWORD_KEY = "password";
 let TOKEN_KEY = "token";
+let PROFILE_KEY = "profile";
+let FAVOURITE_KEY = "favourite";
+let PLAYLIST_KEY = "playlist";
 let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN";
+let SS_FAVOURITES_KEY = "SS_FAVOURITES";
 
 let PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
 

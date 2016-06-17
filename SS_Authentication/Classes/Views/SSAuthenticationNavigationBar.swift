@@ -65,7 +65,7 @@ class SSAuthenticationNavigationBar: UIView {
     }
     
     private func setupBackButton() {
-        self.backButton = SSAuthenticationBackButton.init(type: .Custom);
+        self.backButton = SSAuthenticationBackButton(type: .Custom);
         self.backButton?.addTarget(self, action: .backButtonAction, forControlEvents: .TouchUpInside);
     }
     
