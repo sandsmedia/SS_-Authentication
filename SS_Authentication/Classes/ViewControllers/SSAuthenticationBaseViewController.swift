@@ -144,6 +144,9 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     }
     
     func back() {
+        self.emailTextField.delegate = nil;
+        self.passwordTextField.delegate = nil;
+        
         self.navigationController?.popViewControllerAnimated(true);
     }
     

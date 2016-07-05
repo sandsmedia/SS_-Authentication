@@ -25,6 +25,7 @@
 		3882E08F1CF6EF5F007528BA /* SSAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E07F1CF6EF5F007528BA /* SSAuthenticationViewController.swift */; };
 		3882E0A11CF6FCF1007528BA /* SSAuthenticationLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0A01CF6FCF1007528BA /* SSAuthenticationLoadingView.swift */; };
 		3882E0A31CF7392F007528BA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0A21CF7392F007528BA /* Common.swift */; };
+		38BD88B31D2BB6D200CD7DC1 /* SSProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BD88B21D2BB6D200CD7DC1 /* SSProfile.swift */; };
 		B4DA347E94C32DA94AE6B50E /* Pods_SS__AuthenticationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD756B08A0105DC82BAD23F /* Pods_SS__AuthenticationTests.framework */; };
 		F9D50010AF1C7023124C2DC8 /* Pods_SS_AuthenticationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93A39878FBAD5B0D7D6F5B6 /* Pods_SS_AuthenticationTests.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		3882E07F1CF6EF5F007528BA /* SSAuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationViewController.swift; sourceTree = "<group>"; };
 		3882E0A01CF6FCF1007528BA /* SSAuthenticationLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationLoadingView.swift; sourceTree = "<group>"; };
 		3882E0A21CF7392F007528BA /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		38BD88B21D2BB6D200CD7DC1 /* SSProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSProfile.swift; sourceTree = "<group>"; };
 		40A44010A1BA17D9523AF59E /* Pods-SS_AuthorisationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SS_AuthorisationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SS_AuthorisationTests/Pods-SS_AuthorisationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		63E1723517FD6C654D7D6372 /* Pods_SS__Authentication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SS__Authentication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC95ED09475FF130E042D80 /* Pods-SS_Authentication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SS_Authentication.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SS_Authentication/Pods-SS_Authentication.debug.xcconfig"; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				383775EB1CF6E6B9001156AC /* SSUser.swift */,
+				38BD88B21D2BB6D200CD7DC1 /* SSProfile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				3882E0851CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift in Sources */,
 				383775EF1CF6E6B9001156AC /* SSUser.swift in Sources */,
 				3882E0891CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift in Sources */,
+				38BD88B31D2BB6D200CD7DC1 /* SSProfile.swift in Sources */,
 				3875D5A81D002F480038F2B9 /* SSAuthenticationBackButton.swift in Sources */,
 				3882E0A11CF6FCF1007528BA /* SSAuthenticationLoadingView.swift in Sources */,
 				3882E0871CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift in Sources */,
