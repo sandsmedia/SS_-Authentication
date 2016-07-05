@@ -63,7 +63,13 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     func resetButtonAction() {
         self.tapAction();
-        guard (self.isEmailValid) else { return }
+        guard (self.isEmailValid) else {
+            if (!self.emailFailureAlertController.isBeingPresented()) {
+                self.emailTextField.layer.borderColor = UIColor.redColor().CGColor;
+                self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
+            }
+            return;
+        }
 
         self.resetButton?.userInteractionEnabled = false;
         self.showLoadingView();

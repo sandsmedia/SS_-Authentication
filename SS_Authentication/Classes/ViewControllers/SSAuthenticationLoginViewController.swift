@@ -78,7 +78,20 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     
     func loginButtonAction() {
         self.tapAction();
-        guard (self.isEmailValid && self.isPasswordValid) else { return }
+        guard (self.isEmailValid && self.isPasswordValid) else {
+            if (!isEmailValid) {
+                if (!self.emailFailureAlertController.isBeingPresented()) {
+                    self.emailTextField.layer.borderColor = UIColor.redColor().CGColor;
+                    self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
+                }
+            } else {
+                if (!self.passwordValidFailAlertController.isBeingPresented()) {
+                    self.passwordTextField.layer.borderColor = UIColor.redColor().CGColor;
+                    self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil);
+                }
+            }
+            return;
+        }
 
         self.loginButton?.userInteractionEnabled = false;
         self.showLoadingView();

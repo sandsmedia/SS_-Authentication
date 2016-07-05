@@ -110,7 +110,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return _passwordToggleButton;
     }();
     
-    private(set) lazy var emailFailureAlertController: UIAlertController = {
+    public lazy var emailFailureAlertController: UIAlertController = {
         let _emailFailureAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailFormatError.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder();
@@ -119,7 +119,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return _emailFailureAlertController;
     }();
     
-    private(set) lazy var passwordValidFailAlertController: UIAlertController = {
+    public lazy var passwordValidFailAlertController: UIAlertController = {
         let _passwordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordValidFail.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
             self.passwordTextField.becomeFirstResponder();
@@ -159,12 +159,12 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     public func textFieldDidEndEditing(textField: UITextField) {
         if (textField.text?.characters.count > 0) {
             if (textField == self.emailTextField) {
-                if (self.isEmailValid == false) {
+                if (!self.isEmailValid) {
                     textField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
                 }
             } else if (textField == self.passwordTextField) {
-                if (self.isPasswordValid == false) {
+                if (!self.isPasswordValid) {
                     textField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil);
                 }
