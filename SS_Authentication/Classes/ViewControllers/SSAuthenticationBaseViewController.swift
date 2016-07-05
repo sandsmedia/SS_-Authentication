@@ -101,15 +101,6 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return _passwordTextField;
     }();
 
-//    private(set) lazy var passwordToggleButton: UIButton = {
-//        let _passwordToggleButton = UIButton(type: .System);
-//        _passwordToggleButton.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.showPassword"), attributes: FONT_ATTR_MEDIUM_WHITE), forState: .Normal);
-//        _passwordToggleButton.contentVerticalAlignment = .Top;
-//        _passwordToggleButton.contentHorizontalAlignment = .Left;
-//        _passwordToggleButton.addTarget(self, action: .passwordToggleButtonAction, forControlEvents: .TouchUpInside);
-//        return _passwordToggleButton;
-//    }();
-    
     public lazy var emailFailureAlertController: UIAlertController = {
         let _emailFailureAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailFormatError.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
@@ -199,23 +190,17 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return self.resourceBundle.localizedStringForKey(key, value: nil, table: "SS_Authentication");
     }
     
-//    func passwordToggleButtonAction() {
-//        self.passwordTextField.secureTextEntry = !self.passwordTextField.secureTextEntry;
-//        let string = ((self.passwordTextField.secureTextEntry) ? self.localizedString(key: "user.showPassword") : self.localizedString(key: "user.hidePassword"));
-//        self.passwordToggleButton.setAttributedTitle(NSAttributedString(string: string, attributes: FONT_ATTR_MEDIUM_WHITE), forState: .Normal);
-//    }
-    
     // MARK: - Subviews
     
     private func setupNavigationBar() {
-        self.navigationBar = SSAuthenticationNavigationBar.init();
+        self.navigationBar = SSAuthenticationNavigationBar();
         self.navigationBar?.delegate = self;
         self.navigationBar?.skipButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.skip"), attributes: FONT_ATTR_XLARGE_WHITE), forState: .Normal);
         self.navigationBar?.backgroundColor = UIColor.redColor();
     }
     
     private func setupLoadingView() {
-        self.loadingView = SSAuthenticationLoadingView.init();
+        self.loadingView = SSAuthenticationLoadingView();
         self.loadingView?.alpha = 0.0;
     }
     
