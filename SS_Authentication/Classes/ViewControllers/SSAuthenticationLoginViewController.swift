@@ -166,10 +166,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         
         self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
-        
-        self.passwordToggleButton.translatesAutoresizingMaskIntoConstraints = false;
-        self.textFieldsStackView?.addArrangedSubview(self.passwordToggleButton);
-        
+                
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.buttonsStackView!);
@@ -193,7 +190,6 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
-                         "toggle": self.passwordToggleButton,
                          "buttons": self.buttonsStackView!,
                          "login": self.loginButton!,
                          "reset": self.resetButton!];
@@ -210,13 +206,9 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]", options: .DirectionMask, metrics: nil, views: views));
-            
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
-
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[toggle]", options: .DirectionMask, metrics: nil, views: views));
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[login]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             

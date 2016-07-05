@@ -12,7 +12,7 @@ protocol SSAuthenticationUpdateDelegate: class {
     func updateSuccess();
 }
 
-class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
+public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     weak var delegate: SSAuthenticationUpdateDelegate?;
     
     private var textFieldsStackView: UIStackView?;
@@ -34,7 +34,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         self.setup();
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.setup();
     }
@@ -193,9 +193,6 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: FONT_ATTR_MEDIUM_WHITE)
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
         
-        self.passwordToggleButton.translatesAutoresizingMaskIntoConstraints = false;
-        self.textFieldsStackView?.addArrangedSubview(self.passwordToggleButton);
-
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.buttonsStackView!);
@@ -210,12 +207,11 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         self.navigationBar?.skipButton?.hidden = true;
     }
     
-    override func updateViewConstraints() {
+    override public func updateViewConstraints() {
         if (self.hasLoadedConstraints == false) {
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
-                         "toggle": self.passwordToggleButton,
                          "buttons": self.buttonsStackView!,
                          "update": self.updateButton!];
             
@@ -231,13 +227,9 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]", options: .DirectionMask, metrics: nil, views: views));
-            
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
-            
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[toggle]", options: .DirectionMask, metrics: nil, views: views));
             
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[update]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
@@ -250,21 +242,29 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     
     // MARK: - View lifecycle
     
-    override func loadView() {
+    override public func loadView() {
         super.loadView();
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         if (self.isUpdateEmail) {
             self.textFieldsStackView?.removeArrangedSubview(self.passwordTextField);
             self.passwordTextField.removeFromSuperview();
-            self.textFieldsStackView?.removeArrangedSubview(self.passwordToggleButton);
-            self.passwordToggleButton.removeFromSuperview();
         } else {
             self.textFieldsStackView?.removeArrangedSubview(self.emailTextField);
             self.emailTextField.removeFromSuperview();
+        }
+    }
+    
+    override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        if (self.isUpdateEmail) {
+            self.emailTextField.becomeFirstResponder();
+        } else {
+            self.passwordTextField.becomeFirstResponder();
         }
     }
 }
