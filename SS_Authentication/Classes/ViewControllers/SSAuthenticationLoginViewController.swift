@@ -80,6 +80,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         self.tapAction();
         guard (self.isEmailValid && self.isPasswordValid) else { return }
 
+        self.loginButton?.userInteractionEnabled = false;
         self.showLoadingView();
         let email = self.emailTextField.text as String!;
         let password = self.passwordTextField.text as String!;
@@ -96,6 +97,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
                 }
             }
             self.hideLoadingView();
+            self.loginButton?.userInteractionEnabled = true;
         };
     }
     
@@ -195,7 +197,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             

@@ -102,6 +102,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
         self.tapAction();
         guard (self.isEmailValid || self.isPasswordValid) else { return }
         
+        self.updateButton?.userInteractionEnabled = false;
         self.showLoadingView();
         let email = self.emailTextField.text ?? "";
         let password = self.passwordTextField.text ?? "";
@@ -117,6 +118,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
                     self.presentViewController(self.emailUpdateFailedAlertController, animated: true, completion: nil);
                 }
                 self.hideLoadingView();
+                self.updateButton?.userInteractionEnabled = true;
             }
         } else {
             let userDict = [PASSWORD_KEY: password];
@@ -129,6 +131,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
                     self.presentViewController(self.passwordUpdateFailedAlertController, animated: true, completion: nil);
                 }
                 self.hideLoadingView();
+                self.updateButton?.userInteractionEnabled = true;
             }
         }
     }
@@ -215,7 +218,7 @@ class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             

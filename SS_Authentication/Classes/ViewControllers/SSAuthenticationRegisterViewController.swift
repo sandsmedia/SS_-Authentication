@@ -73,6 +73,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         self.tapAction();
         guard (self.isEmailValid && self.isPasswordValid) else { return }
 
+        self.registerButton?.userInteractionEnabled = false;
         self.showLoadingView();
         let email = self.emailTextField.text as String!;
         let password = self.passwordTextField.text as String!;
@@ -91,6 +92,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
                         }
                     }
                     self.hideLoadingView();
+                    self.registerButton?.userInteractionEnabled = true;
                 }
             } else {
                 if (error != nil) {
@@ -99,6 +101,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
                     self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
                 }
                 self.hideLoadingView();
+                self.registerButton?.userInteractionEnabled = true;
             }
         }
     }
@@ -182,7 +185,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[toggle]", options: .DirectionMask, metrics: nil, views: views));
 
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             

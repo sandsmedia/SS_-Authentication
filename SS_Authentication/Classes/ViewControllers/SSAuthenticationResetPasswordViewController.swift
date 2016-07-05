@@ -65,6 +65,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         self.tapAction();
         guard (self.isEmailValid) else { return }
 
+        self.resetButton?.userInteractionEnabled = false;
         self.showLoadingView();
         let email = self.emailTextField.text as String!;
         let userDict = [EMAIL_KEY: email];
@@ -76,6 +77,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
                 self.presentViewController(self.forgotPasswordFailedAlertController, animated: true, completion: nil);
             }
             self.hideLoadingView();
+            self.resetButton?.userInteractionEnabled = true;
         };
     }
     
