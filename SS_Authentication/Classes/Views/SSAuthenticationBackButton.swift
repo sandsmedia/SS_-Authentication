@@ -15,9 +15,9 @@ public enum ArrowDirection : Int {
 
 class SSAuthenticationBackButton: UIButton {
     var color: UIColor = UIColor.whiteColor();
-    var hightlightColor: UIColor = UIColor.redColor();
-    var lineWidth: CGFloat = 2.0;
-    var lineCap: CGLineCap = .Round;
+    var hightlightColor: UIColor = UIColor.lightGrayColor();
+    var lineWidth: CGFloat = 3.0;
+    var lineCap: CGLineCap = .Square;
     var verticalInset: CGFloat = 12.0;
     var arrowDirection: ArrowDirection = .Left;
     

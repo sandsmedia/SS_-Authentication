@@ -84,7 +84,7 @@ class SSAuthenticationNavigationBar: UIView {
             let views = ["skip": self.skipButton!,
                          "back": self.backButton!];
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[back]-(>=1)-[skip]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(8)-[back]-(>=1)-[skip]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[back(44)]", options: .DirectionMask, metrics: nil, views: views));
             
