@@ -18,7 +18,7 @@ class SSAuthenticationBackButton: UIButton {
     var hightlightColor: UIColor = UIColor.lightGrayColor();
     var lineWidth: CGFloat = 3.0;
     var lineCap: CGLineCap = .Square;
-    var verticalInset: CGFloat = 12.0;
+    var verticalInset: CGFloat = 13.0;
     var arrowDirection: ArrowDirection = .Left;
     
     // MARK: - Initialisation
