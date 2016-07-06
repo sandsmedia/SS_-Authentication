@@ -15,8 +15,7 @@
 "user.updatePassword" = "Update Passwort";
 "user.email" = "E-Mail";
 "user.password" = "Passwort";
-"user.showPassword" = "Show Passwort";
-"user.hidePassword" = "Hide Passwort";
+"user.confirmPassword" = "Passwort bestätigen";
 "user.forgetPassword" = "Passwort vergessen?";
 "user.restore" = "Zurücksetzen";
 "user.newPassword" = "Neues Passwort";
@@ -48,3 +47,5 @@
 "passwordUpdateFail.message" = "Ihr Passwort kann momentan nicht geändert werden, bitte versuchen Sie es später noch einmal.";
 // Password Valid Failure
 "passwordValidFail.message" = "Bitte erhöhen Sie die Sicherheit Ihres Passwortes, indem Sie Groß- und Kleinbuchstaben sowie Nummern verwenden.\nDas Passwort sollte 8-20 Zeichen lang sein.";
+// Password Not Match Error
+"passwordNotMatchError.message" = "Passwörter stimmen nicht überein.";

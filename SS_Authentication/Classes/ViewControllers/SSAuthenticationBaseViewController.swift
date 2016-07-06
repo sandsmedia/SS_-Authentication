@@ -16,6 +16,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     var hideStatusBar: Bool = false;
     var isEmailValid: Bool = false;
     var isPasswordValid: Bool = false;
+    var isConfirmPasswordValid: Bool = false;
     
     private var hasLoadedConstraints: Bool = false;
 
@@ -101,6 +102,32 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return _passwordTextField;
     }();
 
+    private(set) lazy var confirmPasswordTextField: UITextField = {
+        let _confirmPasswordTextField = UITextField();
+        _confirmPasswordTextField.delegate = self;
+        _confirmPasswordTextField.spellCheckingType = .No;
+        _confirmPasswordTextField.autocorrectionType = .No;
+        _confirmPasswordTextField.autocapitalizationType = .None;
+        _confirmPasswordTextField.secureTextEntry = true;
+        _confirmPasswordTextField.clearsOnBeginEditing = true;
+        _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirmPassword"), attributes: FONT_ATTR_MEDIUM_WHITE);
+        _confirmPasswordTextField.leftView = UIView(frame: CGRectMake(0, 0, 10, 0));
+        _confirmPasswordTextField.leftViewMode = .Always;
+        _confirmPasswordTextField.layer.borderColor = UIColor.grayColor().CGColor;
+        _confirmPasswordTextField.layer.borderWidth = 1.0;
+        _confirmPasswordTextField.font = FONT_MEDIUM;
+        _confirmPasswordTextField.textColor = FONT_COLOUR_BLACK;
+        var rules = ValidationRuleSet<String>();
+        let confirmPasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, failureError: ValidationError(message: self.localizedString(key: "passwordNotMatchError.message")));
+        rules.addRule(confirmPasswordRule);
+        _confirmPasswordTextField.validationRules = rules;
+        _confirmPasswordTextField.validationHandler = { result, control in
+            self.isConfirmPasswordValid = result.isValid;
+        }
+        _confirmPasswordTextField.validateOnEditingEnd(true);
+        return _confirmPasswordTextField;
+    }();
+
     public lazy var emailFailureAlertController: UIAlertController = {
         let _emailFailureAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailFormatError.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
@@ -117,6 +144,15 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         });
         _passwordValidFailAlertController.addAction(cancelAction);
         return _passwordValidFailAlertController;
+    }();
+
+    public lazy var confirmPasswordValidFailAlertController: UIAlertController = {
+        let _confirmPasswordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordNotMatchError.message"), preferredStyle: .Alert);
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.confirmPasswordTextField.becomeFirstResponder();
+        });
+        _confirmPasswordValidFailAlertController.addAction(cancelAction);
+        return _confirmPasswordValidFailAlertController;
     }();
 
     private(set) lazy var noInternetAlertController: UIAlertController = {
@@ -137,6 +173,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     func back() {
         self.emailTextField.delegate = nil;
         self.passwordTextField.delegate = nil;
+        self.confirmPasswordTextField.delegate = nil;
         
         self.navigationController?.popViewControllerAnimated(true);
     }
@@ -158,6 +195,11 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
                 if (!self.isPasswordValid) {
                     textField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil);
+                }
+            } else if (textField == self.confirmPasswordTextField) {
+                if (!self.isConfirmPasswordValid) {
+                    textField.layer.borderColor = UIColor.redColor().CGColor;
+                    self.presentViewController(self.confirmPasswordValidFailAlertController, animated: true, completion: nil);
                 }
             }
         }
@@ -264,6 +306,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         
         self.emailTextField.delegate = self;
         self.passwordTextField.delegate = self;
+        self.confirmPasswordTextField.delegate = self;
     }
     
     override public func viewWillDisappear(animated: Bool) {
@@ -271,14 +314,11 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         
         self.emailTextField.delegate = nil;
         self.passwordTextField.delegate = nil;
+        self.confirmPasswordTextField.delegate = nil;
     }
     
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-}
-
-private extension Selector {
-//    static let passwordToggleButtonAction = #selector(SSAuthenticationBaseViewController.passwordToggleButtonAction);
 }

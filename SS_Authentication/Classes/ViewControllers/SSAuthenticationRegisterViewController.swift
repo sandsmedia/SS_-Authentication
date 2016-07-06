@@ -71,16 +71,21 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
 
     func registerButtonAction() {
         self.tapAction();
-        guard (self.isEmailValid && self.isPasswordValid) else {
-            if (!isEmailValid) {
+        guard (self.isEmailValid && self.isPasswordValid && self.isConfirmPasswordValid) else {
+            if (!self.isEmailValid) {
                 if (!self.emailFailureAlertController.isBeingPresented()) {
                     self.emailTextField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
                 }
-            } else {
+            } else if (!self.isPasswordValid) {
                 if (!self.passwordValidFailAlertController.isBeingPresented()) {
                     self.passwordTextField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil);
+                }
+            } else {
+                if (!self.confirmPasswordValidFailAlertController.isBeingPresented()) {
+                    self.confirmPasswordTextField.layer.borderColor = UIColor.redColor().CGColor;
+                    self.presentViewController(self.confirmPasswordValidFailAlertController, animated: true, completion: nil);
                 }
             }
             return;
@@ -159,6 +164,9 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         
         self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
+        
+        self.confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.confirmPasswordTextField);
 
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
@@ -179,6 +187,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
+                         "confirm": self.confirmPasswordTextField,
                          "buttons": self.buttonsStackView!,
                          "register": self.registerButton!];
             
@@ -193,11 +202,15 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
-            
+
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[confirm]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
-            
+
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[confirm(44)]", options: .DirectionMask, metrics: nil, views: views));
+
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[register]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[register(44)]", options: .DirectionMask, metrics: nil, views: views));

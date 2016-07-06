@@ -79,7 +79,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
     func loginButtonAction() {
         self.tapAction();
         guard (self.isEmailValid && self.isPasswordValid) else {
-            if (!isEmailValid) {
+            if (!self.isEmailValid) {
                 if (!self.emailFailureAlertController.isBeingPresented()) {
                     self.emailTextField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);

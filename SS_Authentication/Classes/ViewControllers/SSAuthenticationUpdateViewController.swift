@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol SSAuthenticationUpdateDelegate: class {
+public protocol SSAuthenticationUpdateDelegate: class {
     func updateSuccess();
 }
 
 public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
-    weak var delegate: SSAuthenticationUpdateDelegate?;
+    public weak var delegate: SSAuthenticationUpdateDelegate?;
     
     private var textFieldsStackView: UIStackView?;
     private var buttonsStackView: UIStackView?;
     private var updateButton: UIButton?;
     
-    var isUpdateEmail: Bool = true;
+    public var isUpdateEmail: Bool = true;
 
     private var hasLoadedConstraints: Bool = false;
 
@@ -100,16 +100,23 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
 
     func updateButtonAction() {
         self.tapAction();
-        guard (self.isEmailValid || self.isPasswordValid) else {
-            if (!isEmailValid) {
+        guard (self.isEmailValid || (self.isPasswordValid && self.isConfirmPasswordValid)) else {
+            if (self.isUpdateEmail) {
                 if (!self.emailFailureAlertController.isBeingPresented()) {
                     self.emailTextField.layer.borderColor = UIColor.redColor().CGColor;
                     self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
                 }
             } else {
-                if (!self.passwordValidFailAlertController.isBeingPresented()) {
-                    self.passwordTextField.layer.borderColor = UIColor.redColor().CGColor;
-                    self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil);
+                if (!self.isPasswordValid) {
+                    if (!self.passwordValidFailAlertController.isBeingPresented()) {
+                        self.passwordTextField.layer.borderColor = UIColor.redColor().CGColor;
+                        self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil);
+                    }
+                } else {
+                    if (!self.confirmPasswordValidFailAlertController.isBeingPresented()) {
+                        self.confirmPasswordTextField.layer.borderColor = UIColor.redColor().CGColor;
+                        self.presentViewController(self.confirmPasswordValidFailAlertController, animated: true, completion: nil);
+                    }
                 }
             }
             return;
@@ -193,6 +200,9 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
         self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: FONT_ATTR_MEDIUM_WHITE)
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
         
+        self.confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false;
+        self.textFieldsStackView?.addArrangedSubview(self.confirmPasswordTextField);
+        
         self.setupButtonsStackView();
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.buttonsStackView!);
@@ -212,6 +222,7 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
+                         "confirm": self.confirmPasswordTextField,
                          "buttons": self.buttonsStackView!,
                          "update": self.updateButton!];
             
@@ -226,11 +237,15 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
-            
+
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[confirm]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
-            
+
+            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[confirm(44)]", options: .DirectionMask, metrics: nil, views: views));
+
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[update]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[update(44)]", options: .DirectionMask, metrics: nil, views: views));
@@ -252,6 +267,8 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
         if (self.isUpdateEmail) {
             self.textFieldsStackView?.removeArrangedSubview(self.passwordTextField);
             self.passwordTextField.removeFromSuperview();
+            self.textFieldsStackView?.removeArrangedSubview(self.confirmPasswordTextField);
+            self.confirmPasswordTextField.removeFromSuperview();
         } else {
             self.textFieldsStackView?.removeArrangedSubview(self.emailTextField);
             self.emailTextField.removeFromSuperview();

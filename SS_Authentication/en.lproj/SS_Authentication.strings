@@ -15,8 +15,7 @@
 "user.updatePassword" = "Update Password";
 "user.email" = "Email";
 "user.password" = "Password";
-"user.showPassword" = "Show Password";
-"user.hidePassword" = "Hide Password";
+"user.confirmPassword" = "Confirm Password";
 "user.forgetPassword" = "Forgot your password?";
 "user.restore" = "Reset";
 "user.newPassword" = "New Password";
@@ -48,3 +47,5 @@
 "passwordUpdateFail.message" = "Your password cannot be changed.\nPlease try again later.";
 // Password Valid Failure
 "passwordValidFail.message" = "Make your password more secure by including upper & lower case letters and numbers.\nUse 8-20 characters.";
+// Password Not Match Error
+"passwordNotMatchError.message" = "Passwords do not match.";

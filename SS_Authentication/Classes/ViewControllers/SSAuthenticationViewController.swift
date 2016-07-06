@@ -59,7 +59,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     
     // MARK: - Implemetation of SSAuthenticationUpdateDelegate protocols
     
-    func updateSuccess() {
+    public func updateSuccess() {
         
     }
     
