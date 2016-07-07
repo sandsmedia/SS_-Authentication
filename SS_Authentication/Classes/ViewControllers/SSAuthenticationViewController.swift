@@ -23,7 +23,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     private var updateEmailButton: UIButton?;
     private var updatePasswordButton: UIButton?;
     
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
     
     // MARK: - Initialisation
     
@@ -47,13 +47,13 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     
     // MARK: - Implementation of SSAuthenticationLoginDelegate protocols
     
-    func loginSuccess(user: SSUser) {
+    public func loginSuccess(user: SSUser) {
         self.delegate?.authenticationGranted(user);
     }
     
     // MARK: - Implementation of SSAuthenticationRegisterDelegate protocols
     
-    func registerSuccess(user: SSUser) {
+    public func registerSuccess(user: SSUser) {
         self.delegate?.authenticationGranted(user);
     }
     

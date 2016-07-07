@@ -13,12 +13,12 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     var navigationBar: SSAuthenticationNavigationBar?;
     private var loadingView: SSAuthenticationLoadingView?;
     
-    var hideStatusBar: Bool = false;
-    var isEmailValid: Bool = false;
-    var isPasswordValid: Bool = false;
-    var isConfirmPasswordValid: Bool = false;
+    var hideStatusBar = false;
+    var isEmailValid = false;
+    var isPasswordValid = false;
+    var isConfirmPasswordValid = false;
     
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
 
     // MARK: - Initialisation
     

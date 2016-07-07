@@ -19,9 +19,9 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
     private var buttonsStackView: UIStackView?;
     private var updateButton: UIButton?;
     
-    public var isUpdateEmail: Bool = true;
+    public var isUpdateEmail = true;
 
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
 
     // MARK: - Initialisation
     

@@ -19,7 +19,7 @@ class SSAuthenticationNavigationBar: UIView {
     var skipButton: UIButton?;
     var backButton: SSAuthenticationBackButton?;
     
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
     
     // MARK: - Initialisation
     convenience init() {
@@ -28,11 +28,13 @@ class SSAuthenticationNavigationBar: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame);
+        
         self.setup();
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        
         self.setup();
     }
     
@@ -84,7 +86,7 @@ class SSAuthenticationNavigationBar: UIView {
             let views = ["skip": self.skipButton!,
                          "back": self.backButton!];
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(8)-[back]-(>=1)-[skip]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(8)-[back]-(>=0)-[skip]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[back(44)]", options: .DirectionMask, metrics: nil, views: views));
             

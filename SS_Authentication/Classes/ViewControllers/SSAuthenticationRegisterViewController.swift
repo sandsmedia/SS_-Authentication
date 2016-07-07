@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol SSAuthenticationRegisterDelegate: class {
+public protocol SSAuthenticationRegisterDelegate: class {
     func registerSuccess(user: SSUser);
 }
 
-class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController {
-    weak var delegate: SSAuthenticationRegisterDelegate?;
+public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController {
+    public weak var delegate: SSAuthenticationRegisterDelegate?;
     
     private var textFieldsStackView: UIStackView?;
     private var buttonsStackView: UIStackView?;
     private var registerButton: UIButton?;
     
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
 
     // MARK: - Initialisation
     
@@ -32,7 +32,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         self.setup();
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.setup();
     }
@@ -182,7 +182,7 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
         self.navigationBar?.skipButton?.hidden = true;
     }
     
-    override func updateViewConstraints() {
+    override public func updateViewConstraints() {
         if (self.hasLoadedConstraints == false) {
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
@@ -222,15 +222,15 @@ class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController
 
     // MARK: - View lifecycle
     
-    override func loadView() {
+    override public func loadView() {
         super.loadView();
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad();
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         
         self.emailTextField.becomeFirstResponder();

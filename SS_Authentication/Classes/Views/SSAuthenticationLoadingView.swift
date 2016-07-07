@@ -16,7 +16,7 @@ class SSAuthenticationLoadingView: UIView {
     private var dotTwo: UIImageView?;
     private var dotThree: UIImageView?;
     
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
     
     // MARK: - Initialisation
     convenience init() {
@@ -25,11 +25,13 @@ class SSAuthenticationLoadingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame);
+        
         self.setup();
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        
         self.setup();
     }
     

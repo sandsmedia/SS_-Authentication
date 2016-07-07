@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol SSAuthenticationLoginDelegate: class {
+public protocol SSAuthenticationLoginDelegate: class {
     func loginSuccess(user: SSUser);
 }
 
-class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, SSAuthenticationResetDelegate {
-    weak var delegate: SSAuthenticationLoginDelegate?;
+public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, SSAuthenticationResetDelegate {
+    public weak var delegate: SSAuthenticationLoginDelegate?;
     
     private var textFieldsStackView: UIStackView?;
     private var buttonsStackView: UIStackView?;
     private var loginButton: UIButton?;
     private var resetButton: UIButton?;
     
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
 
     // MARK: - Initialisation
     
@@ -33,7 +33,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         self.setup();
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.setup();
     }
@@ -185,7 +185,7 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
         self.navigationBar?.skipButton?.hidden = true;
     }
     
-    override func updateViewConstraints() {
+    override public func updateViewConstraints() {
         if (self.hasLoadedConstraints == false) {
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
@@ -225,23 +225,23 @@ class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, S
 
     // MARK: - View lifecycle
     
-    override func loadView() {
+    override public func loadView() {
         super.loadView();
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message");
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         
         self.emailTextField.becomeFirstResponder();
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override public func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated);
         
         self.emailTextField.text = nil;

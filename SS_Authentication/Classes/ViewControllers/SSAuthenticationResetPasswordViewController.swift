@@ -17,7 +17,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     private var resetButton: UIButton?;
 
-    private var hasLoadedConstraints: Bool = false;
+    private var hasLoadedConstraints = false;
 
     // MARK: - Initialisation
     

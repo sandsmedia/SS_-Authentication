@@ -14,8 +14,8 @@ public enum ArrowDirection : Int {
 }
 
 class SSAuthenticationBackButton: UIButton {
-    var color: UIColor = UIColor.whiteColor();
-    var hightlightColor: UIColor = UIColor.lightGrayColor();
+    var color = UIColor.whiteColor();
+    var hightlightColor = UIColor.lightGrayColor();
     var lineWidth: CGFloat = 3.0;
     var lineCap: CGLineCap = .Square;
     var verticalInset: CGFloat = 13.0;
@@ -32,11 +32,13 @@ class SSAuthenticationBackButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame);
+        
         self.setup();
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        
         self.setup();
     }
     
