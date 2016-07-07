@@ -142,7 +142,7 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
     
     private func setupLoginButton() {
         self.loginButton = UIButton(type: .System);
-        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.loginButton?.addTarget(self, action: .loginButtonAction, forControlEvents: .TouchUpInside);
         self.loginButton?.layer.borderWidth = 1.0;
         self.loginButton?.layer.borderColor = UIColor.whiteColor().CGColor;
@@ -150,7 +150,7 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
     
     private func setupResetButton() {
         self.resetButton = UIButton(type: .System);
-        self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_WHITE), forState: .Normal);
+        self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_BLACK), forState: .Normal);
         self.resetButton?.addTarget(self, action: .resetButtonAction, forControlEvents: .TouchUpInside);
     }
 
@@ -233,6 +233,7 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
         super.viewDidLoad()
         
         self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message");
+        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
     }
     
     override public func viewWillAppear(animated: Bool) {

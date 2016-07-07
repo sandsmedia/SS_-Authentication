@@ -180,10 +180,10 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
     
     private func setupUpdateButton() {
         self.updateButton = UIButton(type: .System);
-        self.updateButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.updateButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.updateButton?.addTarget(self, action: .updateButtonAction, forControlEvents: .TouchUpInside);
         self.updateButton?.layer.borderWidth = 1.0;
-        self.updateButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+        self.updateButton?.layer.borderColor = UIColor.blackColor().CGColor;
     }
     
     override func setupSubviews() {
@@ -197,7 +197,7 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
         self.textFieldsStackView?.addArrangedSubview(self.emailTextField);
         
         self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
-        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: FONT_ATTR_MEDIUM_WHITE)
+        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField);
         
         self.confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false;
@@ -269,9 +269,11 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
             self.passwordTextField.removeFromSuperview();
             self.textFieldsStackView?.removeArrangedSubview(self.confirmPasswordTextField);
             self.confirmPasswordTextField.removeFromSuperview();
+            self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.updateEmail"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
         } else {
             self.textFieldsStackView?.removeArrangedSubview(self.emailTextField);
             self.emailTextField.removeFromSuperview();
+            self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.updatePassword"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
         }
     }
     

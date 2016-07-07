@@ -146,10 +146,10 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
 
     private func setupRegisterButton() {
         self.registerButton = UIButton(type: .System);
-        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.registerButton?.addTarget(self, action: .registerButtonAction, forControlEvents: .TouchUpInside);
         self.registerButton?.layer.borderWidth = 1.0;
-        self.registerButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+        self.registerButton?.layer.borderColor = UIColor.blackColor().CGColor;
     }
     
     override func setupSubviews() {
@@ -228,6 +228,8 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
     
     override public func viewDidLoad() {
         super.viewDidLoad();
+        
+        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
     }
     
     override public func viewWillAppear(animated: Bool) {

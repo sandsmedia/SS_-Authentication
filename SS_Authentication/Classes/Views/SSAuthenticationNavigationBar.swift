@@ -18,6 +18,7 @@ class SSAuthenticationNavigationBar: UIView {
     
     var skipButton: UIButton?;
     var backButton: SSAuthenticationBackButton?;
+    var titleLabel: UILabel?;
     
     private var hasLoadedConstraints = false;
     
@@ -68,7 +69,12 @@ class SSAuthenticationNavigationBar: UIView {
     
     private func setupBackButton() {
         self.backButton = SSAuthenticationBackButton(type: .System);
+        self.backButton?.color = UIColor.blackColor();
         self.backButton?.addTarget(self, action: .backButtonAction, forControlEvents: .TouchUpInside);
+    }
+    
+    private func setupTitleLabel() {
+        self.titleLabel = UILabel();
     }
     
     private func setupSubviews() {
@@ -79,18 +85,31 @@ class SSAuthenticationNavigationBar: UIView {
         self.setupBackButton();
         self.backButton?.translatesAutoresizingMaskIntoConstraints = false;
         self.addSubview(self.backButton!);
+        
+        self.setupTitleLabel();
+        self.titleLabel?.translatesAutoresizingMaskIntoConstraints = false;
+        self.addSubview(self.titleLabel!);
     }
     
     override func updateConstraints() {
         if (self.hasLoadedConstraints == false) {
             let views = ["skip": self.skipButton!,
-                         "back": self.backButton!];
+                         "back": self.backButton!,
+                         "title": self.titleLabel!];
             
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(8)-[back]-(>=0)-[skip]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
-            
+
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[title]", options: .DirectionMask, metrics: nil, views: views));
+
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[back(44)]", options: .DirectionMask, metrics: nil, views: views));
             
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[skip(44)]", options: .DirectionMask, metrics: nil, views: views));
+
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[title]", options: .DirectionMask, metrics: nil, views: views));
+
+            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
+            
+            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterY, relatedBy: .Equal, toItem: self.backButton!, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
 
             self.hasLoadedConstraints = true;
         }

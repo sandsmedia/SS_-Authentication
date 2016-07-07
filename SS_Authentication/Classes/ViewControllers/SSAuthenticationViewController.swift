@@ -116,34 +116,34 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     
     private func setupLoginButton() {
         self.loginButton = UIButton(type: .System);
-        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.loginButton?.addTarget(self, action: .loginButtonAction, forControlEvents: .TouchUpInside);
         self.loginButton?.layer.borderWidth = 1.0;
-        self.loginButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+        self.loginButton?.layer.borderColor = UIColor.blackColor().CGColor;
     }
     
     private func setupRegisterButton() {
         self.registerButton = UIButton(type: .System);
-        self.registerButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.registerButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.registerButton?.addTarget(self, action: .registerButtonAction, forControlEvents: .TouchUpInside);
         self.registerButton?.layer.borderWidth = 1.0;
-        self.registerButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+        self.registerButton?.layer.borderColor = UIColor.blackColor().CGColor;
     }
     
     private func setupUpdateEmailButton() {
         self.updateEmailButton = UIButton(type: .System);
-        self.updateEmailButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updateEmail"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.updateEmailButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updateEmail"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.updateEmailButton?.addTarget(self, action: .updateEmailButtonAction, forControlEvents: .TouchUpInside);
         self.updateEmailButton?.layer.borderWidth = 1.0;
-        self.updateEmailButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+        self.updateEmailButton?.layer.borderColor = UIColor.blackColor().CGColor;
     }
 
     private func setupUpdatePasswordButton() {
         self.updatePasswordButton = UIButton(type: .System);
-        self.updatePasswordButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updatePassword"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.updatePasswordButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updatePassword"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.updatePasswordButton?.addTarget(self, action: .updatePasswordButtonAction, forControlEvents: .TouchUpInside);
         self.updatePasswordButton?.layer.borderWidth = 1.0;
-        self.updatePasswordButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+        self.updatePasswordButton?.layer.borderColor = UIColor.blackColor().CGColor;
     }
 
     override func setupSubviews() {

@@ -28,19 +28,24 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
+        
         self.setup();
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        
         self.setup();
     }
     
     deinit {
         self.emailTextField.validateOnEditingEnd(false);
         self.passwordTextField.validateOnEditingEnd(false);
+        self.confirmPasswordTextField.validateOnEditingEnd(false);
+        
         self.emailTextField.delegate = nil;
         self.passwordTextField.delegate = nil;
+        self.confirmPasswordTextField.delegate = nil;
     }
     
     // MARK: - Accessors
@@ -58,7 +63,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _emailTextField.spellCheckingType = .No;
         _emailTextField.autocorrectionType = .No;
         _emailTextField.autocapitalizationType = .None;
-        _emailTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.email"), attributes: FONT_ATTR_MEDIUM_WHITE);
+        _emailTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.email"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY);
         _emailTextField.leftView = UIView(frame: CGRectMake(0, 0, 10, 0));
         _emailTextField.leftViewMode = .Always;
         _emailTextField.layer.borderColor = UIColor.grayColor().CGColor;
@@ -84,7 +89,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _passwordTextField.autocapitalizationType = .None;
         _passwordTextField.secureTextEntry = true;
         _passwordTextField.clearsOnBeginEditing = true;
-        _passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.password"), attributes: FONT_ATTR_MEDIUM_WHITE);
+        _passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.password"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY);
         _passwordTextField.leftView = UIView(frame: CGRectMake(0, 0, 10, 0));
         _passwordTextField.leftViewMode = .Always;
         _passwordTextField.layer.borderColor = UIColor.grayColor().CGColor;
@@ -110,7 +115,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         _confirmPasswordTextField.autocapitalizationType = .None;
         _confirmPasswordTextField.secureTextEntry = true;
         _confirmPasswordTextField.clearsOnBeginEditing = true;
-        _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirmPassword"), attributes: FONT_ATTR_MEDIUM_WHITE);
+        _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirmPassword"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY);
         _confirmPasswordTextField.leftView = UIView(frame: CGRectMake(0, 0, 10, 0));
         _confirmPasswordTextField.leftViewMode = .Always;
         _confirmPasswordTextField.layer.borderColor = UIColor.grayColor().CGColor;
@@ -237,8 +242,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     private func setupNavigationBar() {
         self.navigationBar = SSAuthenticationNavigationBar();
         self.navigationBar?.delegate = self;
-        self.navigationBar?.skipButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.skip"), attributes: FONT_ATTR_XLARGE_WHITE), forState: .Normal);
-        self.navigationBar?.backgroundColor = UIColor.redColor();
+        self.navigationBar?.skipButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.skip"), attributes: FONT_ATTR_XLARGE_BLACK), forState: .Normal);
     }
     
     private func setupLoadingView() {
@@ -261,7 +265,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     }
     
     override public func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent;
+        return .Default;
     }
     
     override public func updateViewConstraints() {
@@ -290,7 +294,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     
     override public func loadView() {
         self.view = UIView();
-        self.view.backgroundColor = UIColor.lightGrayColor();
+        self.view.backgroundColor = UIColor.whiteColor();
         self.view.translatesAutoresizingMaskIntoConstraints = true;
         
         self.setupSubviews();

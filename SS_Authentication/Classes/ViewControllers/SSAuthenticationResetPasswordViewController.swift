@@ -99,10 +99,10 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     private func setupResetButton() {
         self.resetButton = UIButton(type: .System);
-        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD), forState: .Normal);
+        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal);
         self.resetButton?.addTarget(self, action: .resetButtonAction, forControlEvents: .TouchUpInside);
         self.resetButton?.layer.borderWidth = 1.0;
-        self.resetButton?.layer.borderColor = UIColor.whiteColor().CGColor;
+        self.resetButton?.layer.borderColor = UIColor.blackColor().CGColor;
     }
     
     override func setupSubviews() {
@@ -145,6 +145,8 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
     }
 }
 
