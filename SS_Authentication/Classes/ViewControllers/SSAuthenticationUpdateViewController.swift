@@ -130,15 +130,27 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
         if (self.isUpdateEmail) {
             let userDict = [EMAIL_KEY: email];
 
-            SSAuthenticationManager.sharedInstance.updateEmail(userDictionary: userDict) { (user, statusCode, error) in
-                if (user != nil) {
-                    self.presentViewController(self.emailUpdateSuccessAlertController, animated: true, completion: nil);
-                    self.delegate?.updateSuccess();
+            SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool, statusCode, error) in
+                if (bool == true) {
+                    SSAuthenticationManager.sharedInstance.updateEmail(userDictionary: userDict) { (user, statusCode, error) in
+                        if (user != nil) {
+                            self.presentViewController(self.emailUpdateSuccessAlertController, animated: true, completion: nil);
+                            self.delegate?.updateSuccess();
+                        } else {
+                            self.presentViewController(self.emailUpdateFailedAlertController, animated: true, completion: nil);
+                        }
+                        self.hideLoadingView();
+                        self.updateButton?.userInteractionEnabled = true;
+                    }
                 } else {
-                    self.presentViewController(self.emailUpdateFailedAlertController, animated: true, completion: nil);
+                    if (error != nil) {
+                        self.presentViewController(self.emailUpdateFailedAlertController, animated: true, completion: nil);
+                    } else {
+                        self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil);
+                    }
+                    self.hideLoadingView();
+                    self.updateButton?.userInteractionEnabled = true;
                 }
-                self.hideLoadingView();
-                self.updateButton?.userInteractionEnabled = true;
             }
         } else {
             let userDict = [PASSWORD_KEY: password];
