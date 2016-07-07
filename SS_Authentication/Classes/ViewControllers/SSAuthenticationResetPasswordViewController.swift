@@ -95,6 +95,11 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     // MARK: - Public Methods
     
+    override public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.resetButtonAction();
+        return super.textFieldShouldReturn(textField);
+    }
+
     // MARK: - Subviews
     
     private func setupResetButton() {
@@ -147,6 +152,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         super.viewDidLoad()
         
         self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+        self.emailTextField.returnKeyType = .Go;
     }
 }
 

@@ -158,6 +158,19 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
     
     // MARK: - Public Methods
     
+    override public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (self.isUpdateEmail) {
+            self.updateButtonAction();
+        } else {
+            if (textField == self.confirmPasswordTextField) {
+                self.updateButtonAction();
+            } else {
+                self.confirmPasswordTextField.becomeFirstResponder();
+            }
+        }
+        return super.textFieldShouldReturn(textField);
+    }
+
     // MARK: - Private Methods
     
     // MARK: - Subviews
@@ -270,10 +283,13 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
             self.textFieldsStackView?.removeArrangedSubview(self.confirmPasswordTextField);
             self.confirmPasswordTextField.removeFromSuperview();
             self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.updateEmail"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+            self.emailTextField.returnKeyType = .Go;
         } else {
             self.textFieldsStackView?.removeArrangedSubview(self.emailTextField);
             self.emailTextField.removeFromSuperview();
             self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.updatePassword"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+            self.passwordTextField.returnKeyType = .Next;
+            self.confirmPasswordTextField.returnKeyType = .Go;
         }
     }
     

@@ -126,6 +126,17 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
         
     // MARK: - Public Methods
     
+    override public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == self.confirmPasswordTextField) {
+            self.registerButtonAction();
+        } else if (textField == self.passwordTextField) {
+            self.confirmPasswordTextField.becomeFirstResponder();
+        } else {
+            self.passwordTextField.becomeFirstResponder();
+        }
+        return super.textFieldShouldReturn(textField);
+    }
+
     // MARK: - Subviews
     
     private func setupTextFieldsStackView() {
@@ -230,6 +241,9 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
         super.viewDidLoad();
         
         self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+        self.emailTextField.returnKeyType = .Next;
+        self.passwordTextField.returnKeyType = .Next;
+        self.confirmPasswordTextField.returnKeyType = .Go;
     }
     
     override public func viewWillAppear(animated: Bool) {

@@ -123,6 +123,15 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
         
     // MARK: - Public Methods
     
+    override public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == self.passwordTextField) {
+            self.loginButtonAction();
+        } else {
+            self.passwordTextField.becomeFirstResponder();
+        }
+        return super.textFieldShouldReturn(textField);
+    }
+    
     // MARK: - Subviews
     
     private func setupTextFieldsStackView() {
@@ -234,6 +243,8 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
         
         self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message");
         self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+        self.emailTextField.returnKeyType = .Next;
+        self.passwordTextField.returnKeyType = .Go;
     }
     
     override public func viewWillAppear(animated: Bool) {
