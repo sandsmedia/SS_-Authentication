@@ -117,11 +117,21 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
     func resetButtonAction() {
         let resetViewController = SSAuthenticationResetPasswordViewController();
         resetViewController.delegate = self;
+        resetViewController.forceUpdateStatusBarStyle(self.statusBarStyle);
+        resetViewController.updateNavigationBarColor(self.navigationBarColor);
         resetViewController.emailTextField.text = self.emailTextField.text;
         self.navigationController?.pushViewController(resetViewController, animated: true);
     }
         
     // MARK: - Public Methods
+    
+    override public func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
+        super.forceUpdateStatusBarStyle(style);
+    }
+    
+    override public func updateNavigationBarColor(color: UIColor) {
+        super.updateNavigationBarColor(color);
+    }
     
     override public func textFieldShouldReturn(textField: UITextField) -> Bool {
         if (textField == self.passwordTextField) {
@@ -243,7 +253,7 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
         super.viewDidLoad()
         
         self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message");
-        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD);
         self.emailTextField.returnKeyType = .Next;
         self.passwordTextField.returnKeyType = .Go;
     }

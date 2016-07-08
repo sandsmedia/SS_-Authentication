@@ -18,6 +18,9 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     var isPasswordValid = false;
     var isConfirmPasswordValid = false;
     
+    var statusBarStyle: UIStatusBarStyle = .Default;
+    var navigationBarColor = UIColor.whiteColor();
+    
     private var hasLoadedConstraints = false;
 
     // MARK: - Initialisation
@@ -237,12 +240,22 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         return self.resourceBundle.localizedStringForKey(key, value: nil, table: "SS_Authentication");
     }
     
+    public func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
+        self.statusBarStyle = style;
+        self.setNeedsStatusBarAppearanceUpdate();
+    }
+    
+    public func updateNavigationBarColor(color: UIColor) {
+        self.navigationBarColor = color;
+    }
+    
     // MARK: - Subviews
     
     private func setupNavigationBar() {
         self.navigationBar = SSAuthenticationNavigationBar();
         self.navigationBar?.delegate = self;
-        self.navigationBar?.skipButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.skip"), attributes: FONT_ATTR_XLARGE_BLACK), forState: .Normal);
+        self.navigationBar?.skipButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.skip"), attributes: FONT_ATTR_XLARGE_WHITE), forState: .Normal);
+        self.navigationBar?.backgroundColor = self.navigationBarColor;
     }
     
     private func setupLoadingView() {
@@ -265,7 +278,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     }
     
     override public func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default;
+        return self.statusBarStyle;
     }
     
     override public func updateViewConstraints() {

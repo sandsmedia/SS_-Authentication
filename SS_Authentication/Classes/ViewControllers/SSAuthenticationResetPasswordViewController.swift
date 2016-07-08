@@ -95,6 +95,14 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     // MARK: - Public Methods
     
+    override public func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
+        super.forceUpdateStatusBarStyle(style);
+    }
+    
+    override public func updateNavigationBarColor(color: UIColor) {
+        super.updateNavigationBarColor(color);
+    }
+
     override public func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.resetButtonAction();
         return super.textFieldShouldReturn(textField);
@@ -151,7 +159,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD);
         self.emailTextField.returnKeyType = .Go;
     }
 }

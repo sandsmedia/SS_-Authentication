@@ -69,7 +69,7 @@ class SSAuthenticationNavigationBar: UIView {
     
     private func setupBackButton() {
         self.backButton = SSAuthenticationBackButton(type: .System);
-        self.backButton?.color = UIColor.blackColor();
+        self.backButton?.color = UIColor.whiteColor();
         self.backButton?.addTarget(self, action: .backButtonAction, forControlEvents: .TouchUpInside);
     }
     

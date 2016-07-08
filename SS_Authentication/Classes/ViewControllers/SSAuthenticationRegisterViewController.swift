@@ -126,6 +126,14 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
         
     // MARK: - Public Methods
     
+    override public func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
+        super.forceUpdateStatusBarStyle(style);
+    }
+    
+    override public func updateNavigationBarColor(color: UIColor) {
+        super.updateNavigationBarColor(color);
+    }
+
     override public func textFieldShouldReturn(textField: UITextField) -> Bool {
         if (textField == self.confirmPasswordTextField) {
             self.registerButtonAction();
@@ -240,7 +248,7 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
     override public func viewDidLoad() {
         super.viewDidLoad();
         
-        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD);
+        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD);
         self.emailTextField.returnKeyType = .Next;
         self.passwordTextField.returnKeyType = .Next;
         self.confirmPasswordTextField.returnKeyType = .Go;
