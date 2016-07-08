@@ -111,7 +111,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         self.buttonsStackView!.axis = .Vertical;
         self.buttonsStackView!.alignment = .Center;
         self.buttonsStackView!.distribution = .EqualCentering;
-        self.buttonsStackView?.spacing = 20.0;
+        self.buttonsStackView?.spacing = 10.0;
     }
     
     private func setupLoginButton() {
@@ -182,7 +182,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[stack]|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[stack]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[stack]-(10)-|", options: .DirectionMask, metrics: nil, views: views));
 
             self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[login]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 

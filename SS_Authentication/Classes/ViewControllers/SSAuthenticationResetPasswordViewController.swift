@@ -135,7 +135,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[reset]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(84)-[email(44)]-(>=1)-[reset(44)]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[email(44)]-(>=1)-[reset(44)]-(10)-|", options: .DirectionMask, metrics: nil, views: views));
 
             self.hasLoadedConstraints = true;
         }

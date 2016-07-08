@@ -192,7 +192,7 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
         self.textFieldsStackView?.axis = .Vertical;
         self.textFieldsStackView?.alignment = .Center;
         self.textFieldsStackView!.distribution = .EqualSpacing;
-        self.textFieldsStackView?.spacing = 20.0;
+        self.textFieldsStackView?.spacing = 10.0;
     }
     
     private func setupButtonsStackView() {
@@ -200,7 +200,7 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
         self.buttonsStackView!.axis = .Vertical;
         self.buttonsStackView!.alignment = .Center;
         self.buttonsStackView!.distribution = .EqualSpacing;
-        self.buttonsStackView?.spacing = 20.0;
+        self.buttonsStackView?.spacing = 10.0;
     }
     
     private func setupUpdateButton() {
@@ -255,9 +255,9 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[buttons]|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(84)-[texts]", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[texts]", options: .DirectionMask, metrics: nil, views: views));
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[buttons]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[buttons]-(10)-|", options: .DirectionMask, metrics: nil, views: views));
             
             self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
             
