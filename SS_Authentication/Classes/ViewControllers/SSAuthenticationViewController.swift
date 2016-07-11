@@ -173,7 +173,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     }
 
     override public func updateViewConstraints() {
-        if (self.hasLoadedConstraints == false) {
+        if (!self.hasLoadedConstraints) {
             let views = ["stack": self.buttonsStackView!,
                          "login": self.loginButton!,
                          "register": self.registerButton!,

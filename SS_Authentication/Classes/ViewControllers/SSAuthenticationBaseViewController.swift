@@ -282,7 +282,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     }
     
     override public func updateViewConstraints() {
-        if (self.hasLoadedConstraints == false) {
+        if (!self.hasLoadedConstraints) {
             let views = ["loading": self.loadingView!,
                          "bar": self.navigationBar!];
             

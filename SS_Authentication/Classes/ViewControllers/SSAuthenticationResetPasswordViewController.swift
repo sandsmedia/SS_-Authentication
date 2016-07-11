@@ -135,7 +135,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     }
     
     override func updateViewConstraints() {
-        if (self.hasLoadedConstraints == false) {
+        if (!self.hasLoadedConstraints) {
             let views = ["email": self.emailTextField,
                          "reset": self.resetButton!];
 

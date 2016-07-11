@@ -119,7 +119,7 @@ class SSAuthenticationLoadingView: UIView {
     }
     
     override func updateConstraints() {
-        if (self.hasLoadedConstraints == false) {
+        if (!self.hasLoadedConstraints) {
             let views = ["stack": self.dotsStackView!,
                          "dotOne": self.dotOne!,
                          "dotTwo": self.dotTwo!,

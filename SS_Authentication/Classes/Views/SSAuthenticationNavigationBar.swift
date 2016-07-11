@@ -92,7 +92,7 @@ class SSAuthenticationNavigationBar: UIView {
     }
     
     override func updateConstraints() {
-        if (self.hasLoadedConstraints == false) {
+        if (!self.hasLoadedConstraints) {
             let views = ["skip": self.skipButton!,
                          "back": self.backButton!,
                          "title": self.titleLabel!];

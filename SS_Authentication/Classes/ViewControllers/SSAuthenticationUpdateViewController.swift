@@ -251,7 +251,7 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
     }
     
     override public func updateViewConstraints() {
-        if (self.hasLoadedConstraints == false) {
+        if (!self.hasLoadedConstraints) {
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
