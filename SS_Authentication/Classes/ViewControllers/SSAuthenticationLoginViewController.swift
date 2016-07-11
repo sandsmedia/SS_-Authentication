@@ -30,11 +30,13 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
+        
         self.setup();
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        
         self.setup();
     }
     
@@ -149,7 +151,7 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
         self.textFieldsStackView?.axis = .Vertical;
         self.textFieldsStackView?.alignment = .Center;
         self.textFieldsStackView!.distribution = .EqualSpacing;
-        self.textFieldsStackView?.spacing = 10.0;
+        self.textFieldsStackView?.spacing = GENERAL_SPACING;
     }
     
     private func setupButtonsStackView() {
@@ -214,29 +216,35 @@ public class SSAuthenticationLoginViewController: SSAuthenticationBaseViewContro
                          "login": self.loginButton!,
                          "reset": self.resetButton!];
             
+            let metrics = ["SPACING": GENERAL_SPACING,
+                           "LARGE_SPACING": LARGE_SPACING,
+                           "WIDTH": GENERAL_ITEM_WIDTH,
+                           "HEIGHT": GENERAL_ITEM_HEIGHT,
+                           "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING];
+            
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[texts]|", options: .DirectionMask, metrics: nil, views: views));
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[buttons]|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[texts]", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[texts]", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[buttons]-(10)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[buttons]-(SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
 
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[password]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[password]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(44)]", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.textFieldsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(44)]", options: .DirectionMask, metrics: nil, views: views));
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
 
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[login]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[login]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[reset]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[reset]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[login(44)]", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[login(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.buttonsStackView?.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[reset(44)]", options: .DirectionMask, metrics: nil, views: views));
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[reset(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
             
             self.hasLoadedConstraints = true;
         }

@@ -18,7 +18,7 @@ public class SSAuthenticationManager {
     public typealias UserResponse = (SSUser?, Int, NSError?) -> Void;
     public typealias ProfileResponse = (SSProfile?, Int, NSError?) -> Void;
     
-    public var mailgunKey: String = "";
+    public var mailgunKey = "";
     public var user: SSUser?;
     public var profile: SSProfile?;
     public var accessToken = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_TOKEN_KEY) as? String;
@@ -43,7 +43,7 @@ public class SSAuthenticationManager {
     }();
     
     private lazy var baseURL: String = {
-        let _baseUrl = "http://video-cms-development.signsoft.com/";
+        let _baseUrl = BASE_URL;
         return _baseUrl;
     }();
     

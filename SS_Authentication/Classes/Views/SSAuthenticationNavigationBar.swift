@@ -97,13 +97,18 @@ class SSAuthenticationNavigationBar: UIView {
                          "back": self.backButton!,
                          "title": self.titleLabel!];
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(8)-[back]-(>=0)-[skip]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            let metrics = ["SPACING": GENERAL_SPACING - 2.0,
+                           "LARGE_SPACING": LARGE_SPACING,
+                           "WIDTH": GENERAL_ITEM_WIDTH,
+                           "HEIGHT": GENERAL_ITEM_HEIGHT];
+
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(SPACING)-[back]-(>=0)-[skip]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
 
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[title]", options: .DirectionMask, metrics: nil, views: views));
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[back(44)]", options: .DirectionMask, metrics: nil, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[back(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[skip(44)]", options: .DirectionMask, metrics: nil, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[skip(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
 
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[title]", options: .DirectionMask, metrics: nil, views: views));
 

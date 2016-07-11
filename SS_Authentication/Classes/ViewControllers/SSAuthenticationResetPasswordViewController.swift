@@ -27,11 +27,13 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
+        
         self.setup();
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        
         self.setup();
     }
     
@@ -138,12 +140,18 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         if (!self.hasLoadedConstraints) {
             let views = ["email": self.emailTextField,
                          "reset": self.resetButton!];
+            
+            let metrics = ["SPACING": GENERAL_SPACING,
+                           "LARGE_SPACING": LARGE_SPACING,
+                           "WIDTH": GENERAL_ITEM_WIDTH,
+                           "HEIGHT": GENERAL_ITEM_HEIGHT,
+                           "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING];
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[email]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(20)-[reset]-(20)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[reset]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(74)-[email(44)]-(>=1)-[reset(44)]-(10)-|", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[email(HEIGHT)]-(>=1)-[reset(HEIGHT)]-(SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
 
             self.hasLoadedConstraints = true;
         }
@@ -157,7 +165,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
         
         self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD);
         self.emailTextField.returnKeyType = .Go;

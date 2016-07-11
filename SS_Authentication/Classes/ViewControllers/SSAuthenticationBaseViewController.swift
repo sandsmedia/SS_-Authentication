@@ -225,13 +225,13 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     
     func showLoadingView() {
         self.view.bringSubviewToFront(self.loadingView!);
-        UIView.animateWithDuration(0.3) { 
+        UIView.animateWithDuration(ANIMATION_DURATION) {
             self.loadingView?.alpha = 1.0;
         }
     }
     
     func hideLoadingView() {
-        UIView.animateWithDuration(0.3) {
+        UIView.animateWithDuration(ANIMATION_DURATION) {
             self.loadingView?.alpha = 0.0;
         }
     }
@@ -286,13 +286,15 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
             let views = ["loading": self.loadingView!,
                          "bar": self.navigationBar!];
             
+            let metrics = ["BAR_HEIGHT": NAVIGATION_BAR_HEIGHT];
+            
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[loading]", options: .DirectionMask, metrics: nil, views: views));
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[bar]|", options: .DirectionMask, metrics: nil, views: views));
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[loading]", options: .DirectionMask, metrics: nil, views: views));
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[bar(64)]", options: .DirectionMask, metrics: nil, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[bar(BAR_HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
 
             self.view.addConstraint(NSLayoutConstraint(item: self.loadingView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
 
@@ -315,7 +317,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     }
     
     override public func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
     }
     
     override public func viewDidAppear(animated: Bool) {

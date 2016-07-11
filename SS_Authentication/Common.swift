@@ -12,32 +12,26 @@ import UIKit
 let IOS_VERSION = (UIDevice.currentDevice().systemVersion as NSString).floatValue
 
 let IS_IPAD = (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
-let IS_IPHONE_5 = (UIScreen.mainScreen().bounds.size.height == 568)
 let IS_LARGER_DEVICE = (UIScreen.mainScreen().bounds.size.height > 568)
-let IS_SMALLER_DEVICE = (UIScreen.mainScreen().bounds.size.height < 568)
-let IS_RETINA = ((UIScreen.mainScreen().scale >= 2.0) ? true : false)
-let IOS_8_OR_ABOVE = (IOS_VERSION >= 8.0)
 
 // MARK: - Font
 
 let BASE_FONT_NAME = "HelveticaNeue"
 let BASE_FONT_NAME_BOLD = "HelveticaNeue-Bold"
 
-let FONT_SIZE_SMALL = ((IS_IPAD) ? 15.5 : 11.625) as CGFloat   // 27px @ 72dpi
-let FONT_SIZE_MEDIUM = ((IS_IPAD) ? 20.0 : 15.275) as CGFloat   // 35px @ 72dpi
-let FONT_SIZE_LARGE = ((IS_IPAD) ? 23.0 : 17.25) as CGFloat     // 40px @ 72dpi
-let FONT_SIZE_XLARGE = ((IS_IPAD) ? 30.0 : 25.0) as CGFloat     // 40px @ 72dpi
-let FONT_SIZE_MENU = ((IS_IPAD) ? 15.275 : 15.275) as CGFloat    // 35px @ 72dpi
+let FONT_SIZE_SMALL: CGFloat = ((IS_IPAD) ? 15.5 : 11.625)    // 27px @ 72dpi
+let FONT_SIZE_MEDIUM: CGFloat = ((IS_IPAD) ? 20.0 : 15.275)   // 35px @ 72dpi
+let FONT_SIZE_LARGE: CGFloat = ((IS_IPAD) ? 23.0 : 17.25)     // 40px @ 72dpi
+let FONT_SIZE_XLARGE: CGFloat = ((IS_IPAD) ? 30.0 : 25.0)     // 40px @ 72dpi
 
-let FONT_SMALL = UIFont.init(name: BASE_FONT_NAME, size: FONT_SIZE_SMALL)
-let FONT_MEDIUM = UIFont.init(name: BASE_FONT_NAME, size: FONT_SIZE_MEDIUM)
-let FONT_LARGE = UIFont.init(name: BASE_FONT_NAME, size: FONT_SIZE_LARGE)
-let FONT_XLARGE = UIFont.init(name: BASE_FONT_NAME, size: FONT_SIZE_XLARGE)
-let FONT_MENU = UIFont.init(name: BASE_FONT_NAME, size: FONT_SIZE_MENU)
+let FONT_SMALL = UIFont(name: BASE_FONT_NAME, size: FONT_SIZE_SMALL)
+let FONT_MEDIUM = UIFont(name: BASE_FONT_NAME, size: FONT_SIZE_MEDIUM)
+let FONT_LARGE = UIFont(name: BASE_FONT_NAME, size: FONT_SIZE_LARGE)
+let FONT_XLARGE = UIFont(name: BASE_FONT_NAME, size: FONT_SIZE_XLARGE)
 
-let FONT_SMALL_BOLD = UIFont.init(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_SMALL)
-let FONT_MEDIUM_BOLD = UIFont.init(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_MEDIUM)
-let FONT_LARGE_BOLD = UIFont.init(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_LARGE)
+let FONT_SMALL_BOLD = UIFont(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_SMALL)
+let FONT_MEDIUM_BOLD = UIFont(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_MEDIUM)
+let FONT_LARGE_BOLD = UIFont(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_LARGE)
 
 let FONT_COLOUR_BLACK = UIColor.blackColor()
 let FONT_COLOUR_WHITE = UIColor.whiteColor()
@@ -71,8 +65,7 @@ let FONT_ATTR_LARGE_DARK_GRAY_BOLD = [NSFontAttributeName: FONT_LARGE_BOLD!, NSF
 let FONT_ATTR_XLARGE_BLACK = [NSFontAttributeName: FONT_XLARGE!, NSForegroundColorAttributeName: FONT_COLOUR_BLACK]
 let FONT_ATTR_XLARGE_WHITE = [NSFontAttributeName: FONT_XLARGE!, NSForegroundColorAttributeName: FONT_COLOUR_WHITE]
 
-let FONT_ATTR_MENU_BLACK = [NSFontAttributeName: FONT_MENU!, NSForegroundColorAttributeName: FONT_COLOUR_BLACK]
-let FONT_ATTR_MENU_LIGHT_GRAY = [NSFontAttributeName: FONT_MENU!, NSForegroundColorAttributeName: FONT_COLOUR_LIGHT_GRAY]
+// MARK: - Keys
 
 let ADDRESS_KEY = "address";
 let API_KEY = "api_key";
@@ -90,6 +83,26 @@ let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN";
 let SS_FAVOURITES_KEY = "SS_FAVOURITES";
 
 let PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
+
+// MARK: - General Config
+
+let GENERAL_SPACING: CGFloat = 10.0
+let SMALL_SPACING = GENERAL_SPACING / 2
+let LARGE_SPACING = 2 * GENERAL_SPACING
+let GENERAL_ITEM_WIDTH: CGFloat = 44.0
+let GENERAL_ITEM_HEIGHT = GENERAL_ITEM_WIDTH
+let SMALL_ITEM_WIDTH = GENERAL_ITEM_WIDTH / 2
+let SMALL_ITEM_HEIGHT = SMALL_ITEM_WIDTH
+let GENERAL_CELL_HEIGHT: CGFloat = 56.0
+let NAVIGATION_BAR_HEIGHT: CGFloat = 64.0
+let LOADING_DIAMETER: CGFloat = 10.0
+let LOADING_RADIUS = LOADING_DIAMETER / 2
+
+let ANIMATION_DURATION = 0.3
+
+// MARK: - HTTP Reuqest
+
+let BASE_URL = "http://video-cms-development.signsoft.com/"
 
 let TIME_OUT_INTERVAL = 120.0;
 let TIME_OUT_RESOURCE = 600.0;
