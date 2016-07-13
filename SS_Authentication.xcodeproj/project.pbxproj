@@ -312,6 +312,7 @@
 				TargetAttributes = {
 					3821DA181CF5918400867115 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 5K7YX4SKLP;
 					};
 					3821DA221CF5918400867115 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -579,6 +580,7 @@
 			baseConfigurationReference = 6FC95ED09475FF130E042D80 /* Pods-SS_Authentication.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -598,6 +600,7 @@
 			baseConfigurationReference = 15C959BF9DA7DF0ECEA2DC02 /* Pods-SS_Authentication.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
