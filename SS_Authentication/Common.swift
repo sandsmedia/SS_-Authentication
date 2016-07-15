@@ -6,7 +6,6 @@
 //  Copyright © 2016 Software and Support Media GmbH. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 let IOS_VERSION = (UIDevice.currentDevice().systemVersion as NSString).floatValue
@@ -67,22 +66,31 @@ let FONT_ATTR_XLARGE_WHITE = [NSFontAttributeName: FONT_XLARGE!, NSForegroundCol
 
 // MARK: - Keys
 
-let ADDRESS_KEY = "address";
-let API_KEY = "api_key";
-let X_TOKEN_KEY = "X-Token";
-let VALID_KEY = "is_valid";
-let USER_KEY = "user";
-let ID_KEY = "id";
-let EMAIL_KEY = "email";
-let PASSWORD_KEY = "password";
-let TOKEN_KEY = "token";
-let PROFILE_KEY = "profile";
-let FAVOURITE_KEY = "favourite";
-let PLAYLIST_KEY = "playlist";
-let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN";
-let SS_FAVOURITES_KEY = "SS_FAVOURITES";
+let ADDRESS_KEY = "address"
+let API_KEY = "api_key"
+let X_TOKEN_KEY = "X-Token"
+let VALID_KEY = "is_valid"
+let USER_KEY = "user"
+let ID_KEY = "id"
+let EMAIL_KEY = "email"
+let PASSWORD_KEY = "password"
+let TOKEN_KEY = "token"
+let PROFILE_KEY = "profile"
+let COURSES_KEY = "courses"
+let COURSE_ID_KEY = "course_id"
+let LESSON_ID_KEY = "lesson_id"
+let CHAPTER_ID_KEY = "chapter_id"
+let FAVOURITE_KEY = "favourite"
+let COMPLETED_KEY = "completed"
+let CURRENT_LESSON_KEY = "current_lesson"
+let CURRENT_CHAPTER_KEY = "current_chapter"
+let VIDEO_POSITION_KEY = "video_position"
+let SS_AUTHENTICATION_EMAIL_KEY = "SS_AUTHENTICATION_EMAIL"
+let SS_AUTHENTICATION_PASSWORD_KEY = "SS_AUTHENTICATION_PASSWORD"
+let SS_AUTHENTICATION_USER_ID_KEY = "SS_AUTHENTICATION_USER_ID"
+let SS_AUTHENTICATION_TOKEN_KEY = "SS_AUTHENTICATION_TOKEN"
 
-let PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
+let PASSWORD_VALIDATION_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$"
 
 // MARK: - General Config
 
@@ -102,11 +110,12 @@ let ANIMATION_DURATION = 0.3
 
 // MARK: - HTTP Reuqest
 
-let BASE_URL = "http://video-cms-development.signsoft.com/"
+//let BASE_URL = "http://video-cms-development.signsoft.com/"
+let BASE_URL = "http://vt-cms-dev.eu-west-1.elasticbeanstalk.com/"
 
-let TIME_OUT_INTERVAL = 120.0;
-let TIME_OUT_RESOURCE = 600.0;
+let TIME_OUT_INTERVAL = 120.0
+let TIME_OUT_RESOURCE = 600.0
 
-let INVALID_STATUS_CODE = 401;
-let NO_INTERNET_CONNECTION_STATUS_CODE = -1;
-let ERROR_STATUS_CODE = 0;
+let INVALID_STATUS_CODE = 401
+let NO_INTERNET_CONNECTION_STATUS_CODE = -1
+let ERROR_STATUS_CODE = 0

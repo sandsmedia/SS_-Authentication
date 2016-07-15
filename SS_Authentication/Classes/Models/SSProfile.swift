@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public class SSProfile: NSObject {
-    public var profileId: String?;
-    public var favourites: [AnyObject]?;
-    public var playlist: [AnyObject]?;
+    public var profileId: String = "";
+    public var courses: [JSON] = [];
 }
