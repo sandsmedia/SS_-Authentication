@@ -75,7 +75,6 @@ let ID_KEY = "id"
 let EMAIL_KEY = "email"
 let PASSWORD_KEY = "password"
 let TOKEN_KEY = "token"
-let PROFILE_KEY = "profile"
 let COURSES_KEY = "courses"
 let COURSE_ID_KEY = "course_id"
 let LESSON_ID_KEY = "lesson_id"
@@ -110,8 +109,7 @@ let ANIMATION_DURATION = 0.3
 
 // MARK: - HTTP Reuqest
 
-//let BASE_URL = "http://video-cms-development.signsoft.com/"
-let BASE_URL = "http://vt-cms-dev.eu-west-1.elasticbeanstalk.com/"
+let BASE_URL = "http://video-cms-development.signsoft.com/"
 
 let TIME_OUT_INTERVAL = 120.0
 let TIME_OUT_RESOURCE = 600.0

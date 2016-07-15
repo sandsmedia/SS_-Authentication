@@ -136,9 +136,9 @@ public class SSAuthenticationManager {
                     self.password = userDictionary[PASSWORD_KEY] as? String;
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[EMAIL_KEY], forKey: SS_AUTHENTICATION_EMAIL_KEY);
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[PASSWORD_KEY], forKey: SS_AUTHENTICATION_PASSWORD_KEY);
-                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
-                        print("getProfile update");
-                    });
+//                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
+//                        print("getProfile update");
+//                    });
                     completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     completionHandler(nil, statusCode, error);
@@ -159,9 +159,9 @@ public class SSAuthenticationManager {
                     self.password = userDictionary[PASSWORD_KEY] as? String;
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[EMAIL_KEY], forKey: SS_AUTHENTICATION_EMAIL_KEY);
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[PASSWORD_KEY], forKey: SS_AUTHENTICATION_PASSWORD_KEY);
-                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
-                        print("getProfile update");
-                    });
+//                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
+//                        print("getProfile update");
+//                    });
                     completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     completionHandler(nil, statusCode, error);
@@ -179,9 +179,9 @@ public class SSAuthenticationManager {
                 switch response.result {
                 case .Success(let value):
                     let user = self.parseSSUser(responseJSON: value);
-                    self.getProfile(completionHandler: { (profile, statusCode, error) in
-                        print("getProfile update");
-                    });
+//                    self.getProfile(completionHandler: { (profile, statusCode, error) in
+//                        print("getProfile update");
+//                    });
                     completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     if (statusCode == INVALID_STATUS_CODE) {
@@ -376,7 +376,7 @@ public class SSAuthenticationManager {
     
     private func parseSSProfile(responseJSON responseJSON: AnyObject!) -> SSProfile {
         let responseDictionary = JSON(responseJSON).dictionaryValue;
-        let profileDictionary = responseDictionary[PROFILE_KEY]!.dictionaryValue;
+        let profileDictionary = responseDictionary[USER_KEY]!.dictionaryValue;
         let profileId = profileDictionary[ID_KEY]!.stringValue;
         let courses = profileDictionary[COURSES_KEY]!.arrayValue;
         let profile = SSProfile();
