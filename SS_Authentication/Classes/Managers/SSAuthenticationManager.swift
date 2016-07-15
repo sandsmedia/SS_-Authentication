@@ -286,6 +286,7 @@ public class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value);
                     completionHandler(profile, statusCode, nil);
                 case .Failure(let error):
+                    print("resp: ", String(data: response.data!, encoding: NSUTF8StringEncoding));
                     completionHandler(nil, statusCode, error);
                 }
         }
@@ -304,6 +305,7 @@ public class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value);
                     completionHandler(profile, statusCode, nil);
                 case .Failure(let error):
+                    print("resp: ", String(data: response.data!, encoding: NSUTF8StringEncoding));
                     completionHandler(nil, statusCode, error);
                 }
         }
@@ -315,7 +317,7 @@ public class SSAuthenticationManager {
         let lessonId = userChapterDictionary[LESSON_ID_KEY] as! String;
         let chapterId = userChapterDictionary[CHAPTER_ID_KEY] as! String;
         let favourite = userChapterDictionary[FAVOURITE_KEY] as! [String: AnyObject];
-        self.networkManager.request(.PUT, String(format: self.updateUserChapterURL, self.userId!, courseId, lessonId, chapterId), parameters: [FAVOURITE_KEY: favourite], encoding: .JSON, headers: headers)
+        self.networkManager.request(.PUT, String(format: self.updateUserChapterURL, self.userId!, courseId, lessonId, chapterId), parameters: userChapterDictionary, encoding: .JSON, headers: headers)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
@@ -324,6 +326,7 @@ public class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value);
                     completionHandler(profile, statusCode, nil);
                 case .Failure(let error):
+                    print("resp: ", String(data: response.data!, encoding: NSUTF8StringEncoding));
                     completionHandler(nil, statusCode, error);
                 }
         }
