@@ -264,17 +264,16 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,
                            "WIDTH": GENERAL_ITEM_WIDTH,
-                           "HEIGHT": GENERAL_ITEM_HEIGHT,
+                           "HEIGHT": ((IS_IPHONE_4S) ? (GENERAL_ITEM_HEIGHT - 10.0) : GENERAL_ITEM_HEIGHT),
+                           "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT,
                            "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING];
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[texts]|", options: .DirectionMask, metrics: nil, views: views));
             
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[buttons]|", options: .DirectionMask, metrics: nil, views: views));
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[texts]", options: .DirectionMask, metrics: metrics, views: views));
-            
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[buttons]-(SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
-            
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[texts]-(LARGE_SPACING)-[buttons]-(>=0)-|", options: .DirectionMask, metrics: metrics, views: views));
+                        
             self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
             
             self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[password]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
@@ -289,7 +288,7 @@ public class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewContr
 
             self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[update]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
             
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[update(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[update(BUTTON_HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
             
             self.hasLoadedConstraints = true;
         }

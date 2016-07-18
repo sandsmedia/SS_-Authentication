@@ -144,14 +144,15 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,
                            "WIDTH": GENERAL_ITEM_WIDTH,
-                           "HEIGHT": GENERAL_ITEM_HEIGHT,
+                           "HEIGHT": ((IS_IPHONE_4S) ? (GENERAL_ITEM_HEIGHT - 10.0) : GENERAL_ITEM_HEIGHT),
+                           "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT,
                            "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING];
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
 
             self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[reset]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[email(HEIGHT)]-(>=1)-[reset(HEIGHT)]-(SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[email(HEIGHT)]-(LARGE_SPACING)-[reset(BUTTON_HEIGHT)]-(>=0)-|", options: .DirectionMask, metrics: metrics, views: views));
 
             self.hasLoadedConstraints = true;
         }
@@ -169,6 +170,12 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         
         self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD);
         self.emailTextField.returnKeyType = .Go;
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        self.emailTextField.becomeFirstResponder();
     }
 }
 

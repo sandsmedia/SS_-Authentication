@@ -11,7 +11,8 @@ import UIKit
 let IOS_VERSION = (UIDevice.currentDevice().systemVersion as NSString).floatValue
 
 let IS_IPAD = (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
-let IS_LARGER_DEVICE = (UIScreen.mainScreen().bounds.size.height > 568)
+let IS_LARGER_DEVICE = (UIScreen.mainScreen().bounds.height > 568)
+let IS_IPHONE_4S = (UIScreen.mainScreen().bounds.height < 568)
 
 // MARK: - Font
 

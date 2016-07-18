@@ -148,6 +148,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     public lazy var passwordValidFailAlertController: UIAlertController = {
         let _passwordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordValidFail.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.passwordTextField.text = nil;
             self.passwordTextField.becomeFirstResponder();
         });
         _passwordValidFailAlertController.addAction(cancelAction);
@@ -157,6 +158,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     public lazy var confirmPasswordValidFailAlertController: UIAlertController = {
         let _confirmPasswordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordNotMatchError.message"), preferredStyle: .Alert);
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+            self.confirmPasswordTextField.text = nil;
             self.confirmPasswordTextField.becomeFirstResponder();
         });
         _confirmPasswordValidFailAlertController.addAction(cancelAction);
@@ -304,7 +306,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         }
         super.updateViewConstraints();
     }
-
+    
     // MARK: - View lifecycle
     
     override public func loadView() {
@@ -319,7 +321,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
     override public func viewDidLoad() {
         super.viewDidLoad();
     }
-    
+        
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         
