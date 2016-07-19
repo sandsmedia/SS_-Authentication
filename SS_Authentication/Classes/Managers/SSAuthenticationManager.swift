@@ -136,9 +136,9 @@ public class SSAuthenticationManager {
                     self.password = userDictionary[PASSWORD_KEY] as? String;
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[EMAIL_KEY], forKey: SS_AUTHENTICATION_EMAIL_KEY);
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[PASSWORD_KEY], forKey: SS_AUTHENTICATION_PASSWORD_KEY);
-//                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
-//                        print("getProfile update");
-//                    });
+                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
+                        print("getProfile update");
+                    });
                     completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     completionHandler(nil, statusCode, error);
@@ -159,9 +159,9 @@ public class SSAuthenticationManager {
                     self.password = userDictionary[PASSWORD_KEY] as? String;
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[EMAIL_KEY], forKey: SS_AUTHENTICATION_EMAIL_KEY);
                     NSUserDefaults.standardUserDefaults().setObject(userDictionary[PASSWORD_KEY], forKey: SS_AUTHENTICATION_PASSWORD_KEY);
-//                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
-//                        print("getProfile update");
-//                    });
+                    SSAuthenticationManager.sharedInstance.getProfile(completionHandler: { (profile, statusCode, error) in
+                        print("getProfile update");
+                    });
                     completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     completionHandler(nil, statusCode, error);
@@ -179,9 +179,9 @@ public class SSAuthenticationManager {
                 switch response.result {
                 case .Success(let value):
                     let user = self.parseSSUser(responseJSON: value);
-//                    self.getProfile(completionHandler: { (profile, statusCode, error) in
-//                        print("getProfile update");
-//                    });
+                    self.getProfile(completionHandler: { (profile, statusCode, error) in
+                        print("getProfile update");
+                    });
                     completionHandler(user, statusCode, nil);
                 case .Failure(let error):
                     if (statusCode == INVALID_STATUS_CODE) {
@@ -256,9 +256,9 @@ public class SSAuthenticationManager {
         }
     }
 
-//    public func updateProfile(profileDictionary profileDictionary: [String: AnyObject], completionHandler: ProfileResponse) -> Void {
-//        let headers = [X_TOKEN_KEY: self.accessToken!];
-//        self.networkManager.request(.PUT, String(format: self.updateProfileURL, self.userId!), parameters: profileDictionary, encoding: .JSON, headers: headers)
+    public func updateUserProfile(userProfileDictionary userProfileDictionary: [String: AnyObject], completionHandler: ProfileResponse) -> Void {
+        let headers = [X_TOKEN_KEY: self.accessToken!];
+//        self.networkManager.request(.PUT, String(format: self.updateProfileURL, self.userId!), parameters: userProfileDictionary, encoding: .JSON, headers: headers)
 //            .validate()
 //            .responseJSON { response in
 //                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
@@ -272,7 +272,7 @@ public class SSAuthenticationManager {
 //                    completionHandler(nil, statusCode, error);
 //                }
 //        }
-//    }
+    }
 
     public func updateUserCourse(userCourseDictionary userCourseDictionary: [String: AnyObject], completionHandler: ProfileResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!];
@@ -316,7 +316,6 @@ public class SSAuthenticationManager {
         let courseId = userChapterDictionary[COURSE_ID_KEY] as! String;
         let lessonId = userChapterDictionary[LESSON_ID_KEY] as! String;
         let chapterId = userChapterDictionary[CHAPTER_ID_KEY] as! String;
-        let favourite = userChapterDictionary[FAVOURITE_KEY] as! [String: AnyObject];
         self.networkManager.request(.PUT, String(format: self.updateUserChapterURL, self.userId!, courseId, lessonId, chapterId), parameters: userChapterDictionary, encoding: .JSON, headers: headers)
             .validate()
             .responseJSON { response in

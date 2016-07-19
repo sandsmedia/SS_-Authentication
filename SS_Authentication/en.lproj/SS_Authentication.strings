@@ -11,8 +11,8 @@
 "user.login" = "Login";
 "user.register" = "Register";
 "user.update" = "Update";
-"user.updateEmail" = "Update Email";
-"user.updatePassword" = "Update Password";
+"user.updateEmail" = "Change Email";
+"user.updatePassword" = "Change Password";
 "user.email" = "Email";
 "user.password" = "Password";
 "user.confirmPassword" = "Confirm Password";
