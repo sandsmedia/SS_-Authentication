@@ -8,8 +8,8 @@
 
 // User
 "user.skip" = "Later";
-"user.login" = "Login";
-"user.register" = "Register";
+"user.login" = "Sign in";
+"user.register" = "Sign up";
 "user.update" = "Update";
 "user.updateEmail" = "Change Email";
 "user.updatePassword" = "Change Password";
@@ -20,19 +20,19 @@
 "user.restore" = "Reset";
 "user.newPassword" = "New Password";
 
-"cancelButtonTitle" = "Okay";
+"cancelButtonTitle" = "OK";
 // No Internet Connection Error
 "noInternetConnectionError.message" = "Please enable an Internet connection and try again.";
 // User Register Failure
-"userRegisterFail.message" = "Registration failed.\nPlease try again.";
+"userRegisterFail.message" = "Sign up failed.\nPlease try again.";
 // Email Format Error
 "emailFormatError.message" = "Invalid email address.";
 // Email Exist Error
-"emailExistError.message" = "Email address exists.\nPlease log in.";
+"emailExistError.message" = "Email address exists.\nPlease sign in.";
 // Invalid Credentials Error
-"invalidCredentials.message" = "Invalid login credentials.\nPlease try again.";
+"invalidCredentials.message" = "Invalid sign in credentials.\nPlease try again.";
 // User Login Failure
-"userLoginFail.message" = "Login failed.\nPlease try again.";
+"userLoginFail.message" = "Sign in failed.\nPlease try again.";
 // User Forgot Password Failure
 "forgotPasswordFail.message" = "Restoring your password failed.\nPlease try again.";
 // User Forgot Password Success
