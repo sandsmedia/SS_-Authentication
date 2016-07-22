@@ -10,8 +10,6 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-public let SS_PROFILE_UPDATED_KEY = "SSProfileUpdated";
-
 public class SSAuthenticationManager {
     public typealias EmailValidResponse = (Bool, Int, NSError?) -> Void;
     public typealias ServiceResponse = (Int, NSError?) -> Void;
@@ -100,9 +98,9 @@ public class SSAuthenticationManager {
         return _updateUserChapterURL;
     }();
     
-    private lazy var getProfileURL: String = {
-        let _getProfileURL = self.baseURL + "user/%@";
-        return _getProfileURL;
+    private lazy var getUserProfileURL: String = {
+        let _getUserProfileURL = self.baseURL + "user/%@";
+        return _getUserProfileURL;
     }();
 
     private lazy var emailValidateURL: String = {
@@ -326,20 +324,18 @@ public class SSAuthenticationManager {
         }
     }
 
-    public func getProfile(completionHandler completionHandler: ProfileResponse) -> Void {
+    public func getUserProfile(completionHandler completionHandler: ProfileResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!];
-        self.networkManager.request(.GET, String(format: self.getProfileURL, self.userId!), parameters: nil, encoding: .JSON, headers: headers)
+        self.networkManager.request(.GET, String(format: self.getUserProfileURL, self.userId!), parameters: nil, encoding: .JSON, headers: headers)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE;
                 switch response.result {
                 case .Success(let value):
-                    print("getProfile: ", value);
                     let profile = self.parseSSProfile(responseJSON: value);
-                    NSNotificationCenter.defaultCenter().postNotificationName(SS_PROFILE_UPDATED_KEY, object: profile);
                     completionHandler(profile, statusCode, nil);
                 case .Failure(let error):
-                    print("getProfile error: ", error);
+                    print("resp: ", String(data: response.data!, encoding: NSUTF8StringEncoding));
                     completionHandler(nil, statusCode, error);
                 }
         }
