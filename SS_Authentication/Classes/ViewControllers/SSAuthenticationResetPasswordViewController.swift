@@ -97,15 +97,15 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     // MARK: - Public Methods
     
-    override public func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
+    override internal func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
         super.forceUpdateStatusBarStyle(style);
     }
     
-    override public func updateNavigationBarColor(color: UIColor) {
+    override internal func updateNavigationBarColor(color: UIColor) {
         super.updateNavigationBarColor(color);
     }
 
-    override public func textFieldShouldReturn(textField: UITextField) -> Bool {
+    override internal func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.resetButtonAction();
         return super.textFieldShouldReturn(textField);
     }
