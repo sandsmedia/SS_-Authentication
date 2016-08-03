@@ -7,6 +7,7 @@
 //
 
 import XCTest
+
 @testable import SS_Authentication
 
 class SS_AuthenticationTests: XCTestCase {

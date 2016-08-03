@@ -9,124 +9,124 @@
 import UIKit
 
 protocol SSAuthenticationNavigationBarDelegate: class {
-    func skip();
-    func back();
+    func skip()
+    func back()
 }
 
 class SSAuthenticationNavigationBar: UIView {
-    weak var delegate: SSAuthenticationNavigationBarDelegate?;
+    weak var delegate: SSAuthenticationNavigationBarDelegate?
     
-    var skipButton: UIButton?;
-    var backButton: SSAuthenticationBackButton?;
-    var titleLabel: UILabel?;
+    var skipButton: UIButton?
+    var backButton: SSAuthenticationBackButton?
+    var titleLabel: UILabel?
     
-    private var hasLoadedConstraints = false;
+    private var hasLoadedConstraints = false
     
     // MARK: - Initialisation
     convenience init() {
-        self.init(frame: CGRect.zero);
+        self.init(frame: CGRect.zero)
     }
     
     override init(frame: CGRect) {
-        super.init(frame: frame);
+        super.init(frame: frame)
         
-        self.setup();
+        self.setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder);
+        super.init(coder: aDecoder)
         
-        self.setup();
+        self.setup()
     }
     
     deinit {
-        self.delegate = nil;
+        self.delegate = nil
     }
     
     // MARK: - Events
     
     func skipButtonAction() {
-        self.delegate?.skip();
+        self.delegate?.skip()
     }
     
     func backButtonAction() {
-        self.delegate?.back();
+        self.delegate?.back()
     }
     
     // MARK: - Private Methods
     
     private func setup() {
-        self.translatesAutoresizingMaskIntoConstraints = true;
-        self.setupSubviews();
+        self.translatesAutoresizingMaskIntoConstraints = true
+        self.setupSubviews()
     }
 
     // MARK: - Subviews
 
     private func setupSkipButton() {
-        self.skipButton = UIButton(type: .System);
-        self.skipButton?.addTarget(self, action: .skipButtonAction, forControlEvents: .TouchUpInside);
+        self.skipButton = UIButton(type: .System)
+        self.skipButton?.addTarget(self, action: .skipButtonAction, forControlEvents: .TouchUpInside)
     }
     
     private func setupBackButton() {
-        self.backButton = SSAuthenticationBackButton(type: .System);
-        self.backButton?.color = UIColor.whiteColor();
-        self.backButton?.addTarget(self, action: .backButtonAction, forControlEvents: .TouchUpInside);
+        self.backButton = SSAuthenticationBackButton(type: .System)
+        self.backButton?.color = UIColor.whiteColor()
+        self.backButton?.addTarget(self, action: .backButtonAction, forControlEvents: .TouchUpInside)
     }
     
     private func setupTitleLabel() {
-        self.titleLabel = UILabel();
+        self.titleLabel = UILabel()
     }
     
     private func setupSubviews() {
-        self.setupSkipButton();
-        self.skipButton?.translatesAutoresizingMaskIntoConstraints = false;
-        self.addSubview(self.skipButton!);
+        self.setupSkipButton()
+        self.skipButton?.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.skipButton!)
         
-        self.setupBackButton();
-        self.backButton?.translatesAutoresizingMaskIntoConstraints = false;
-        self.addSubview(self.backButton!);
+        self.setupBackButton()
+        self.backButton?.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.backButton!)
         
-        self.setupTitleLabel();
-        self.titleLabel?.translatesAutoresizingMaskIntoConstraints = false;
-        self.addSubview(self.titleLabel!);
+        self.setupTitleLabel()
+        self.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.titleLabel!)
     }
     
     override func updateConstraints() {
         if (!self.hasLoadedConstraints) {
             let views = ["skip": self.skipButton!,
                          "back": self.backButton!,
-                         "title": self.titleLabel!];
+                         "title": self.titleLabel!]
             
             let metrics = ["SPACING": GENERAL_SPACING - 2.0,
                            "LARGE_SPACING": LARGE_SPACING,
                            "WIDTH": GENERAL_ITEM_WIDTH,
-                           "HEIGHT": GENERAL_ITEM_HEIGHT];
+                           "HEIGHT": GENERAL_ITEM_HEIGHT]
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(SPACING)-[back]-(>=0)-[skip]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(SPACING)-[back]-(>=0)-[skip]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[title]", options: .DirectionMask, metrics: nil, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[title]", options: .DirectionMask, metrics: nil, views: views))
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[back(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[back(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[skip(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[skip(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[title]", options: .DirectionMask, metrics: nil, views: views));
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[title]", options: .DirectionMask, metrics: nil, views: views))
 
-            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0));
+            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
             
-            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterY, relatedBy: .Equal, toItem: self.backButton!, attribute: .CenterY, multiplier: 1.0, constant: 0.0));
+            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterY, relatedBy: .Equal, toItem: self.backButton!, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
 
-            self.hasLoadedConstraints = true;
+            self.hasLoadedConstraints = true
         }
-        super.updateConstraints();
+        super.updateConstraints()
     }
     
     override class func requiresConstraintBasedLayout() -> Bool {
-        return true;
+        return true
     }
 }
 
 private extension Selector {
-    static let skipButtonAction = #selector(SSAuthenticationNavigationBar.skipButtonAction);
-    static let backButtonAction = #selector(SSAuthenticationNavigationBar.backButtonAction);
+    static let skipButtonAction = #selector(SSAuthenticationNavigationBar.skipButtonAction)
+    static let backButtonAction = #selector(SSAuthenticationNavigationBar.backButtonAction)
 }
