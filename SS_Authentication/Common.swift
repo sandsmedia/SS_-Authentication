@@ -110,8 +110,6 @@ let ANIMATION_DURATION = 0.3
 
 // MARK: - HTTP Reuqest
 
-let BASE_URL = "http://video-cms-development.signsoft.com/"
-
 let TIME_OUT_INTERVAL = 120.0
 let TIME_OUT_RESOURCE = 600.0
 

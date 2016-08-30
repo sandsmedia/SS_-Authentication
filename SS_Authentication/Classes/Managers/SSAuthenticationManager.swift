@@ -16,6 +16,7 @@ public class SSAuthenticationManager {
     public typealias UserResponse = (SSUser?, Int, NSError?) -> Void
     public typealias ProfileResponse = (SSProfile?, Int, NSError?) -> Void
     
+    public var baseURL = ""
     public var mailgunKey = ""
     public var user: SSUser?
     public var profile: SSProfile?
@@ -41,11 +42,6 @@ public class SSAuthenticationManager {
         configuration.timeoutIntervalForResource = TIME_OUT_RESOURCE
         let manager = Alamofire.Manager(configuration: configuration)
         return manager
-    }()
-    
-    private lazy var baseURL: String = {
-        let _baseUrl = BASE_URL
-        return _baseUrl
     }()
     
     private lazy var registerURL: String = {
