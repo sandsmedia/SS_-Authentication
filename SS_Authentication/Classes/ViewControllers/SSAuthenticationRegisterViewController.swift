@@ -9,17 +9,17 @@
 import UIKit
 
 public protocol SSAuthenticationRegisterDelegate: class {
-    func registerSuccess(user: SSUser)
+    func registerSuccess(_ user: SSUser)
 }
 
-public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController {
-    public weak var delegate: SSAuthenticationRegisterDelegate?
+open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewController {
+    open weak var delegate: SSAuthenticationRegisterDelegate?
     
-    private var textFieldsStackView: UIStackView?
-    private var buttonsStackView: UIStackView?
-    private var registerButton: UIButton?
+    fileprivate var textFieldsStackView: UIStackView?
+    fileprivate var buttonsStackView: UIStackView?
+    fileprivate var registerButton: UIButton?
     
-    private var hasLoadedConstraints = false
+    fileprivate var hasLoadedConstraints = false
 
     // MARK: - Initialisation
     
@@ -27,7 +27,7 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
         self.init(nibName: nil, bundle: nil)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         self.setup()
@@ -45,18 +45,18 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
     
     // MARK: - Accessors
 
-    private(set) lazy var emailAlreadyExistAlertController: UIAlertController = {
-        let _emailAlreadyExistAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailExistError.message"), preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+    fileprivate(set) lazy var emailAlreadyExistAlertController: UIAlertController = {
+        let _emailAlreadyExistAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailExistError.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _emailAlreadyExistAlertController.addAction(cancelAction)
         return _emailAlreadyExistAlertController
     }()
 
-    private(set) lazy var registerFailedAlertController: UIAlertController = {
-        let _registerFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "userRegisterFail.message"), preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+    fileprivate(set) lazy var registerFailedAlertController: UIAlertController = {
+        let _registerFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "userRegisterFail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _registerFailedAlertController.addAction(cancelAction)
@@ -75,68 +75,68 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
         self.tapAction()
         guard (self.isEmailValid && self.isPasswordValid && self.isConfirmPasswordValid) else {
             if (!self.isEmailValid) {
-                if (!self.emailFailureAlertController.isBeingPresented()) {
-                    self.emailTextField.layer.borderColor = UIColor.redColor().CGColor
-                    self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil)
+                if (!self.emailFailureAlertController.isBeingPresented) {
+                    self.emailTextField.layer.borderColor = UIColor.red.cgColor
+                    self.present(self.emailFailureAlertController, animated: true, completion: nil)
                 }
             } else if (!self.isPasswordValid) {
-                if (!self.passwordValidFailAlertController.isBeingPresented()) {
-                    self.passwordTextField.layer.borderColor = UIColor.redColor().CGColor
-                    self.presentViewController(self.passwordValidFailAlertController, animated: true, completion: nil)
+                if (!self.passwordValidFailAlertController.isBeingPresented) {
+                    self.passwordTextField.layer.borderColor = UIColor.red.cgColor
+                    self.present(self.passwordValidFailAlertController, animated: true, completion: nil)
                 }
             } else {
-                if (!self.confirmPasswordValidFailAlertController.isBeingPresented()) {
-                    self.confirmPasswordTextField.layer.borderColor = UIColor.redColor().CGColor
-                    self.presentViewController(self.confirmPasswordValidFailAlertController, animated: true, completion: nil)
+                if (!self.confirmPasswordValidFailAlertController.isBeingPresented) {
+                    self.confirmPasswordTextField.layer.borderColor = UIColor.red.cgColor
+                    self.present(self.confirmPasswordValidFailAlertController, animated: true, completion: nil)
                 }
             }
             return
         }
 
-        self.registerButton?.userInteractionEnabled = false
+        self.registerButton?.isUserInteractionEnabled = false
         self.showLoadingView()
         let email = self.emailTextField.text as String!
         let password = self.passwordTextField.text as String!
         let userDict = [EMAIL_KEY: email,
                         PASSWORD_KEY: password]
-        SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool: Bool, statusCode: Int, error: NSError?) in
+        SSAuthenticationManager.sharedInstance.emailValidate(email: email!) { (bool: Bool, statusCode: Int, error: Error?) in
             if (bool) {
-                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: NSError?) in
+                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict as [String : AnyObject]) { (user: SSUser?, statusCode: Int, error: Error?) in
                     if (user != nil) {
                         self.delegate?.registerSuccess(user!)
                     } else {
                         if (statusCode == INVALID_STATUS_CODE) {
-                            self.presentViewController(self.emailAlreadyExistAlertController, animated: true, completion: nil)
+                            self.present(self.emailAlreadyExistAlertController, animated: true, completion: nil)
                         } else {
-                            self.presentViewController(self.registerFailedAlertController, animated: true, completion: nil)
+                            self.present(self.registerFailedAlertController, animated: true, completion: nil)
                         }
                     }
                     self.hideLoadingView()
-                    self.registerButton?.userInteractionEnabled = true
+                    self.registerButton?.isUserInteractionEnabled = true
                 }
             } else {
                 if (error != nil) {
-                    self.presentViewController(self.registerFailedAlertController, animated: true, completion: nil)
+                    self.present(self.registerFailedAlertController, animated: true, completion: nil)
                 } else {
-                    self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil)
+                    self.present(self.emailFailureAlertController, animated: true, completion: nil)
                 }
                 self.hideLoadingView()
-                self.registerButton?.userInteractionEnabled = true
+                self.registerButton?.isUserInteractionEnabled = true
             }
         }
     }
         
     // MARK: - Public Methods
     
-    override public func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
+    override open func forceUpdateStatusBarStyle(_ style: UIStatusBarStyle) {
         super.forceUpdateStatusBarStyle(style)
     }
     
-    override public func updateNavigationBarColor(color: UIColor) {
+    override open func updateNavigationBarColor(_ color: UIColor) {
         super.updateNavigationBarColor(color)
     }
 
-    override public func textFieldShouldReturn(textField: UITextField) -> Bool {
+    override open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == self.confirmPasswordTextField) {
             self.registerButtonAction()
         } else if (textField == self.passwordTextField) {
@@ -149,28 +149,28 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
 
     // MARK: - Subviews
     
-    private func setupTextFieldsStackView() {
+    fileprivate func setupTextFieldsStackView() {
         self.textFieldsStackView = UIStackView()
-        self.textFieldsStackView?.axis = .Vertical
-        self.textFieldsStackView?.alignment = .Center
-        self.textFieldsStackView!.distribution = .EqualSpacing
+        self.textFieldsStackView?.axis = .vertical
+        self.textFieldsStackView?.alignment = .center
+        self.textFieldsStackView!.distribution = .equalSpacing
         self.textFieldsStackView?.spacing = GENERAL_SPACING
     }
     
-    private func setupButtonsStackView() {
+    fileprivate func setupButtonsStackView() {
         self.buttonsStackView = UIStackView()
-        self.buttonsStackView!.axis = .Vertical
-        self.buttonsStackView!.alignment = .Center
-        self.buttonsStackView!.distribution = .EqualSpacing
+        self.buttonsStackView!.axis = .vertical
+        self.buttonsStackView!.alignment = .center
+        self.buttonsStackView!.distribution = .equalSpacing
         self.buttonsStackView?.spacing = GENERAL_SPACING
     }
 
-    private func setupRegisterButton() {
-        self.registerButton = UIButton(type: .System)
-        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal)
-        self.registerButton?.addTarget(self, action: .registerButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupRegisterButton() {
+        self.registerButton = UIButton(type: .system)
+        self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.registerButton?.addTarget(self, action: .registerButtonAction, for: .touchUpInside)
         self.registerButton?.layer.borderWidth = 1.0
-        self.registerButton?.layer.borderColor = UIColor.blackColor().CGColor
+        self.registerButton?.layer.borderColor = UIColor.black.cgColor
     }
     
     override func setupSubviews() {
@@ -200,17 +200,17 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
         let tapGesture = UITapGestureRecognizer.init(target: self, action: .tapAction)
         self.view.addGestureRecognizer(tapGesture)
         
-        self.navigationBar?.skipButton?.hidden = true
+        self.navigationBar?.skipButton?.isHidden = true
     }
     
-    override public func updateViewConstraints() {
+    override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
             let views = ["texts": self.textFieldsStackView!,
                          "email": self.emailTextField,
                          "password": self.passwordTextField,
                          "confirm": self.confirmPasswordTextField,
                          "buttons": self.buttonsStackView!,
-                         "register": self.registerButton!]
+                         "register": self.registerButton!] as [String : Any]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,
@@ -219,27 +219,27 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
                            "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT,
                            "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING]
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[texts]|", options: .DirectionMask, metrics: nil, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[texts]|", options: .directionMask, metrics: nil, views: views))
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[buttons]|", options: .DirectionMask, metrics: nil, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[buttons]|", options: .directionMask, metrics: nil, views: views))
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[texts]-(LARGE_SPACING)-[buttons]-(>=0)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(XLARGE_SPACING)-[texts]-(LARGE_SPACING)-[buttons]-(>=0)-|", options: .directionMask, metrics: metrics, views: views))
                         
-            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
             
-            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[password]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[password]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[confirm]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[confirm]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[email(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
             
-            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[password(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
-            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[confirm(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[confirm(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[register]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[register]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
             
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[register(BUTTON_HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[register(BUTTON_HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
             
             self.hasLoadedConstraints = true
         }
@@ -248,20 +248,20 @@ public class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewCon
 
     // MARK: - View lifecycle
     
-    override public func loadView() {
+    override open func loadView() {
         super.loadView()
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD)
-        self.emailTextField.returnKeyType = .Next
-        self.passwordTextField.returnKeyType = .Next
-        self.confirmPasswordTextField.returnKeyType = .Go
+        self.emailTextField.returnKeyType = .next
+        self.passwordTextField.returnKeyType = .next
+        self.confirmPasswordTextField.returnKeyType = .go
     }
     
-    override public func viewWillAppear(animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.emailTextField.becomeFirstResponder()

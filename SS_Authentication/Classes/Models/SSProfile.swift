@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-public class SSProfile: NSObject {
-    public var profileId: String = ""
-    public var courses: [JSON] = []
+open class SSProfile: NSObject {
+    open var profileId: String = ""
+    open var courses: [JSON] = []
 }

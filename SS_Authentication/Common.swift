@@ -8,11 +8,11 @@
 
 import UIKit
 
-let IOS_VERSION = (UIDevice.currentDevice().systemVersion as NSString).floatValue
+let IOS_VERSION = (UIDevice.current.systemVersion as NSString).floatValue
 
-let IS_IPAD = (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
-let IS_LARGER_DEVICE = (UIScreen.mainScreen().bounds.height > 568)
-let IS_IPHONE_4S = (UIScreen.mainScreen().bounds.height < 568)
+let IS_IPAD = (UIDevice.current.userInterfaceIdiom == .pad)
+let IS_LARGER_DEVICE = (UIScreen.main.bounds.height > 568)
+let IS_IPHONE_4S = (UIScreen.main.bounds.height < 568)
 
 // MARK: - Font
 
@@ -33,10 +33,10 @@ let FONT_SMALL_BOLD = UIFont(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_SMALL)
 let FONT_MEDIUM_BOLD = UIFont(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_MEDIUM)
 let FONT_LARGE_BOLD = UIFont(name: BASE_FONT_NAME_BOLD, size: FONT_SIZE_LARGE)
 
-let FONT_COLOUR_BLACK = UIColor.blackColor()
-let FONT_COLOUR_WHITE = UIColor.whiteColor()
-let FONT_COLOUR_LIGHT_GRAY = UIColor.lightGrayColor()
-let FONT_COLOUR_DARK_GRAY = UIColor.darkGrayColor()
+let FONT_COLOUR_BLACK = UIColor.black
+let FONT_COLOUR_WHITE = UIColor.white
+let FONT_COLOUR_LIGHT_GRAY = UIColor.lightGray
+let FONT_COLOUR_DARK_GRAY = UIColor.darkGray
 
 let FONT_ATTR_SMALL_WHITE = [NSFontAttributeName: FONT_SMALL!, NSForegroundColorAttributeName: FONT_COLOUR_WHITE]
 let FONT_ATTR_SMALL_BLACK = [NSFontAttributeName: FONT_SMALL!, NSForegroundColorAttributeName: FONT_COLOUR_BLACK]

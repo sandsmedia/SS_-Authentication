@@ -15,9 +15,9 @@ protocol SSAuthenticationResetDelegate: class {
 class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewController {
     weak var delegate: SSAuthenticationResetDelegate?
     
-    private var resetButton: UIButton?
+    fileprivate var resetButton: UIButton?
 
-    private var hasLoadedConstraints = false
+    fileprivate var hasLoadedConstraints = false
 
     // MARK: - Initialisation
     
@@ -25,7 +25,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         self.init(nibName: nil, bundle: nil)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         self.setup()
@@ -43,18 +43,18 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     // MARK: - Accessors
     
-    private(set) lazy var forgotPasswordSuccessAlertController: UIAlertController = {
-        let _forgotPasswordSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordSuccess.message"), preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
-            self.navigationController?.popViewControllerAnimated(true)
+    fileprivate(set) lazy var forgotPasswordSuccessAlertController: UIAlertController = {
+        let _forgotPasswordSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordSuccess.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+            self.navigationController?.popViewController(animated: true)
         })
         _forgotPasswordSuccessAlertController.addAction(cancelAction)
         return _forgotPasswordSuccessAlertController
     }()
 
-    private(set) lazy var forgotPasswordFailedAlertController: UIAlertController = {
-        let _forgotPasswordFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordFail.message"), preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .Cancel, handler: { (action) in
+    fileprivate(set) lazy var forgotPasswordFailedAlertController: UIAlertController = {
+        let _forgotPasswordFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordFail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _forgotPasswordFailedAlertController.addAction(cancelAction)
@@ -66,26 +66,26 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     func resetButtonAction() {
         self.tapAction()
         guard (self.isEmailValid) else {
-            if (!self.emailFailureAlertController.isBeingPresented()) {
-                self.emailTextField.layer.borderColor = UIColor.redColor().CGColor
-                self.presentViewController(self.emailFailureAlertController, animated: true, completion: nil)
+            if (!self.emailFailureAlertController.isBeingPresented) {
+                self.emailTextField.layer.borderColor = UIColor.red.cgColor
+                self.present(self.emailFailureAlertController, animated: true, completion: nil)
             }
             return
         }
 
-        self.resetButton?.userInteractionEnabled = false
+        self.resetButton?.isUserInteractionEnabled = false
         self.showLoadingView()
         let email = self.emailTextField.text as String!
         let userDict = [EMAIL_KEY: email]
-        SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: NSError?) in
+        SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict as [String : AnyObject]) { (user: SSUser?, statusCode: Int, error: Error?) in
             if (user != nil) {
-                self.presentViewController(self.forgotPasswordSuccessAlertController, animated: true, completion: nil)
+                self.present(self.forgotPasswordSuccessAlertController, animated: true, completion: nil)
                 self.delegate?.resetSuccess()
             } else {
-                self.presentViewController(self.forgotPasswordFailedAlertController, animated: true, completion: nil)
+                self.present(self.forgotPasswordFailedAlertController, animated: true, completion: nil)
             }
             self.hideLoadingView()
-            self.resetButton?.userInteractionEnabled = true
+            self.resetButton?.isUserInteractionEnabled = true
         }
     }
     
@@ -97,27 +97,27 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     // MARK: - Public Methods
     
-    override internal func forceUpdateStatusBarStyle(style: UIStatusBarStyle) {
+    override internal func forceUpdateStatusBarStyle(_ style: UIStatusBarStyle) {
         super.forceUpdateStatusBarStyle(style)
     }
     
-    override internal func updateNavigationBarColor(color: UIColor) {
+    override internal func updateNavigationBarColor(_ color: UIColor) {
         super.updateNavigationBarColor(color)
     }
 
-    override internal func textFieldShouldReturn(textField: UITextField) -> Bool {
+    override internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.resetButtonAction()
         return super.textFieldShouldReturn(textField)
     }
 
     // MARK: - Subviews
     
-    private func setupResetButton() {
-        self.resetButton = UIButton(type: .System)
-        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal)
-        self.resetButton?.addTarget(self, action: .resetButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupResetButton() {
+        self.resetButton = UIButton(type: .system)
+        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.resetButton?.addTarget(self, action: .resetButtonAction, for: .touchUpInside)
         self.resetButton?.layer.borderWidth = 1.0
-        self.resetButton?.layer.borderColor = UIColor.blackColor().CGColor
+        self.resetButton?.layer.borderColor = UIColor.black.cgColor
     }
     
     override func setupSubviews() {
@@ -133,13 +133,13 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         let tapGesture = UITapGestureRecognizer(target: self, action: .tapAction)
         self.view.addGestureRecognizer(tapGesture)
         
-        self.navigationBar?.skipButton?.hidden = true
+        self.navigationBar?.skipButton?.isHidden = true
     }
     
     override func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
             let views = ["email": self.emailTextField,
-                         "reset": self.resetButton!]
+                         "reset": self.resetButton!] as [String : Any]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,
@@ -148,11 +148,11 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
                            "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT,
                            "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING]
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[reset]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[reset]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(XLARGE_SPACING)-[email(HEIGHT)]-(LARGE_SPACING)-[reset(BUTTON_HEIGHT)]-(>=0)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(XLARGE_SPACING)-[email(HEIGHT)]-(LARGE_SPACING)-[reset(BUTTON_HEIGHT)]-(>=0)-|", options: .directionMask, metrics: metrics, views: views))
 
             self.hasLoadedConstraints = true
         }
@@ -169,10 +169,10 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         super.viewDidLoad()
         
         self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD)
-        self.emailTextField.returnKeyType = .Go
+        self.emailTextField.returnKeyType = .go
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.emailTextField.becomeFirstResponder()

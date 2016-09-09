@@ -10,20 +10,20 @@ import UIKit
 
 public protocol SSAuthenticationDelegate: class {
     func skip()
-    func authenticationGranted(user: SSUser)
+    func authenticationGranted(_ user: SSUser)
 }
 
-public class SSAuthenticationViewController: SSAuthenticationBaseViewController, SSAuthenticationLoginDelegate, SSAuthenticationRegisterDelegate, SSAuthenticationUpdateDelegate {
-    public weak var delegate: SSAuthenticationDelegate?
-    public var baseNavigationController: UINavigationController?
+open class SSAuthenticationViewController: SSAuthenticationBaseViewController, SSAuthenticationLoginDelegate, SSAuthenticationRegisterDelegate, SSAuthenticationUpdateDelegate {
+    open weak var delegate: SSAuthenticationDelegate?
+    open var baseNavigationController: UINavigationController?
     
-    private var buttonsStackView: UIStackView?
-    private var loginButton: UIButton?
-    private var registerButton: UIButton?
-    private var updateEmailButton: UIButton?
-    private var updatePasswordButton: UIButton?
+    fileprivate var buttonsStackView: UIStackView?
+    fileprivate var loginButton: UIButton?
+    fileprivate var registerButton: UIButton?
+    fileprivate var updateEmailButton: UIButton?
+    fileprivate var updatePasswordButton: UIButton?
     
-    private var hasLoadedConstraints = false
+    fileprivate var hasLoadedConstraints = false
     
     // MARK: - Initialisation
     
@@ -31,7 +31,7 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         self.init(nibName: nil, bundle: nil)
     }
     
-    override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.setup()
     }
@@ -47,19 +47,19 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     
     // MARK: - Implementation of SSAuthenticationLoginDelegate protocols
     
-    public func loginSuccess(user: SSUser) {
+    open func loginSuccess(_ user: SSUser) {
         self.delegate?.authenticationGranted(user)
     }
     
     // MARK: - Implementation of SSAuthenticationRegisterDelegate protocols
     
-    public func registerSuccess(user: SSUser) {
+    open func registerSuccess(_ user: SSUser) {
         self.delegate?.authenticationGranted(user)
     }
     
     // MARK: - Implemetation of SSAuthenticationUpdateDelegate protocols
     
-    public func updateSuccess() {
+    open func updateSuccess() {
         
     }
     
@@ -101,49 +101,49 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         super.setup()
         
         self.baseNavigationController = UINavigationController(rootViewController: self)
-        self.baseNavigationController?.navigationBarHidden = true
+        self.baseNavigationController?.isNavigationBarHidden = true
     }
 
     // MARK: - Subviews
     
-    private func setupButtonsStackView() {
+    fileprivate func setupButtonsStackView() {
         self.buttonsStackView = UIStackView()
-        self.buttonsStackView!.axis = .Vertical
-        self.buttonsStackView!.alignment = .Center
-        self.buttonsStackView!.distribution = .EqualCentering
+        self.buttonsStackView!.axis = .vertical
+        self.buttonsStackView!.alignment = .center
+        self.buttonsStackView!.distribution = .equalCentering
         self.buttonsStackView?.spacing = 10.0
     }
     
-    private func setupLoginButton() {
-        self.loginButton = UIButton(type: .System)
-        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal)
-        self.loginButton?.addTarget(self, action: .loginButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupLoginButton() {
+        self.loginButton = UIButton(type: .system)
+        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.loginButton?.addTarget(self, action: .loginButtonAction, for: .touchUpInside)
         self.loginButton?.layer.borderWidth = 1.0
-        self.loginButton?.layer.borderColor = UIColor.blackColor().CGColor
+        self.loginButton?.layer.borderColor = UIColor.black.cgColor
     }
     
-    private func setupRegisterButton() {
-        self.registerButton = UIButton(type: .System)
-        self.registerButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal)
-        self.registerButton?.addTarget(self, action: .registerButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupRegisterButton() {
+        self.registerButton = UIButton(type: .system)
+        self.registerButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.registerButton?.addTarget(self, action: .registerButtonAction, for: .touchUpInside)
         self.registerButton?.layer.borderWidth = 1.0
-        self.registerButton?.layer.borderColor = UIColor.blackColor().CGColor
+        self.registerButton?.layer.borderColor = UIColor.black.cgColor
     }
     
-    private func setupUpdateEmailButton() {
-        self.updateEmailButton = UIButton(type: .System)
-        self.updateEmailButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updateEmail"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal)
-        self.updateEmailButton?.addTarget(self, action: .updateEmailButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupUpdateEmailButton() {
+        self.updateEmailButton = UIButton(type: .system)
+        self.updateEmailButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updateEmail"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.updateEmailButton?.addTarget(self, action: .updateEmailButtonAction, for: .touchUpInside)
         self.updateEmailButton?.layer.borderWidth = 1.0
-        self.updateEmailButton?.layer.borderColor = UIColor.blackColor().CGColor
+        self.updateEmailButton?.layer.borderColor = UIColor.black.cgColor
     }
 
-    private func setupUpdatePasswordButton() {
-        self.updatePasswordButton = UIButton(type: .System)
-        self.updatePasswordButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updatePassword"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), forState: .Normal)
-        self.updatePasswordButton?.addTarget(self, action: .updatePasswordButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupUpdatePasswordButton() {
+        self.updatePasswordButton = UIButton(type: .system)
+        self.updatePasswordButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.updatePassword"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.updatePasswordButton?.addTarget(self, action: .updatePasswordButtonAction, for: .touchUpInside)
         self.updatePasswordButton?.layer.borderWidth = 1.0
-        self.updatePasswordButton?.layer.borderColor = UIColor.blackColor().CGColor
+        self.updatePasswordButton?.layer.borderColor = UIColor.black.cgColor
     }
 
     override func setupSubviews() {
@@ -169,16 +169,16 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
         self.updatePasswordButton?.translatesAutoresizingMaskIntoConstraints = false
         self.buttonsStackView?.addArrangedSubview(self.updatePasswordButton!)
 
-        self.navigationBar?.backButton?.hidden = true
+        self.navigationBar?.backButton?.isHidden = true
     }
 
-    override public func updateViewConstraints() {
+    override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
             let views = ["stack": self.buttonsStackView!,
                          "login": self.loginButton!,
                          "register": self.registerButton!,
                          "email": self.updateEmailButton!,
-                         "password": self.updatePasswordButton!]
+                         "password": self.updatePasswordButton!] as [String : Any]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,
@@ -186,25 +186,25 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
                            "HEIGHT": GENERAL_ITEM_HEIGHT,
                            "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING]
 
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[stack]|", options: .DirectionMask, metrics: nil, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[stack]|", options: .directionMask, metrics: nil, views: views))
             
-            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[stack]-(SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[stack]-(SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[login]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[login]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[register]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[register]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(LARGE_SPACING)-[password]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[password]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[login(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[login(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[register(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[register(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[email(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[email(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
-            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[password(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[password(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
             self.hasLoadedConstraints = true
         }
@@ -213,11 +213,11 @@ public class SSAuthenticationViewController: SSAuthenticationBaseViewController,
     
     // MARK: - View lifecycle
     
-    override public func loadView() {
+    override open func loadView() {
         super.loadView()
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         if (SSAuthenticationManager.sharedInstance.accessToken == nil) {

@@ -1,18 +1,40 @@
 PODS:
-  - Alamofire (3.5.0)
+  - Alamofire (4.0.0-beta.2)
   - SwiftyJSON (2.3.2)
   - Validator (1.2.0)
 
 DEPENDENCIES:
-  - Alamofire
-  - SwiftyJSON
-  - Validator
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift3`)
+  - SwiftyJSON (from `https://github.com/IBM-Swift/SwiftyJSON.git`, branch `master`)
+  - Validator (from `https://github.com/adamwaite/Validator.git`, branch `swift-3`)
+
+EXTERNAL SOURCES:
+  Alamofire:
+    :branch: swift3
+    :git: https://github.com/Alamofire/Alamofire.git
+  SwiftyJSON:
+    :branch: master
+    :git: https://github.com/IBM-Swift/SwiftyJSON.git
+  Validator:
+    :branch: swift-3
+    :git: https://github.com/adamwaite/Validator.git
+
+CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: 680690beaa7abf9578487688de4d24d038f679b5
+    :git: https://github.com/Alamofire/Alamofire.git
+  SwiftyJSON:
+    :commit: 46324eb5c8ba6adf6b31b16d3173c194242558de
+    :git: https://github.com/IBM-Swift/SwiftyJSON.git
+  Validator:
+    :commit: 975f6fdf89571a27bfbb73e3bc40aba1be031b31
+    :git: https://github.com/adamwaite/Validator.git
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  Alamofire: 7f837be535fe424db2b87d9117f13836939719ca
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   Validator: 4015c0fcaacd165100b337dc4198ba308fb567fb
 
-PODFILE CHECKSUM: f235908faf0326f3a1be5b8ddcd0757f8a288785
+PODFILE CHECKSUM: bf674a77b9a59b3a4c62c1dcf767739449576871
 
 COCOAPODS: 1.0.1

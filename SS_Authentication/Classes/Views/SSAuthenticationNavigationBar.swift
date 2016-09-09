@@ -20,7 +20,7 @@ class SSAuthenticationNavigationBar: UIView {
     var backButton: SSAuthenticationBackButton?
     var titleLabel: UILabel?
     
-    private var hasLoadedConstraints = false
+    fileprivate var hasLoadedConstraints = false
     
     // MARK: - Initialisation
     convenience init() {
@@ -55,29 +55,29 @@ class SSAuthenticationNavigationBar: UIView {
     
     // MARK: - Private Methods
     
-    private func setup() {
+    fileprivate func setup() {
         self.translatesAutoresizingMaskIntoConstraints = true
         self.setupSubviews()
     }
 
     // MARK: - Subviews
 
-    private func setupSkipButton() {
-        self.skipButton = UIButton(type: .System)
-        self.skipButton?.addTarget(self, action: .skipButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupSkipButton() {
+        self.skipButton = UIButton(type: .system)
+        self.skipButton?.addTarget(self, action: .skipButtonAction, for: .touchUpInside)
     }
     
-    private func setupBackButton() {
-        self.backButton = SSAuthenticationBackButton(type: .System)
-        self.backButton?.color = UIColor.whiteColor()
-        self.backButton?.addTarget(self, action: .backButtonAction, forControlEvents: .TouchUpInside)
+    fileprivate func setupBackButton() {
+        self.backButton = SSAuthenticationBackButton(type: .system)
+        self.backButton?.color = UIColor.white
+        self.backButton?.addTarget(self, action: .backButtonAction, for: .touchUpInside)
     }
     
-    private func setupTitleLabel() {
+    fileprivate func setupTitleLabel() {
         self.titleLabel = UILabel()
     }
     
-    private func setupSubviews() {
+    fileprivate func setupSubviews() {
         self.setupSkipButton()
         self.skipButton?.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.skipButton!)
@@ -95,33 +95,33 @@ class SSAuthenticationNavigationBar: UIView {
         if (!self.hasLoadedConstraints) {
             let views = ["skip": self.skipButton!,
                          "back": self.backButton!,
-                         "title": self.titleLabel!]
+                         "title": self.titleLabel!] as [String : Any]
             
             let metrics = ["SPACING": GENERAL_SPACING - 2.0,
                            "LARGE_SPACING": LARGE_SPACING,
                            "WIDTH": GENERAL_ITEM_WIDTH,
                            "HEIGHT": GENERAL_ITEM_HEIGHT]
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(SPACING)-[back]-(>=0)-[skip]-(LARGE_SPACING)-|", options: .DirectionMask, metrics: metrics, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(SPACING)-[back]-(>=0)-[skip]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[title]", options: .DirectionMask, metrics: nil, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[title]", options: .directionMask, metrics: nil, views: views))
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[back(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(LARGE_SPACING)-[back(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(LARGE_SPACING)-[skip(HEIGHT)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(LARGE_SPACING)-[skip(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[title]", options: .DirectionMask, metrics: nil, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[title]", options: .directionMask, metrics: nil, views: views))
 
-            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
+            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0))
             
-            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .CenterY, relatedBy: .Equal, toItem: self.backButton!, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
+            self.addConstraint(NSLayoutConstraint(item: self.titleLabel!, attribute: .centerY, relatedBy: .equal, toItem: self.backButton!, attribute: .centerY, multiplier: 1.0, constant: 0.0))
 
             self.hasLoadedConstraints = true
         }
         super.updateConstraints()
     }
     
-    override class func requiresConstraintBasedLayout() -> Bool {
+    override class var requiresConstraintBasedLayout : Bool {
         return true
     }
 }
