@@ -18,6 +18,7 @@ public class SSAuthenticationManager {
     
     public var baseURL = ""
     public var mailgunKey = ""
+    public var loadingViewColor = UIColor.grayColor()
     public var user: SSUser?
     public var profile: SSProfile?
     public var email = NSUserDefaults.standardUserDefaults().objectForKey(SS_AUTHENTICATION_EMAIL_KEY) as? String
