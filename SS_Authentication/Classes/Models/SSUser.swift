@@ -8,8 +8,8 @@
 
 import Foundation
 
-public class SSUser: NSObject {
-    public var userId: String?
-    public var email: String?
-    public var token: String?
+open class SSUser: NSObject {
+    open var userId: String?
+    open var email: String?
+    open var token: String?
 }

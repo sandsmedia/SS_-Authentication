@@ -9,12 +9,12 @@
 import UIKit
 
 class SSAuthenticationLoadingView: UIView {
-    private var dotsStackView: UIStackView?
-    private var dotOne: UIImageView?
-    private var dotTwo: UIImageView?
-    private var dotThree: UIImageView?
+    fileprivate var dotsStackView: UIStackView?
+    fileprivate var dotOne: UIImageView?
+    fileprivate var dotTwo: UIImageView?
+    fileprivate var dotThree: UIImageView?
     
-    private var hasLoadedConstraints = false
+    fileprivate var hasLoadedConstraints = false
     
     // MARK: - Initialisation
     convenience init() {
@@ -34,71 +34,71 @@ class SSAuthenticationLoadingView: UIView {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Events
     
-    func applicationDidBecomeActive(notification: NSNotification) {
+    func applicationDidBecomeActive(_ notification: Notification) {
         startAnimation()
     }
     
     // MARK: - Private Methods
     
-    private func setup() {
+    fileprivate func setup() {
         self.translatesAutoresizingMaskIntoConstraints = true
         self.setupSubviews()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: .applicationDidBecomeActive, name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: .applicationDidBecomeActive, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
-    private func startAnimation() {
-        self.dotOne!.transform = CGAffineTransformMakeScale(0.01, 0.01)
-        self.dotTwo!.transform = CGAffineTransformMakeScale(0.01, 0.01)
-        self.dotThree!.transform = CGAffineTransformMakeScale(0.01, 0.01)
+    fileprivate func startAnimation() {
+        self.dotOne!.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        self.dotTwo!.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        self.dotThree!.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         
-        UIView.animateWithDuration((2 * ANIMATION_DURATION), delay: 0.0, options: [.Repeat, .Autoreverse], animations: {
-            self.dotOne!.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: (2 * ANIMATION_DURATION), delay: 0.0, options: [.repeat, .autoreverse], animations: {
+            self.dotOne!.transform = CGAffineTransform.identity
             }, completion: nil)
         
-        UIView.animateWithDuration((2 * ANIMATION_DURATION), delay: 0.2, options: [.Repeat, .Autoreverse], animations: {
-            self.dotTwo!.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: (2 * ANIMATION_DURATION), delay: 0.2, options: [.repeat, .autoreverse], animations: {
+            self.dotTwo!.transform = CGAffineTransform.identity
             }, completion: nil)
         
-        UIView.animateWithDuration((2 * ANIMATION_DURATION), delay: 0.4, options: [.Repeat, .Autoreverse], animations: {
-            self.dotThree!.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: (2 * ANIMATION_DURATION), delay: 0.4, options: [.repeat, .autoreverse], animations: {
+            self.dotThree!.transform = CGAffineTransform.identity
             }, completion: nil)
     }
     
     // MARK: - Subviews
     
-    private func setupDotsStackView() {
+    fileprivate func setupDotsStackView() {
         self.dotsStackView = UIStackView()
-        self.dotsStackView!.axis = .Horizontal
-        self.dotsStackView!.alignment = .Center
-        self.dotsStackView!.distribution = .EqualCentering
+        self.dotsStackView!.axis = .horizontal
+        self.dotsStackView!.alignment = .center
+        self.dotsStackView!.distribution = .equalCentering
         self.dotsStackView?.spacing = LOADING_RADIUS
     }
     
-    private func setupDotOne() {
+    fileprivate func setupDotOne() {
         self.dotOne = UIImageView()
         self.dotOne?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColor
         self.dotOne?.layer.cornerRadius = LOADING_RADIUS
     }
     
-    private func setupDotTwo() {
+    fileprivate func setupDotTwo() {
         self.dotTwo = UIImageView()
         self.dotTwo?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColor
         self.dotTwo?.layer.cornerRadius = LOADING_RADIUS
     }
     
-    private func setupDotThree() {
+    fileprivate func setupDotThree() {
         self.dotThree = UIImageView()
         self.dotThree?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColor
         self.dotThree?.layer.cornerRadius = LOADING_RADIUS
     }
     
-    private func setupSubviews() {
+    fileprivate func setupSubviews() {
         self.setupDotsStackView()
         self.dotsStackView?.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.dotsStackView!)
@@ -121,29 +121,29 @@ class SSAuthenticationLoadingView: UIView {
             let views = ["stack": self.dotsStackView!,
                          "dotOne": self.dotOne!,
                          "dotTwo": self.dotTwo!,
-                         "dotThree": self.dotThree!]
+                         "dotThree": self.dotThree!] as [String : Any]
             
             let metrics = ["DIAMETER": LOADING_DIAMETER]
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[stack]", options: .DirectionMask, metrics: nil, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[stack]", options: .directionMask, metrics: nil, views: views))
             
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[stack]", options: .DirectionMask, metrics: nil, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[stack]", options: .directionMask, metrics: nil, views: views))
             
-            self.addConstraint(NSLayoutConstraint(item: self.dotsStackView!, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0))
+            self.addConstraint(NSLayoutConstraint(item: self.dotsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0))
             
-            self.addConstraint(NSLayoutConstraint(item: self.dotsStackView!, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
+            self.addConstraint(NSLayoutConstraint(item: self.dotsStackView!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0))
             
-            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotOne(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[dotOne(DIAMETER)]", options: .directionMask, metrics: metrics, views: views))
             
-            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotTwo(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[dotTwo(DIAMETER)]", options: .directionMask, metrics: metrics, views: views))
             
-            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[dotThree(DIAMETER)]", options: .DirectionMask, metrics: metrics, views: views))
+            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[dotThree(DIAMETER)]", options: .directionMask, metrics: metrics, views: views))
             
-            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotOne(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views))
+            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[dotOne(DIAMETER)]|", options: .directionMask, metrics: metrics, views: views))
             
-            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotTwo(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views))
+            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[dotTwo(DIAMETER)]|", options: .directionMask, metrics: metrics, views: views))
             
-            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[dotThree(DIAMETER)]|", options: .DirectionMask, metrics: metrics, views: views))
+            self.dotsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[dotThree(DIAMETER)]|", options: .directionMask, metrics: metrics, views: views))
             
             self.hasLoadedConstraints = true
         }
@@ -152,7 +152,7 @@ class SSAuthenticationLoadingView: UIView {
         self.startAnimation()
     }
     
-    override class func requiresConstraintBasedLayout() -> Bool {
+    override class var requiresConstraintBasedLayout : Bool {
         return true
     }
 }

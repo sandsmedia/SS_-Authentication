@@ -4,18 +4,12 @@ platform :ios, '9.0'
 use_frameworks!
 
 def pods
-  pod 'Alamofire', '3.5.0'
-  pod 'SwiftyJSON'
-  pod 'Validator'
+  pod 'Alamofire'
+  pod 'SwiftyJSON', :git => 'https://github.com/IBM-Swift/SwiftyJSON.git', :branch => 'master'
+  pod 'Validator', :git => 'https://github.com/adamwaite/Validator.git', :branch => 'swift-3'
 end
 
 target 'SS_Authentication' do
   # Pods for SS_Authentication
-  pods
-end
-
-target 'SS_AuthenticationTests' do
-  inherit! :search_paths
-  # Pods for testing
   pods
 end

@@ -9,17 +9,17 @@
 import UIKit
 
 public enum ArrowDirection : Int {
-    case Left
-    case Right
+    case left
+    case right
 }
 
 class SSAuthenticationBackButton: UIButton {
-    var color = UIColor.whiteColor()
-    var hightlightColor = UIColor.lightGrayColor()
+    var color = UIColor.white
+    var hightlightColor = UIColor.lightGray
     var lineWidth: CGFloat = 3.0
-    var lineCap: CGLineCap = .Square
+    var lineCap: CGLineCap = .square
     var verticalInset: CGFloat = 13.0
-    var arrowDirection: ArrowDirection = .Left
+    var arrowDirection: ArrowDirection = .left
     
     // MARK: - Initialisation
     convenience init() {
@@ -48,18 +48,18 @@ class SSAuthenticationBackButton: UIButton {
 
     // MARK: - Private Methods
     
-    private func setup() {
-        self.backgroundColor = UIColor.clearColor()
-        self.hidden = false
-        self.opaque = false
+    fileprivate func setup() {
+        self.backgroundColor = UIColor.clear
+        self.isHidden = false
+        self.isOpaque = false
         self.clipsToBounds = false
         self.clearsContextBeforeDrawing = true
     }
 
     // MARK: - Custom Drawing
     
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         
         let height = rect.height - 2.0 * self.verticalInset
         let width = height / 2.0
@@ -71,27 +71,27 @@ class SSAuthenticationBackButton: UIButton {
         let pathStart = lineWidth
         
         let context = UIGraphicsGetCurrentContext()
-        CGContextSaveGState(context)
+        context?.saveGState()
         
-        CGContextSetLineCap(context, self.lineCap)
-        if (self.state == .Highlighted) {
-            CGContextSetStrokeColorWithColor(context, self.hightlightColor.CGColor)
+        context?.setLineCap(self.lineCap)
+        if (self.state == .highlighted) {
+            context?.setStrokeColor(self.hightlightColor.cgColor)
         } else {
-            CGContextSetStrokeColorWithColor(context, self.color.CGColor)
+            context?.setStrokeColor(self.color.cgColor)
         }
-        CGContextSetAllowsAntialiasing(context, true)
-        CGContextSetShouldAntialias(context, true)
-        CGContextSetLineWidth(context, self.lineWidth)
-        if (self.arrowDirection == .Right) {
-            CGContextMoveToPoint(context, pathStart, self.verticalInset)
-            CGContextAddLineToPoint(context, pathStart + width, self.bounds.size.height / 2.0)
-            CGContextAddLineToPoint(context, pathStart, self.bounds.size.height - self.verticalInset)
+        context?.setAllowsAntialiasing(true)
+        context?.setShouldAntialias(true)
+        context?.setLineWidth(self.lineWidth)
+        if (self.arrowDirection == .right) {
+            context?.move(to: CGPoint(x: pathStart, y: self.verticalInset))
+            context?.addLine(to: CGPoint(x: pathStart + width, y: self.bounds.size.height / 2.0))
+            context?.addLine(to: CGPoint(x: pathStart, y: self.bounds.size.height - self.verticalInset))
         } else {
-            CGContextMoveToPoint(context, pathStart + width, self.verticalInset)
-            CGContextAddLineToPoint(context, pathStart, self.bounds.size.height / 2.0)
-            CGContextAddLineToPoint(context, pathStart + width, self.bounds.size.height - self.verticalInset)
+            context?.move(to: CGPoint(x: pathStart + width, y: self.verticalInset))
+            context?.addLine(to: CGPoint(x: pathStart, y: self.bounds.size.height / 2.0))
+            context?.addLine(to: CGPoint(x: pathStart + width, y: self.bounds.size.height - self.verticalInset))
         }
-        CGContextStrokePath(context)
-        CGContextRestoreGState(context)
+        context?.strokePath()
+        context?.restoreGState()
     }
 }
