@@ -41,7 +41,7 @@ public struct ValidationRuleCondition<T>: ValidationRule {
         self.failureError = failureError
     }
     
-    public func validateInput(input: T?) -> Bool {
+    public func validateInput(_ input: T?) -> Bool {
         return condition(input)
     }
     

@@ -49,7 +49,7 @@ public struct ValidationRuleEquality<T: Equatable>: ValidationRule {
         self.failureError = failureError
     }
   
-    public func validateInput(input: T?) -> Bool {
+    public func validateInput(_ input: T?) -> Bool {
         if let dT = dynamicTarget { return input == dT() }
         return input == target
     }

@@ -42,7 +42,7 @@ public protocol ValidatableInterfaceElement: AnyObject {
 
     func validate() -> ValidationResult
     
-    func validateOnInputChange(validationEnabled: Bool)
+    func validateOnInputChange(_ validationEnabled: Bool)
     
 }
 

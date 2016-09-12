@@ -33,7 +33,7 @@ public protocol ValidationRule {
     
     associatedtype InputType
     
-    func validateInput(input: InputType?) -> Bool
+    func validateInput(_ input: InputType?) -> Bool
     
     var failureError: ValidationErrorType { get }
     
@@ -41,7 +41,7 @@ public protocol ValidationRule {
 
 internal struct AnyValidationRule<InputType>: ValidationRule {
     
-    private let baseValidateInput: (InputType?) -> Bool
+    fileprivate let baseValidateInput: (InputType?) -> Bool
     
     let failureError: ValidationErrorType
     
@@ -50,7 +50,7 @@ internal struct AnyValidationRule<InputType>: ValidationRule {
         failureError = base.failureError
     }
     
-    func validateInput(input: InputType?) -> Bool {
+    func validateInput(_ input: InputType?) -> Bool {
         return baseValidateInput(input)
     }
 
