@@ -4,7 +4,7 @@ PODS:
   - Validator (1.2.0)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (= 3.5.0)
   - SwiftyJSON
   - Validator
 
@@ -13,6 +13,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   Validator: 4015c0fcaacd165100b337dc4198ba308fb567fb
 
-PODFILE CHECKSUM: f235908faf0326f3a1be5b8ddcd0757f8a288785
+PODFILE CHECKSUM: 81a62096894bfae8b859ac2d94793ff0bb7c75bf
 
 COCOAPODS: 1.0.1

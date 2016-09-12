@@ -4,7 +4,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 def pods
-  pod 'Alamofire'
+  pod 'Alamofire', '3.5.0'
   pod 'SwiftyJSON'
   pod 'Validator'
 end
