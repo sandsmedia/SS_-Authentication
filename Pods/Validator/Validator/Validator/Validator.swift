@@ -33,12 +33,12 @@ public struct Validator {
 
     public static func validate<R: ValidationRule>(input i: R.InputType?, rule r: R) -> ValidationResult {
         var ruleSet = ValidationRuleSet<R.InputType>()
-        ruleSet.add(r)
+        ruleSet.add(rule: r)
         return Validator.validate(input: i, rules: ruleSet)
     }
     
     public static func validate<T>(input i: T?, rules rs: ValidationRuleSet<T>) -> ValidationResult {        
-        let errors = rs.rules.filter { !$0.validateInput(i) }.map { $0.failureError }
+        let errors = rs.rules.filter { !$0.validateInput(input: i) }.map { $0.failureError }
         return errors.isEmpty ? ValidationResult.valid : ValidationResult.invalid(errors)
     }
     

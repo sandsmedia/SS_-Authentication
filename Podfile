@@ -4,7 +4,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 def pods
-  pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift3'
+  pod 'Alamofire'
   pod 'SwiftyJSON', :git => 'https://github.com/IBM-Swift/SwiftyJSON.git', :branch => 'master'
   pod 'Validator', :git => 'https://github.com/adamwaite/Validator.git', :branch => 'swift-3'
 end

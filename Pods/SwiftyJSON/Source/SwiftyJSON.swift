@@ -87,7 +87,7 @@ public struct JSON {
 
     - returns: The created JSON
     */
-    public static func parse(_ string:String) -> JSON {
+    public static func parse(string:String) -> JSON {
         return string.data(using: String.Encoding.utf8).flatMap({JSON(data: $0)}) ?? JSON(NSNull())
     }
 
@@ -542,10 +542,10 @@ public struct JSONGenerator : IteratorProtocol {
 
     public typealias Element = (String, JSON)
 
-    fileprivate let type: Type
-    fileprivate var dictionayGenerate: DictionaryIterator<String, Any>?
-    fileprivate var arrayGenerate: IndexingIterator<[Any]>?
-    fileprivate var arrayIndex: Int = 0
+    private let type: Type
+    private var dictionayGenerate: DictionaryIterator<String, Any>?
+    private var arrayGenerate: IndexingIterator<[Any]>?
+    private var arrayIndex: Int = 0
 
     init(_ json: JSON) {
         self.type = json.type
@@ -607,7 +607,7 @@ extension String: JSONSubscriptType {
 extension JSON {
 
     /// If `type` is `.Array`, return json whose object is `array[index]`, otherwise return null json with error.
-    fileprivate subscript(index index: Int) -> JSON {
+    private subscript(index index: Int) -> JSON {
         get {
             if self.type != .array {
                 var r = JSON.null
@@ -635,7 +635,7 @@ extension JSON {
     }
 
     /// If `type` is `.Dictionary`, return json whose object is `dictionary[key]` , otherwise return null json with error.
-    fileprivate subscript(key key: String) -> JSON {
+    private subscript(key key: String) -> JSON {
         get {
             var r = JSON.null
             if self.type == .dictionary {
@@ -665,7 +665,7 @@ extension JSON {
     }
 
     /// If `sub` is `Int`, return `subscript(index:)`; If `sub` is `String`,  return `subscript(key:)`.
-    fileprivate subscript(sub sub: JSONSubscriptType) -> JSON {
+    private subscript(sub sub: JSONSubscriptType) -> JSON {
         get {
             switch sub.jsonKey {
             case .index(let index): return self[index: index]
@@ -734,7 +734,7 @@ extension JSON {
 }
 
 // MARK: - LiteralConvertible
-extension JSON: Swift.ExpressibleByStringLiteral {
+extension JSON: Swift.StringLiteralConvertible {
 
     public init(stringLiteral value: StringLiteralType) {
         self.init(value as Any)
@@ -749,28 +749,28 @@ extension JSON: Swift.ExpressibleByStringLiteral {
     }
 }
 
-extension JSON: Swift.ExpressibleByIntegerLiteral {
+extension JSON: Swift.IntegerLiteralConvertible {
 
     public init(integerLiteral value: IntegerLiteralType) {
         self.init(value as Any)
     }
 }
 
-extension JSON: Swift.ExpressibleByBooleanLiteral {
+extension JSON: Swift.BooleanLiteralConvertible {
 
     public init(booleanLiteral value: BooleanLiteralType) {
         self.init(value as Any)
     }
 }
 
-extension JSON: Swift.ExpressibleByFloatLiteral {
+extension JSON: Swift.FloatLiteralConvertible {
 
     public init(floatLiteral value: FloatLiteralType) {
         self.init(value as Any)
     }
 }
 
-extension JSON: Swift.ExpressibleByDictionaryLiteral {
+extension JSON: Swift.DictionaryLiteralConvertible {
 
     public init(dictionaryLiteral elements: (String, Any)...) {
         self.init(elements.reduce([String : Any](minimumCapacity: elements.count)){(dictionary: [String : Any], element:(String, Any)) -> [String : Any] in
@@ -781,14 +781,14 @@ extension JSON: Swift.ExpressibleByDictionaryLiteral {
     }
 }
 
-extension JSON: Swift.ExpressibleByArrayLiteral {
+extension JSON: Swift.ArrayLiteralConvertible {
 
     public init(arrayLiteral elements: Any...) {
         self.init(elements as Any)
     }
 }
 
-extension JSON: Swift.ExpressibleByNilLiteral {
+extension JSON: Swift.NilLiteralConvertible {
 
     public init(nilLiteral: ()) {
         self.init(NSNull() as Any)
@@ -851,7 +851,7 @@ extension JSON: Swift.RawRepresentable {
         }
     }
 #else
-    public func rawString(_ encoding: String.Encoding = String.Encoding.utf8, options opt: JSONSerialization.WritingOptions = .prettyPrinted) -> String? {
+    public func rawString(encoding: String.Encoding = String.Encoding.utf8, options opt: JSONSerialization.WritingOptions = .prettyPrinted) -> String? {
         switch self.type {
         case .array, .dictionary:
             do {
@@ -1158,14 +1158,14 @@ extension JSON {
 extension JSON {
 
     //Optional URL
-    public var URL: Foundation.URL? {
+    public var URL: NSURL? {
         get {
             switch self.type {
             case .string:
                 guard let encodedString_ = self.rawString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
                     return nil
                 }
-                return Foundation.URL(string: encodedString_)
+                return NSURL(string: encodedString_)
 
             default:
                 return nil
