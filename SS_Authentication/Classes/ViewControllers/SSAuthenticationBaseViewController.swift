@@ -77,7 +77,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         let emailRule = ValidationRulePattern(pattern: .EmailAddress, failureError: ValidationError(message: self.localizedString(key: "emailFormatError.message")))
         rules.addRule(emailRule)
         _emailTextField.validationRules = rules
-        _emailTextField.validationHandler = { result, control in
+        _emailTextField.validationHandler = { result in
             self.isEmailValid = result.isValid
         }
         _emailTextField.validateOnEditingEnd(true)
@@ -103,7 +103,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         let passwordRule = ValidationRulePattern(pattern: PASSWORD_VALIDATION_REGEX, failureError: ValidationError(message: self.localizedString(key: "passwordValidFail.message")))
         rules.addRule(passwordRule)
         _passwordTextField.validationRules = rules
-        _passwordTextField.validationHandler = { result, control in
+        _passwordTextField.validationHandler = { result in
             self.isPasswordValid = result.isValid
         }
         _passwordTextField.validateOnEditingEnd(true)
@@ -129,7 +129,7 @@ public class SSAuthenticationBaseViewController: UIViewController, SSAuthenticat
         let confirmPasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, failureError: ValidationError(message: self.localizedString(key: "passwordNotMatchError.message")))
         rules.addRule(confirmPasswordRule)
         _confirmPasswordTextField.validationRules = rules
-        _confirmPasswordTextField.validationHandler = { result, control in
+        _confirmPasswordTextField.validationHandler = { result in
             self.isConfirmPasswordValid = result.isValid
         }
         _confirmPasswordTextField.validateOnEditingEnd(true)
