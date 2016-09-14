@@ -39,8 +39,8 @@ public struct ValidationRuleURL: ValidationRule {
         self.failureError = failureError
     }
     
-    public func validateInput(_ input: String?) -> Bool {
+    public func validateInput(input: String?) -> Bool {
         guard let input = input else { return false }
-        return URL(string: input) != nil
+        return NSURL(string: input) != nil
     }
 }

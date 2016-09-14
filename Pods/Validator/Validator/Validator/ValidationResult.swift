@@ -36,7 +36,7 @@ public enum ValidationResult {
 
     public var isValid: Bool { return self == .valid }
 
-    public func merge(_ result: ValidationResult) -> ValidationResult {
+    public func merge(result: ValidationResult) -> ValidationResult {
         switch self {
         case .valid: return result
         case .invalid(let errorMessages):
@@ -47,12 +47,12 @@ public enum ValidationResult {
         }
     }
     
-    public func mergeWithMany(_ results: [ValidationResult]) -> ValidationResult {
-        return results.reduce(self) { return $0.merge($1) }
+    public func mergeWithMany(results: [ValidationResult]) -> ValidationResult {
+        return results.reduce(self) { return $0.merge(result: $1) }
     }
     
-    public static func combine(_ results: [ValidationResult]) -> ValidationResult {
-        return ValidationResult.valid.mergeWithMany(results)
+    public static func combine(results: [ValidationResult]) -> ValidationResult {
+        return ValidationResult.valid.mergeWithMany(results: results)
     }
 }
 

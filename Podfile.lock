@@ -18,10 +18,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: 46324eb5c8ba6adf6b31b16d3173c194242558de
+    :commit: a5e26919bb1e04ff1b0273ded001036f9ef5d164
     :git: https://github.com/IBM-Swift/SwiftyJSON.git
   Validator:
-    :commit: 975f6fdf89571a27bfbb73e3bc40aba1be031b31
+    :commit: e1725d53b6d8576c45cbfcd7ef4f865b73118eaf
     :git: https://github.com/adamwaite/Validator.git
 
 SPEC CHECKSUMS:
@@ -31,4 +31,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 5d486defcb706e88ce977ced96f349a12cd87c5a
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2
