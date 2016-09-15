@@ -62,9 +62,9 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
     }
     
     deinit {
-        self.emailTextField.validateOnEditingEnd(false)
-        self.passwordTextField.validateOnEditingEnd(false)
-        self.confirmPasswordTextField.validateOnEditingEnd(false)
+        self.emailTextField.validateOnEditingEnd(validationEnabled: false)
+        self.passwordTextField.validateOnEditingEnd(validationEnabled: false)
+        self.confirmPasswordTextField.validateOnEditingEnd(validationEnabled: false)
         
         self.emailTextField.delegate = nil
         self.passwordTextField.delegate = nil
@@ -95,12 +95,12 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _emailTextField.textColor = FONT_COLOUR_BLACK
         var rules = ValidationRuleSet<String>()
         let emailRule = ValidationRulePattern(pattern: .EmailAddress, failureError: ValidationError(message: self.localizedString(key: "emailFormatError.message")))
-        rules.add(emailRule)
+        rules.add(rule: emailRule)
         _emailTextField.validationRules = rules
         _emailTextField.validationHandler = { result in
             self.isEmailValid = result.isValid
         }
-        _emailTextField.validateOnEditingEnd(true)
+        _emailTextField.validateOnEditingEnd(validationEnabled: true)
         return _emailTextField
     }()
     
@@ -121,12 +121,12 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _passwordTextField.textColor = FONT_COLOUR_BLACK
         var rules = ValidationRuleSet<String>()
         let passwordRule = ValidationRulePattern(pattern: PASSWORD_VALIDATION_REGEX, failureError: ValidationError(message: self.localizedString(key: "passwordValidFail.message")))
-        rules.add(passwordRule)
+        rules.add(rule: passwordRule)
         _passwordTextField.validationRules = rules
         _passwordTextField.validationHandler = { result in
             self.isPasswordValid = result.isValid
         }
-        _passwordTextField.validateOnEditingEnd(true)
+        _passwordTextField.validateOnEditingEnd(validationEnabled: true)
         return _passwordTextField
     }()
 
@@ -147,12 +147,12 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _confirmPasswordTextField.textColor = FONT_COLOUR_BLACK
         var rules = ValidationRuleSet<String>()
         let confirmPasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, failureError: ValidationError(message: self.localizedString(key: "passwordNotMatchError.message")))
-        rules.add(confirmPasswordRule)
+        rules.add(rule: confirmPasswordRule)
         _confirmPasswordTextField.validationRules = rules
         _confirmPasswordTextField.validationHandler = { result in
             self.isConfirmPasswordValid = result.isValid
         }
-        _confirmPasswordTextField.validateOnEditingEnd(true)
+        _confirmPasswordTextField.validateOnEditingEnd(validationEnabled: true)
         return _confirmPasswordTextField
     }()
 
