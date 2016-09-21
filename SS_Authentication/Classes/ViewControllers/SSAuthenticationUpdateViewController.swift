@@ -134,7 +134,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
 
             SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool: Bool, statusCode: Int, error: Error?) in
                 if (bool) {
-                    SSAuthenticationManager.sharedInstance.updateEmail(userDictionary: userDict as [String : AnyObject]) { (user: SSUser?, statusCode: Int, error: Error?) in
+                    SSAuthenticationManager.sharedInstance.updateEmail(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
                         if (user != nil) {
                             self.present(self.emailUpdateSuccessAlertController, animated: true, completion: nil)
                             self.delegate?.updateSuccess()
@@ -157,7 +157,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         } else {
             let userDict = [PASSWORD_KEY: password]
             
-            SSAuthenticationManager.sharedInstance.updatePassword(userDictionary: userDict as [String : AnyObject]) { (user: SSUser?, statusCode: Int, error: Error?) in
+            SSAuthenticationManager.sharedInstance.updatePassword(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
                 if (user != nil) {
                     self.present(self.passwordUpdateSuccessAlertController, animated: true, completion: nil)
                     self.delegate?.updateSuccess()
@@ -254,12 +254,12 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["texts": self.textFieldsStackView!,
-                         "email": self.emailTextField,
-                         "password": self.passwordTextField,
-                         "confirm": self.confirmPasswordTextField,
-                         "buttons": self.buttonsStackView!,
-                         "update": self.updateButton!] as [String : Any]
+            let views: [String: Any] = ["texts": self.textFieldsStackView!,
+                                        "email": self.emailTextField,
+                                        "password": self.passwordTextField,
+                                        "confirm": self.confirmPasswordTextField,
+                                        "buttons": self.buttonsStackView!,
+                                        "update": self.updateButton!]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,

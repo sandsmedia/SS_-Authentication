@@ -93,9 +93,9 @@ class SSAuthenticationNavigationBar: UIView {
     
     override func updateConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["skip": self.skipButton!,
-                         "back": self.backButton!,
-                         "title": self.titleLabel!] as [String : Any]
+            let views: [String: Any] = ["skip": self.skipButton!,
+                                        "back": self.backButton!,
+                                        "title": self.titleLabel!]
             
             let metrics = ["SPACING": GENERAL_SPACING - 2.0,
                            "LARGE_SPACING": LARGE_SPACING,

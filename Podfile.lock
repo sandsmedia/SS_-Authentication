@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: a5e26919bb1e04ff1b0273ded001036f9ef5d164
+    :commit: 73b523a107b798021ca9af74b5f7c20e435c8809
     :git: https://github.com/IBM-Swift/SwiftyJSON.git
   Validator:
     :commit: e1725d53b6d8576c45cbfcd7ef4f865b73118eaf

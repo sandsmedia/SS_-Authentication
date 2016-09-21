@@ -118,10 +118,10 @@ class SSAuthenticationLoadingView: UIView {
     
     override func updateConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["stack": self.dotsStackView!,
-                         "dotOne": self.dotOne!,
-                         "dotTwo": self.dotTwo!,
-                         "dotThree": self.dotThree!] as [String : Any]
+            let views: [String: Any] = ["stack": self.dotsStackView!,
+                                        "dotOne": self.dotOne!,
+                                        "dotTwo": self.dotTwo!,
+                                        "dotThree": self.dotThree!]
             
             let metrics = ["DIAMETER": LOADING_DIAMETER]
             

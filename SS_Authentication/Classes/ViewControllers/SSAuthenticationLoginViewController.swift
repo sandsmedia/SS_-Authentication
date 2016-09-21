@@ -101,7 +101,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
         let password = self.passwordTextField.text as String!
         let userDict = [EMAIL_KEY: email,
                         PASSWORD_KEY: password]
-        SSAuthenticationManager.sharedInstance.login(userDictionary: userDict as [String : AnyObject]) { (user: SSUser?, statusCode: Int, error: Error?) in
+        SSAuthenticationManager.sharedInstance.login(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
             if (user != nil) {
                 self.delegate?.loginSuccess(user!)
             } else {
@@ -209,12 +209,12 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["texts": self.textFieldsStackView!,
-                         "email": self.emailTextField,
-                         "password": self.passwordTextField,
-                         "buttons": self.buttonsStackView!,
-                         "login": self.loginButton!,
-                         "reset": self.resetButton!] as [String : Any]
+            let views: [String: Any] = ["texts": self.textFieldsStackView!,
+                                        "email": self.emailTextField,
+                                        "password": self.passwordTextField,
+                                        "buttons": self.buttonsStackView!,
+                                        "login": self.loginButton!,
+                                        "reset": self.resetButton!]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,

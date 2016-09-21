@@ -8,6 +8,7 @@
 
 import UIKit
 import Validator
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -27,7 +28,6 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     return rhs < lhs
   }
 }
-
 
 open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticationNavigationBarDelegate, UITextFieldDelegate {
     var navigationBar: SSAuthenticationNavigationBar?
@@ -305,8 +305,8 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["loading": self.loadingView!,
-                         "bar": self.navigationBar!] as [String : Any]
+            let views: [String: Any] = ["loading": self.loadingView!,
+                                        "bar": self.navigationBar!]
             
             let metrics = ["BAR_HEIGHT": NAVIGATION_BAR_HEIGHT]
             

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum ArrowDirection : Int {
+public enum ArrowDirection: Int {
     case left
     case right
 }

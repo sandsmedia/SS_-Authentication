@@ -77,7 +77,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         self.showLoadingView()
         let email = self.emailTextField.text as String!
         let userDict = [EMAIL_KEY: email]
-        SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict as [String : AnyObject]) { (user: SSUser?, statusCode: Int, error: Error?) in
+        SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
             if (user != nil) {
                 self.present(self.forgotPasswordSuccessAlertController, animated: true, completion: nil)
                 self.delegate?.resetSuccess()
@@ -138,8 +138,8 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     override func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["email": self.emailTextField,
-                         "reset": self.resetButton!] as [String : Any]
+            let views: [String: Any] = ["email": self.emailTextField,
+                                        "reset": self.resetButton!]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,

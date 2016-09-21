@@ -116,7 +116,7 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let isValid = self.parseMailgun(responseJSON: value as AnyObject!)
+                    let isValid = self.parseMailgun(responseJSON: value)
                     completionHandler(isValid, statusCode, nil)
                 case .failure(let error):
                     completionHandler(false, statusCode, error)
@@ -124,14 +124,14 @@ open class SSAuthenticationManager {
         }
     }
     
-    open func register(userDictionary: [String: AnyObject], completionHandler: @escaping UserResponse) -> Void {
+    open func register(userDictionary: [String: Any], completionHandler: @escaping UserResponse) -> Void {
         self.networkManager.request(self.registerURL, method: .post, parameters: userDictionary, encoding: JSONEncoding.default, headers: nil)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let user = self.parseSSUser(responseJSON: value as AnyObject!)
+                    let user = self.parseSSUser(responseJSON: value)
                     self.email = userDictionary[EMAIL_KEY] as? String
                     self.password = userDictionary[PASSWORD_KEY] as? String
                     UserDefaults.standard.set(userDictionary[EMAIL_KEY], forKey: SS_AUTHENTICATION_EMAIL_KEY)
@@ -144,14 +144,14 @@ open class SSAuthenticationManager {
         
     }
     
-    open func login(userDictionary: [String: AnyObject], completionHandler: @escaping UserResponse) -> Void {
+    open func login(userDictionary: [String: Any], completionHandler: @escaping UserResponse) -> Void {
         self.networkManager.request(self.loginURL, method: .post, parameters: userDictionary, encoding: JSONEncoding.default, headers: nil)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let user = self.parseSSUser(responseJSON: value as AnyObject!)
+                    let user = self.parseSSUser(responseJSON: value)
                     self.email = userDictionary[EMAIL_KEY] as? String
                     self.password = userDictionary[PASSWORD_KEY] as? String
                     UserDefaults.standard.set(userDictionary[EMAIL_KEY], forKey: SS_AUTHENTICATION_EMAIL_KEY)
@@ -172,7 +172,7 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let user = self.parseSSUser(responseJSON: value as AnyObject!)
+                    let user = self.parseSSUser(responseJSON: value)
                     completionHandler(user, statusCode, nil)
                 case .failure(let error):
                     if (statusCode == INVALID_STATUS_CODE) {
@@ -195,7 +195,7 @@ open class SSAuthenticationManager {
         completionHandler(nil, ERROR_STATUS_CODE, nil)
     }
     
-    open func reset(userDictionary: [String: AnyObject], completionHandler: @escaping UserResponse) -> Void {
+    open func reset(userDictionary: [String: Any], completionHandler: @escaping UserResponse) -> Void {
         self.networkManager.request(self.resetURL, method: .post, parameters: userDictionary, encoding: JSONEncoding.default, headers: nil)
             .validate()
             .responseJSON { response in
@@ -212,7 +212,7 @@ open class SSAuthenticationManager {
         }
     }
     
-    open func updateEmail(userDictionary: [String: AnyObject], completionHandler: @escaping UserResponse) -> Void {
+    open func updateEmail(userDictionary: [String: Any], completionHandler: @escaping UserResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!]
         self.networkManager.request(String(format: self.updateEmailURL, self.userId!), method: .put, parameters: userDictionary, encoding: JSONEncoding.default, headers: headers)
             .validate()
@@ -220,7 +220,7 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let user = self.parseSSUser(responseJSON: value as AnyObject!)
+                    let user = self.parseSSUser(responseJSON: value)
                     self.email = userDictionary[EMAIL_KEY] as? String
                     UserDefaults.standard.set(userDictionary[EMAIL_KEY], forKey: SS_AUTHENTICATION_EMAIL_KEY)
                     completionHandler(user, statusCode, nil)
@@ -230,7 +230,7 @@ open class SSAuthenticationManager {
         }
     }
 
-    open func updatePassword(userDictionary: [String: AnyObject], completionHandler: @escaping UserResponse) -> Void {
+    open func updatePassword(userDictionary: [String: Any], completionHandler: @escaping UserResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!]
         self.networkManager.request(String(format: self.updatePasswordURL, self.userId!), method: .put, parameters: userDictionary, encoding: JSONEncoding.default, headers: headers)
             .validate()
@@ -238,7 +238,7 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let user = self.parseSSUser(responseJSON: value as AnyObject!)
+                    let user = self.parseSSUser(responseJSON: value)
                     self.password = userDictionary[PASSWORD_KEY] as? String
                     UserDefaults.standard.set(userDictionary[PASSWORD_KEY], forKey: SS_AUTHENTICATION_PASSWORD_KEY)
                     completionHandler(user, statusCode, nil)
@@ -248,7 +248,7 @@ open class SSAuthenticationManager {
         }
     }
 
-    open func updateUserProfile(userProfileDictionary: [String: AnyObject], completionHandler: @escaping ProfileResponse) -> Void {
+    open func updateUserProfile(userProfileDictionary: [String: Any], completionHandler: @escaping ProfileResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!]
         self.networkManager.request(String(format: self.updateUserProfileURL, self.userId!), method: .put, parameters: userProfileDictionary, encoding: JSONEncoding.default, headers: headers)
             .validate()
@@ -256,16 +256,16 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let profile = self.parseSSProfile(responseJSON: value as AnyObject!)
+                    let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-//                    print("resp: ", String(data: response.data!, encoding: UTF8StringEncoding))
+                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
     }
 
-    open func updateUserCourse(userCourseDictionary: [String: AnyObject], completionHandler: @escaping ProfileResponse) -> Void {
+    open func updateUserCourse(userCourseDictionary: [String: Any], completionHandler: @escaping ProfileResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!]
         let courseId = userCourseDictionary[COURSE_ID_KEY] as! String
         self.networkManager.request(String(format: self.updateUserCourseURL, self.userId!, courseId), method: .put, parameters: userCourseDictionary, encoding: JSONEncoding.default, headers: headers)
@@ -274,16 +274,16 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let profile = self.parseSSProfile(responseJSON: value as AnyObject!)
+                    let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-//                    print("resp: ", String(data: response.data!, encoding: UTF8StringEncoding))
+                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
     }
 
-    open func updateUserLesson(userLessonDictionary: [String: AnyObject], completionHandler: @escaping ProfileResponse) -> Void {
+    open func updateUserLesson(userLessonDictionary: [String: Any], completionHandler: @escaping ProfileResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!]
         let courseId = userLessonDictionary[COURSE_ID_KEY] as! String
         let lessonId = userLessonDictionary[LESSON_ID_KEY] as! String
@@ -293,16 +293,16 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let profile = self.parseSSProfile(responseJSON: value as AnyObject!)
+                    let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-//                    print("resp: ", String(data: response.data!, encoding: UTF8StringEncoding))
+                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
     }
 
-    open func updateUserChapter(userChapterDictionary: [String: AnyObject], completionHandler: @escaping ProfileResponse) -> Void {
+    open func updateUserChapter(userChapterDictionary: [String: Any], completionHandler: @escaping ProfileResponse) -> Void {
         let headers = [X_TOKEN_KEY: self.accessToken!]
         let courseId = userChapterDictionary[COURSE_ID_KEY] as! String
         let lessonId = userChapterDictionary[LESSON_ID_KEY] as! String
@@ -313,10 +313,10 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let profile = self.parseSSProfile(responseJSON: value as AnyObject!)
+                    let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-//                    print("resp: ", String(data: response.data!, encoding: UTF8StringEncoding))
+                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
@@ -330,10 +330,10 @@ open class SSAuthenticationManager {
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
                 switch response.result {
                 case .success(let value):
-                    let profile = self.parseSSProfile(responseJSON: value as AnyObject!)
+                    let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-//                    print("resp: ", String(data: response.data!, encoding: UTF8StringEncoding))
+                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
@@ -341,13 +341,13 @@ open class SSAuthenticationManager {
 
     // MARK: - Private Methods
 
-    fileprivate func parseMailgun(responseJSON: AnyObject!) -> Bool {
+    fileprivate func parseMailgun(responseJSON: Any) -> Bool {
         let responseDictionary = JSON(responseJSON).dictionaryValue
         let isValid = responseDictionary[VALID_KEY]?.boolValue
         return isValid!
     }
 
-    fileprivate func parseSSUser(responseJSON: AnyObject!) -> SSUser {
+    fileprivate func parseSSUser(responseJSON: Any) -> SSUser {
         let responseDictionary = JSON(responseJSON).dictionaryValue
         let userDictionary = responseDictionary[USER_KEY]!.dictionaryValue
         let userId = userDictionary[ID_KEY]?.stringValue
@@ -365,7 +365,7 @@ open class SSAuthenticationManager {
         return user
     }
     
-    fileprivate func parseSSProfile(responseJSON: AnyObject!) -> SSProfile {
+    fileprivate func parseSSProfile(responseJSON: Any) -> SSProfile {
         let responseDictionary = JSON(responseJSON).dictionaryValue
         let profileDictionary = responseDictionary[USER_KEY]!.dictionaryValue
         let profileId = profileDictionary[ID_KEY]!.stringValue

@@ -101,7 +101,7 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
                         PASSWORD_KEY: password]
         SSAuthenticationManager.sharedInstance.emailValidate(email: email!) { (bool: Bool, statusCode: Int, error: Error?) in
             if (bool) {
-                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict as [String : AnyObject]) { (user: SSUser?, statusCode: Int, error: Error?) in
+                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
                     if (user != nil) {
                         self.delegate?.registerSuccess(user!)
                     } else {
@@ -205,12 +205,12 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["texts": self.textFieldsStackView!,
-                         "email": self.emailTextField,
-                         "password": self.passwordTextField,
-                         "confirm": self.confirmPasswordTextField,
-                         "buttons": self.buttonsStackView!,
-                         "register": self.registerButton!] as [String : Any]
+            let views: [String: Any] = ["texts": self.textFieldsStackView!,
+                                        "email": self.emailTextField,
+                                        "password": self.passwordTextField,
+                                        "confirm": self.confirmPasswordTextField,
+                                        "buttons": self.buttonsStackView!,
+                                        "register": self.registerButton!]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,

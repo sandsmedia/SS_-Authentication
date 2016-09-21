@@ -174,11 +174,11 @@ open class SSAuthenticationViewController: SSAuthenticationBaseViewController, S
 
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views = ["stack": self.buttonsStackView!,
-                         "login": self.loginButton!,
-                         "register": self.registerButton!,
-                         "email": self.updateEmailButton!,
-                         "password": self.updatePasswordButton!] as [String : Any]
+            let views: [String: Any] = ["stack": self.buttonsStackView!,
+                                        "login": self.loginButton!,
+                                        "register": self.registerButton!,
+                                        "email": self.updateEmailButton!,
+                                        "password": self.updatePasswordButton!]
             
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,
