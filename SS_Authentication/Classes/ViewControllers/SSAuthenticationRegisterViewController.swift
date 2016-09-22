@@ -92,38 +92,42 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
             }
             return
         }
+        
+        if let email = self.emailTextField.text, let password = self.passwordTextField.text {
+            self.registerButton?.isUserInteractionEnabled = false
+            self.showLoadingView()
 
-        self.registerButton?.isUserInteractionEnabled = false
-        self.showLoadingView()
-        let email = self.emailTextField.text as String!
-        let password = self.passwordTextField.text as String!
-        let userDict = [EMAIL_KEY: email,
-                        PASSWORD_KEY: password]
-        SSAuthenticationManager.sharedInstance.emailValidate(email: email!) { (bool: Bool, statusCode: Int, error: Error?) in
-            if (bool) {
-                SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
-                    if (user != nil) {
-                        self.delegate?.registerSuccess(user!)
-                    } else {
-                        if (statusCode == INVALID_STATUS_CODE) {
-                            self.present(self.emailAlreadyExistAlertController, animated: true, completion: nil)
+            let userDict = [EMAIL_KEY: email,
+                            PASSWORD_KEY: password]
+            SSAuthenticationManager.sharedInstance.emailValidate(email: email) { (bool: Bool, statusCode: Int, error: Error?) in
+                if (bool) {
+                    SSAuthenticationManager.sharedInstance.register(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
+                        if (user != nil) {
+                            self.delegate?.registerSuccess(user!)
                         } else {
-                            self.present(self.registerFailedAlertController, animated: true, completion: nil)
+                            if (statusCode == INVALID_STATUS_CODE) {
+                                self.present(self.emailAlreadyExistAlertController, animated: true, completion: nil)
+                            } else {
+                                self.present(self.registerFailedAlertController, animated: true, completion: nil)
+                            }
                         }
+                        self.hideLoadingView()
+                        self.registerButton?.isUserInteractionEnabled = true
+                    }
+                } else {
+                    if (error != nil) {
+                        self.present(self.registerFailedAlertController, animated: true, completion: nil)
+                    } else {
+                        self.present(self.emailFailureAlertController, animated: true, completion: nil)
                     }
                     self.hideLoadingView()
                     self.registerButton?.isUserInteractionEnabled = true
                 }
-            } else {
-                if (error != nil) {
-                    self.present(self.registerFailedAlertController, animated: true, completion: nil)
-                } else {
-                    self.present(self.emailFailureAlertController, animated: true, completion: nil)
-                }
-                self.hideLoadingView()
-                self.registerButton?.isUserInteractionEnabled = true
             }
         }
+        
+//        let email = self.emailTextField.text as String!
+//        let password = self.passwordTextField.text as String!
     }
         
     // MARK: - Public Methods

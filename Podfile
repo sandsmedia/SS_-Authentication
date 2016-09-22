@@ -5,8 +5,8 @@ use_frameworks!
 
 def pods
   pod 'Alamofire'
-  pod 'SwiftyJSON', :git => 'https://github.com/IBM-Swift/SwiftyJSON.git', :branch => 'master'
-  pod 'Validator', :git => 'https://github.com/adamwaite/Validator.git', :branch => 'swift-3'
+  pod 'SwiftyJSON'
+  pod 'Validator'
 end
 
 target 'SS_Authentication' do

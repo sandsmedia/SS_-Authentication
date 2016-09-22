@@ -94,26 +94,30 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
             }
             return
         }
-
-        self.loginButton?.isUserInteractionEnabled = false
-        self.showLoadingView()
-        let email = self.emailTextField.text as String!
-        let password = self.passwordTextField.text as String!
-        let userDict = [EMAIL_KEY: email,
-                        PASSWORD_KEY: password]
-        SSAuthenticationManager.sharedInstance.login(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
-            if (user != nil) {
-                self.delegate?.loginSuccess(user!)
-            } else {
-                if (statusCode == INVALID_STATUS_CODE) {
-                    self.present(self.credentialsIncorrectAlertController, animated: true, completion: nil)
+        
+        if let email = self.emailTextField.text, let password = self.passwordTextField.text {
+            self.loginButton?.isUserInteractionEnabled = false
+            self.showLoadingView()
+            
+            let userDict = [EMAIL_KEY: email,
+                            PASSWORD_KEY: password]
+            SSAuthenticationManager.sharedInstance.login(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
+                if (user != nil) {
+                    self.delegate?.loginSuccess(user!)
                 } else {
-                    self.present(self.loginFailedAlertController, animated: true, completion: nil)
+                    if (statusCode == INVALID_STATUS_CODE) {
+                        self.present(self.credentialsIncorrectAlertController, animated: true, completion: nil)
+                    } else {
+                        self.present(self.loginFailedAlertController, animated: true, completion: nil)
+                    }
                 }
+                self.hideLoadingView()
+                self.loginButton?.isUserInteractionEnabled = true
             }
-            self.hideLoadingView()
-            self.loginButton?.isUserInteractionEnabled = true
         }
+        
+//        let email = self.emailTextField.text as String!
+//        let password = self.passwordTextField.text as String!
     }
     
     func resetButtonAction() {

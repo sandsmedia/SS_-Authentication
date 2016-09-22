@@ -33,11 +33,13 @@ open class SSAuthenticationViewController: SSAuthenticationBaseViewController, S
     
     override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
         self.setup()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         self.setup()
     }
     

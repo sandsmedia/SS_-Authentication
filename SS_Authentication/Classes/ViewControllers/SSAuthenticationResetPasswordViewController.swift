@@ -73,20 +73,24 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
             return
         }
 
-        self.resetButton?.isUserInteractionEnabled = false
-        self.showLoadingView()
-        let email = self.emailTextField.text as String!
-        let userDict = [EMAIL_KEY: email]
-        SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
-            if (user != nil) {
-                self.present(self.forgotPasswordSuccessAlertController, animated: true, completion: nil)
-                self.delegate?.resetSuccess()
-            } else {
-                self.present(self.forgotPasswordFailedAlertController, animated: true, completion: nil)
+        if let email = self.emailTextField.text {
+            self.resetButton?.isUserInteractionEnabled = false
+            self.showLoadingView()
+            
+            let userDict = [EMAIL_KEY: email]
+            SSAuthenticationManager.sharedInstance.reset(userDictionary: userDict) { (user: SSUser?, statusCode: Int, error: Error?) in
+                if (user != nil) {
+                    self.present(self.forgotPasswordSuccessAlertController, animated: true, completion: nil)
+                    self.delegate?.resetSuccess()
+                } else {
+                    self.present(self.forgotPasswordFailedAlertController, animated: true, completion: nil)
+                }
+                self.hideLoadingView()
+                self.resetButton?.isUserInteractionEnabled = true
             }
-            self.hideLoadingView()
-            self.resetButton?.isUserInteractionEnabled = true
         }
+        
+//        let email = self.emailTextField.text as String!
     }
     
     func tapAction() {
