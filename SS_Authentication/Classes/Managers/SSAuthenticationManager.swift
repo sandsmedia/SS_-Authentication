@@ -360,7 +360,7 @@ open class SSAuthenticationManager {
         self.user = user
         self.userId = userId
         self.accessToken = token
-        UserDefaults.standard.set(token, forKey: SS_AUTHENTICATION_USER_ID_KEY)
+        UserDefaults.standard.set(userId, forKey: SS_AUTHENTICATION_USER_ID_KEY)
         UserDefaults.standard.set(token, forKey: SS_AUTHENTICATION_TOKEN_KEY)
         return user
     }
