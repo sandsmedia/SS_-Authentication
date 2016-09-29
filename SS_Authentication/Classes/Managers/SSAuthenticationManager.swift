@@ -311,7 +311,7 @@ open class SSAuthenticationManager {
         let headers = [X_TOKEN_KEY: self.accessToken!]
         let courseId = userNoteDictionary[COURSE_ID_KEY] as! String
         let lessonId = userNoteDictionary[LESSON_ID_KEY] as! String
-        self.networkManager.request(String(format: self.updateUserNoteURL, self.userId!, courseId, lessonId), method: .put, parameters: userNoteDictionary, encoding: JSONEncoding.default, headers: headers)
+        self.networkManager.request(String(format: self.updateUserNoteURL, self.userId!, courseId, lessonId), method: .post, parameters: userNoteDictionary, encoding: JSONEncoding.default, headers: headers)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
