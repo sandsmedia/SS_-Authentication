@@ -90,6 +90,11 @@ open class SSAuthenticationManager {
         return _updateUserLessonURL
     }()
 
+    fileprivate lazy var updateUserNoteURL: String = {
+        let _updateUserNoteURL = self.baseURL + "user/%@/course/%@/lesson/%@/note"
+        return _updateUserNoteURL
+    }()
+    
     fileprivate lazy var updateUserChapterURL: String = {
         let _updateUserChapterURL = self.baseURL + "user/%@/course/%@/lesson/%@/chapter/%@"
         return _updateUserChapterURL
@@ -288,6 +293,25 @@ open class SSAuthenticationManager {
         let courseId = userLessonDictionary[COURSE_ID_KEY] as! String
         let lessonId = userLessonDictionary[LESSON_ID_KEY] as! String
         self.networkManager.request(String(format: self.updateUserLessonURL, self.userId!, courseId, lessonId), method: .put, parameters: userLessonDictionary, encoding: JSONEncoding.default, headers: headers)
+            .validate()
+            .responseJSON { response in
+                let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE
+                switch response.result {
+                case .success(let value):
+                    let profile = self.parseSSProfile(responseJSON: value)
+                    completionHandler(profile, statusCode, nil)
+                case .failure(let error):
+                    print("resp: ", String(data: response.data!, encoding: .utf8))
+                    completionHandler(nil, statusCode, error)
+                }
+        }
+    }
+
+    open func updateUserNote(userNoteDictionary: [String: Any], completionHandler: @escaping ProfileResponse) -> Void {
+        let headers = [X_TOKEN_KEY: self.accessToken!]
+        let courseId = userNoteDictionary[COURSE_ID_KEY] as! String
+        let lessonId = userNoteDictionary[LESSON_ID_KEY] as! String
+        self.networkManager.request(String(format: self.updateUserNoteURL, self.userId!, courseId, lessonId), method: .put, parameters: userNoteDictionary, encoding: JSONEncoding.default, headers: headers)
             .validate()
             .responseJSON { response in
                 let statusCode = response.response?.statusCode ?? ERROR_STATUS_CODE

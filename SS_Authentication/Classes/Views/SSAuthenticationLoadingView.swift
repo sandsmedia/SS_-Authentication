@@ -74,9 +74,9 @@ class SSAuthenticationLoadingView: UIView {
     
     fileprivate func setupDotsStackView() {
         self.dotsStackView = UIStackView()
-        self.dotsStackView!.axis = .horizontal
-        self.dotsStackView!.alignment = .center
-        self.dotsStackView!.distribution = .equalCentering
+        self.dotsStackView?.axis = .horizontal
+        self.dotsStackView?.alignment = .center
+        self.dotsStackView?.distribution = .equalCentering
         self.dotsStackView?.spacing = LOADING_RADIUS
     }
     
