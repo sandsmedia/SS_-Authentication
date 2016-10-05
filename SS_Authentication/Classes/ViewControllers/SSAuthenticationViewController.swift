@@ -170,8 +170,6 @@ open class SSAuthenticationViewController: SSAuthenticationBaseViewController, S
         self.setupUpdatePasswordButton()
         self.updatePasswordButton?.translatesAutoresizingMaskIntoConstraints = false
         self.buttonsStackView?.addArrangedSubview(self.updatePasswordButton!)
-
-        self.navigationBar?.backButton?.isHidden = true
     }
 
     override open func updateViewConstraints() {

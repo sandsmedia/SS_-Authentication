@@ -136,10 +136,6 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
         super.forceUpdateStatusBarStyle(style)
     }
     
-    override open func updateNavigationBarColor(_ color: UIColor) {
-        super.updateNavigationBarColor(color)
-    }
-
     override open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == self.confirmPasswordTextField) {
             self.registerButtonAction()
@@ -203,8 +199,6 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
         
         let tapGesture = UITapGestureRecognizer.init(target: self, action: .tapAction)
         self.view.addGestureRecognizer(tapGesture)
-        
-        self.navigationBar?.skipButton?.isHidden = true
     }
     
     override open func updateViewConstraints() {
@@ -259,7 +253,7 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_WHITE_BOLD)
+        self.title = self.localizedString(key: "user.register")
         self.emailTextField.returnKeyType = .next
         self.passwordTextField.returnKeyType = .next
         self.confirmPasswordTextField.returnKeyType = .go

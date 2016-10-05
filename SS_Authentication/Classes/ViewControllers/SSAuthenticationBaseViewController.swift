@@ -10,27 +10,26 @@ import UIKit
 import Validator
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
-open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticationNavigationBarDelegate, UITextFieldDelegate {
-    var navigationBar: SSAuthenticationNavigationBar?
+open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDelegate {
     fileprivate var loadingView: SSAuthenticationLoadingView?
     
     var hideStatusBar = false
@@ -39,10 +38,9 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
     var isConfirmPasswordValid = false
     
     var statusBarStyle: UIStatusBarStyle = .default
-    var navigationBarColor = UIColor.white
     
     fileprivate var hasLoadedConstraints = false
-
+    
     // MARK: - Initialisation
     
     convenience init() {
@@ -129,7 +127,7 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _passwordTextField.validateOnEditingEnd(validationEnabled: true)
         return _passwordTextField
     }()
-
+    
     fileprivate(set) lazy var confirmPasswordTextField: UITextField = {
         let _confirmPasswordTextField = UITextField()
         _confirmPasswordTextField.delegate = self
@@ -155,7 +153,7 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _confirmPasswordTextField.validateOnEditingEnd(validationEnabled: true)
         return _confirmPasswordTextField
     }()
-
+    
     open lazy var emailFailureAlertController: UIAlertController = {
         let _emailFailureAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailFormatError.message"), preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
@@ -174,7 +172,7 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _passwordValidFailAlertController.addAction(cancelAction)
         return _passwordValidFailAlertController
     }()
-
+    
     open lazy var confirmPasswordValidFailAlertController: UIAlertController = {
         let _confirmPasswordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordNotMatchError.message"), preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
@@ -184,7 +182,7 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _confirmPasswordValidFailAlertController.addAction(cancelAction)
         return _confirmPasswordValidFailAlertController
     }()
-
+    
     fileprivate(set) lazy var noInternetAlertController: UIAlertController = {
         let _noInternetAlertController = UIAlertController(title: nil, message: self.localizedString(key: "noInternetConnectionError.message"), preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
@@ -193,7 +191,7 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         _noInternetAlertController.addAction(cancelAction)
         return _noInternetAlertController
     }()
-
+    
     // MARK: - Implementation of SSAuthenticationNavigationBarDelegate protocols
     
     func skip() {
@@ -249,13 +247,13 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         self.view.bringSubview(toFront: self.loadingView!)
         UIView.animate(withDuration: ANIMATION_DURATION, animations: {
             self.loadingView?.alpha = 1.0
-        }) 
+        })
     }
     
     func hideLoadingView() {
         UIView.animate(withDuration: ANIMATION_DURATION, animations: {
             self.loadingView?.alpha = 0.0
-        }) 
+        })
     }
     
     func localizedString(key: String) -> String {
@@ -267,18 +265,7 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
-    open func updateNavigationBarColor(_ color: UIColor) {
-        self.navigationBarColor = color
-    }
-    
     // MARK: - Subviews
-    
-    fileprivate func setupNavigationBar() {
-        self.navigationBar = SSAuthenticationNavigationBar()
-        self.navigationBar?.delegate = self
-        self.navigationBar?.skipButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.skip"), attributes: FONT_ATTR_XLARGE_WHITE), for: UIControlState())
-        self.navigationBar?.backgroundColor = self.navigationBarColor
-    }
     
     fileprivate func setupLoadingView() {
         self.loadingView = SSAuthenticationLoadingView()
@@ -289,10 +276,6 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
         self.setupLoadingView()
         self.loadingView!.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.loadingView!)
-        
-        self.setupNavigationBar()
-        self.navigationBar?.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.navigationBar!)
     }
     
     override open var prefersStatusBarHidden : Bool {
@@ -305,23 +288,16 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views: [String: Any] = ["loading": self.loadingView!,
-                                        "bar": self.navigationBar!]
-            
-            let metrics = ["BAR_HEIGHT": NAVIGATION_BAR_HEIGHT]
+            let views: [String: Any] = ["loading": self.loadingView!]
             
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[loading]", options: .directionMask, metrics: nil, views: views))
-
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[bar]|", options: .directionMask, metrics: nil, views: views))
-
+            
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[loading]", options: .directionMask, metrics: nil, views: views))
-
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[bar(BAR_HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
-
+            
             self.view.addConstraint(NSLayoutConstraint(item: self.loadingView!, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-
+            
             self.view.addConstraint(NSLayoutConstraint(item: self.loadingView!, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.0, constant: 0.0))
-
+            
             self.hasLoadedConstraints = true
         }
         super.updateViewConstraints()
@@ -341,7 +317,7 @@ open class SSAuthenticationBaseViewController: UIViewController, SSAuthenticatio
     override open func viewDidLoad() {
         super.viewDidLoad()
     }
-        
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

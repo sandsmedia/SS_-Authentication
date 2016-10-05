@@ -176,10 +176,6 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         super.forceUpdateStatusBarStyle(style)
     }
     
-    override open func updateNavigationBarColor(_ color: UIColor) {
-        super.updateNavigationBarColor(color)
-    }
-
     override open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (self.isUpdateEmail) {
             self.updateButtonAction()
@@ -248,8 +244,6 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         
         let tapGesture = UITapGestureRecognizer(target: self, action: .tapAction)
         self.view.addGestureRecognizer(tapGesture)
-        
-        self.navigationBar?.skipButton?.isHidden = true
     }
     
     override open func updateViewConstraints() {
@@ -309,12 +303,12 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
             self.passwordTextField.removeFromSuperview()
             self.textFieldsStackView?.removeArrangedSubview(self.confirmPasswordTextField)
             self.confirmPasswordTextField.removeFromSuperview()
-            self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.updateEmail"), attributes: FONT_ATTR_LARGE_WHITE_BOLD)
+            self.title = self.localizedString(key: "user.updateEmail")
             self.emailTextField.returnKeyType = .go
         } else {
             self.textFieldsStackView?.removeArrangedSubview(self.emailTextField)
             self.emailTextField.removeFromSuperview()
-            self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.updatePassword"), attributes: FONT_ATTR_LARGE_WHITE_BOLD)
+            self.title = self.localizedString(key: "user.updatePassword")
             self.passwordTextField.returnKeyType = .next
             self.confirmPasswordTextField.returnKeyType = .go
         }

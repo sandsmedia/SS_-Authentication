@@ -124,7 +124,6 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
         let resetViewController = SSAuthenticationResetPasswordViewController()
         resetViewController.delegate = self
         resetViewController.forceUpdateStatusBarStyle(self.statusBarStyle)
-        resetViewController.updateNavigationBarColor(self.navigationBarColor)
         resetViewController.emailTextField.text = self.emailTextField.text
         self.navigationController?.pushViewController(resetViewController, animated: true)
     }
@@ -133,10 +132,6 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     override open func forceUpdateStatusBarStyle(_ style: UIStatusBarStyle) {
         super.forceUpdateStatusBarStyle(style)
-    }
-    
-    override open func updateNavigationBarColor(_ color: UIColor) {
-        super.updateNavigationBarColor(color)
     }
     
     override open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -207,8 +202,6 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
         
         let tapGesture = UITapGestureRecognizer.init(target: self, action: .tapAction)
         self.view.addGestureRecognizer(tapGesture)
-        
-        self.navigationBar?.skipButton?.isHidden = true
     }
     
     override open func updateViewConstraints() {
@@ -264,7 +257,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
         super.viewDidLoad()
         
         self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message")
-        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_WHITE_BOLD)
+        self.title = self.localizedString(key: "user.login")
         self.emailTextField.returnKeyType = .next
         self.passwordTextField.returnKeyType = .go
     }

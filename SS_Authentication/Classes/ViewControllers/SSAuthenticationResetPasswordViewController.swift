@@ -105,10 +105,6 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         super.forceUpdateStatusBarStyle(style)
     }
     
-    override internal func updateNavigationBarColor(_ color: UIColor) {
-        super.updateNavigationBarColor(color)
-    }
-
     override internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.resetButtonAction()
         return super.textFieldShouldReturn(textField)
@@ -136,8 +132,6 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
         
         let tapGesture = UITapGestureRecognizer(target: self, action: .tapAction)
         self.view.addGestureRecognizer(tapGesture)
-        
-        self.navigationBar?.skipButton?.isHidden = true
     }
     
     override func updateViewConstraints() {
@@ -172,7 +166,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationBar?.titleLabel?.attributedText = NSAttributedString(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_WHITE_BOLD)
+        self.title = self.localizedString(key: "user.restore")
         self.emailTextField.returnKeyType = .go
     }
     
