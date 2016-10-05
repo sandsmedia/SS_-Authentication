@@ -183,8 +183,7 @@ open class SSAuthenticationViewController: SSAuthenticationBaseViewController, S
             let metrics = ["SPACING": GENERAL_SPACING,
                            "LARGE_SPACING": LARGE_SPACING,
                            "WIDTH": GENERAL_ITEM_WIDTH,
-                           "HEIGHT": GENERAL_ITEM_HEIGHT,
-                           "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING]
+                           "HEIGHT": GENERAL_ITEM_HEIGHT]
 
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[stack]|", options: .directionMask, metrics: nil, views: views))
             

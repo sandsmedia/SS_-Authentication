@@ -214,14 +214,13 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
                            "LARGE_SPACING": LARGE_SPACING,
                            "WIDTH": GENERAL_ITEM_WIDTH,
                            "HEIGHT": ((IS_IPHONE_4S) ? (GENERAL_ITEM_HEIGHT - 10.0) : GENERAL_ITEM_HEIGHT),
-                           "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT,
-                           "XLARGE_SPACING": NAVIGATION_BAR_HEIGHT + GENERAL_SPACING]
+                           "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT]
             
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[texts]|", options: .directionMask, metrics: nil, views: views))
             
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[buttons]|", options: .directionMask, metrics: nil, views: views))
             
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(XLARGE_SPACING)-[texts]-(LARGE_SPACING)-[buttons]-(>=0)-|", options: .directionMask, metrics: metrics, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(SPACING)-[texts]-(LARGE_SPACING)-[buttons]-(>=0)-|", options: .directionMask, metrics: metrics, views: views))
                         
             self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
             
