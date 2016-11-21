@@ -59,7 +59,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     fileprivate(set) lazy var emailUpdateSuccessAlertController: UIAlertController = {
         let _emailUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailUpdateSuccess.message"), preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
-            self.navigationController?.popViewController(animated: true)
+            let _ = self.navigationController?.popViewController(animated: true)
         })
         _emailUpdateSuccessAlertController.addAction(cancelAction)
         return _emailUpdateSuccessAlertController
@@ -77,7 +77,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     fileprivate(set) lazy var passwordUpdateSuccessAlertController: UIAlertController = {
         let _passwordUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordUpdateSuccess.message"), preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
-            self.navigationController?.popViewController(animated: true)
+            let _ = self.navigationController?.popViewController(animated: true)
         })
         _passwordUpdateSuccessAlertController.addAction(cancelAction)
         return _passwordUpdateSuccessAlertController

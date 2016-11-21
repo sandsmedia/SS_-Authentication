@@ -46,7 +46,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     fileprivate(set) lazy var forgotPasswordSuccessAlertController: UIAlertController = {
         let _forgotPasswordSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordSuccess.message"), preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
-            self.navigationController?.popViewController(animated: true)
+            let _ = self.navigationController?.popViewController(animated: true)
         })
         _forgotPasswordSuccessAlertController.addAction(cancelAction)
         return _forgotPasswordSuccessAlertController
