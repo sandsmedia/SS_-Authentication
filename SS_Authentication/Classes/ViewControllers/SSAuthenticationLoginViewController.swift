@@ -120,6 +120,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
         resetViewController.delegate = self
         resetViewController.forceUpdateStatusBarStyle(self.statusBarStyle)
         resetViewController.emailTextField.text = self.emailTextField.text
+        resetViewController.view.backgroundColor = self.view.backgroundColor
         self.navigationController?.pushViewController(resetViewController, animated: true)
     }
         
