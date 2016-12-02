@@ -15,6 +15,9 @@ protocol SSAuthenticationResetDelegate: class {
 class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewController {
     weak var delegate: SSAuthenticationResetDelegate?
     
+    fileprivate var baseScrollView: UIScrollView?
+    fileprivate var textFieldsStackView: UIStackView?
+    fileprivate var buttonsStackView: UIStackView?
     fileprivate var resetButton: UIButton?
 
     fileprivate var hasLoadedConstraints = false
@@ -89,8 +92,6 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
                 self.resetButton?.isUserInteractionEnabled = true
             }
         }
-        
-//        let email = self.emailTextField.text as String!
     }
     
     func tapAction() {
@@ -112,6 +113,26 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
 
     // MARK: - Subviews
     
+    fileprivate func setupBaseScrollView() {
+        self.baseScrollView = UIScrollView()
+    }
+
+    fileprivate func setupTextFieldsStackView() {
+        self.textFieldsStackView = UIStackView()
+        self.textFieldsStackView?.axis = .vertical
+        self.textFieldsStackView?.alignment = .center
+        self.textFieldsStackView!.distribution = .equalSpacing
+        self.textFieldsStackView?.spacing = GENERAL_SPACING
+    }
+    
+    fileprivate func setupButtonsStackView() {
+        self.buttonsStackView = UIStackView()
+        self.buttonsStackView!.axis = .vertical
+        self.buttonsStackView!.alignment = .center
+        self.buttonsStackView!.distribution = .equalSpacing
+        self.buttonsStackView?.spacing = GENERAL_SPACING
+    }
+
     fileprivate func setupResetButton() {
         self.resetButton = UIButton(type: .system)
         self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
@@ -123,12 +144,24 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     override func setupSubviews() {
         super.setupSubviews()
         
+        self.setupBaseScrollView()
+        self.baseScrollView?.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.baseScrollView!)
+
+        self.setupTextFieldsStackView()
+        self.textFieldsStackView?.translatesAutoresizingMaskIntoConstraints = false
+        self.baseScrollView?.addSubview(self.textFieldsStackView!)
+
         self.emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.emailTextField)
+        self.textFieldsStackView?.addArrangedSubview(self.emailTextField)
+
+        self.setupButtonsStackView()
+        self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false
+        self.baseScrollView?.addSubview(self.buttonsStackView!)
 
         self.setupResetButton()
         self.resetButton?.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.resetButton!)
+        self.buttonsStackView?.addArrangedSubview(self.resetButton!)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: .tapAction)
         self.view.addGestureRecognizer(tapGesture)
@@ -136,7 +169,10 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     override func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views: [String: Any] = ["email": self.emailTextField,
+            let views: [String: Any] = ["base": self.baseScrollView!,
+                                        "texts": self.textFieldsStackView!,
+                                        "email": self.emailTextField,
+                                        "buttons": self.buttonsStackView!,
                                         "reset": self.resetButton!]
             
             let metrics = ["SPACING": GENERAL_SPACING,
@@ -145,15 +181,44 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
                            "HEIGHT": ((IS_IPHONE_4S) ? (GENERAL_ITEM_HEIGHT - 10.0) : GENERAL_ITEM_HEIGHT),
                            "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT]
 
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[base]|", options: .directionMask, metrics: nil, views: views))
+            
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[base]|", options: .directionMask, metrics: nil, views: views))
 
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[reset]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[texts]", options: .directionMask, metrics: nil, views: views))
+            
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[buttons]", options: .directionMask, metrics: nil, views: views))
+            
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(SPACING)-[texts]-(LARGE_SPACING)-[buttons]|", options: .directionMask, metrics: metrics, views: views))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
+            
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
 
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(SPACING)-[email(HEIGHT)]-(LARGE_SPACING)-[reset(BUTTON_HEIGHT)]-(>=0)-|", options: .directionMask, metrics: metrics, views: views))
+            self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[email(HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
+
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[reset]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
+            
+            self.buttonsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[reset(BUTTON_HEIGHT)]", options: .directionMask, metrics: metrics, views: views))
 
             self.hasLoadedConstraints = true
         }
         super.updateViewConstraints()
+    }
+
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let top = self.topLayoutGuide.length
+        let bottom = self.bottomLayoutGuide.length
+        let newInsets = UIEdgeInsetsMake(top, 0, bottom, 0)
+        self.baseScrollView?.contentInset = newInsets
     }
 
     // MARK: - View lifecycle

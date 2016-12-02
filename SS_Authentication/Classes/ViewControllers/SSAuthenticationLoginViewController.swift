@@ -15,6 +15,7 @@ public protocol SSAuthenticationLoginDelegate: class {
 open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewController, SSAuthenticationResetDelegate {
     open weak var delegate: SSAuthenticationLoginDelegate?
     
+    fileprivate var baseScrollView: UIScrollView?
     fileprivate var textFieldsStackView: UIStackView?
     fileprivate var buttonsStackView: UIStackView?
     fileprivate var loginButton: UIButton?
@@ -115,9 +116,6 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
                 self.loginButton?.isUserInteractionEnabled = true
             }
         }
-        
-//        let email = self.emailTextField.text as String!
-//        let password = self.passwordTextField.text as String!
     }
     
     func resetButtonAction() {
@@ -145,6 +143,10 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     // MARK: - Subviews
     
+    fileprivate func setupBaseScrollView() {
+        self.baseScrollView = UIScrollView()
+    }
+
     fileprivate func setupTextFieldsStackView() {
         self.textFieldsStackView = UIStackView()
         self.textFieldsStackView?.axis = .vertical
@@ -178,9 +180,13 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     override func setupSubviews() {
         super.setupSubviews()
         
+        self.setupBaseScrollView()
+        self.baseScrollView?.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.baseScrollView!)
+
         self.setupTextFieldsStackView()
         self.textFieldsStackView?.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.textFieldsStackView!)
+        self.baseScrollView?.addSubview(self.textFieldsStackView!)
         
         self.emailTextField.translatesAutoresizingMaskIntoConstraints = false
         self.textFieldsStackView?.addArrangedSubview(self.emailTextField)
@@ -190,7 +196,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
                 
         self.setupButtonsStackView()
         self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.buttonsStackView!)
+        self.baseScrollView?.addSubview(self.buttonsStackView!)
         
         self.setupLoginButton()
         self.loginButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -206,7 +212,8 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views: [String: Any] = ["texts": self.textFieldsStackView!,
+            let views: [String: Any] = ["base": self.baseScrollView!,
+                                        "texts": self.textFieldsStackView!,
                                         "email": self.emailTextField,
                                         "password": self.passwordTextField,
                                         "buttons": self.buttonsStackView!,
@@ -219,11 +226,23 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
                            "HEIGHT": ((IS_IPHONE_4S) ? (GENERAL_ITEM_HEIGHT - 10.0) : GENERAL_ITEM_HEIGHT),
                            "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT]
             
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[texts]|", options: .directionMask, metrics: nil, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[base]|", options: .directionMask, metrics: nil, views: views))
             
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[buttons]|", options: .directionMask, metrics: nil, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[base]|", options: .directionMask, metrics: nil, views: views))
             
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(SPACING)-[texts]-(LARGE_SPACING)-[buttons]-(>=0)-|", options: .directionMask, metrics: metrics, views: views))
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[texts]", options: .directionMask, metrics: nil, views: views))
+            
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[buttons]", options: .directionMask, metrics: nil, views: views))
+            
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(SPACING)-[texts]-(LARGE_SPACING)-[buttons]|", options: .directionMask, metrics: metrics, views: views))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
             
             self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
             
@@ -244,6 +263,15 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
             self.hasLoadedConstraints = true
         }
         super.updateViewConstraints()
+    }
+
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let top = self.topLayoutGuide.length
+        let bottom = self.bottomLayoutGuide.length
+        let newInsets = UIEdgeInsetsMake(top, 0, bottom, 0)
+        self.baseScrollView?.contentInset = newInsets
     }
 
     // MARK: - View lifecycle

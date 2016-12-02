@@ -223,9 +223,9 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
                            "HEIGHT": ((IS_IPHONE_4S) ? (GENERAL_ITEM_HEIGHT - 10.0) : GENERAL_ITEM_HEIGHT),
                            "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT]
             
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[scroll]|", options: .directionMask, metrics: nil, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[base]|", options: .directionMask, metrics: nil, views: views))
             
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[scroll]|", options: .directionMask, metrics: nil, views: views))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[base]|", options: .directionMask, metrics: nil, views: views))
             
             self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[texts]", options: .directionMask, metrics: nil, views: views))
             
@@ -260,6 +260,15 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
             self.hasLoadedConstraints = true
         }
         super.updateViewConstraints()
+    }
+    
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let top = self.topLayoutGuide.length
+        let bottom = self.bottomLayoutGuide.length
+        let newInsets = UIEdgeInsetsMake(top, 0, bottom, 0)
+        self.baseScrollView?.contentInset = newInsets
     }
 
     // MARK: - View lifecycle
