@@ -165,6 +165,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     fileprivate func setupLoginButton() {
         self.loginButton = UIButton(type: .system)
+        self.loginButton?.backgroundColor = .white
         self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
         self.loginButton?.addTarget(self, action: .loginButtonAction, for: .touchUpInside)
         self.loginButton?.layer.borderWidth = 1.0
@@ -173,7 +174,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     fileprivate func setupResetButton() {
         self.resetButton = UIButton(type: .system)
-        self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_BLACK), for: UIControlState())
+        self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forgetPassword"), attributes: FONT_ATTR_SMALL_WHITE), for: UIControlState())
         self.resetButton?.addTarget(self, action: .resetButtonAction, for: .touchUpInside)
     }
 

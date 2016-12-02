@@ -83,6 +83,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     fileprivate(set) lazy var emailTextField: UITextField = {
         let _emailTextField = UITextField()
+        _emailTextField.backgroundColor = .white
         _emailTextField.delegate = self
         _emailTextField.keyboardType = .emailAddress
         _emailTextField.spellCheckingType = .no
@@ -108,6 +109,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     fileprivate(set) lazy var passwordTextField: UITextField = {
         let _passwordTextField = UITextField()
+        _passwordTextField.backgroundColor = .white
         _passwordTextField.delegate = self
         _passwordTextField.spellCheckingType = .no
         _passwordTextField.autocorrectionType = .no
@@ -134,6 +136,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     fileprivate(set) lazy var confirmPasswordTextField: UITextField = {
         let _confirmPasswordTextField = UITextField()
+        _confirmPasswordTextField.backgroundColor = .white
         _confirmPasswordTextField.delegate = self
         _confirmPasswordTextField.spellCheckingType = .no
         _confirmPasswordTextField.autocorrectionType = .no
@@ -311,7 +314,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     override open func loadView() {
         self.view = UIView()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = .white
         self.view.translatesAutoresizingMaskIntoConstraints = true
         
         self.setupSubviews()

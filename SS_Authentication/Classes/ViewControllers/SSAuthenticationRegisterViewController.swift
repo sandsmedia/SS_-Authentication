@@ -169,6 +169,7 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
 
     fileprivate func setupRegisterButton() {
         self.registerButton = UIButton(type: .system)
+        self.registerButton?.backgroundColor = .white
         self.registerButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.register"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
         self.registerButton?.addTarget(self, action: .registerButtonAction, for: .touchUpInside)
         self.registerButton?.layer.borderWidth = 1.0
