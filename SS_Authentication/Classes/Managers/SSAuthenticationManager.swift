@@ -259,7 +259,6 @@ open class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
@@ -277,7 +276,6 @@ open class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
@@ -296,7 +294,6 @@ open class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
@@ -316,7 +313,6 @@ open class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }
@@ -333,7 +329,6 @@ open class SSAuthenticationManager {
                     let profile = self.parseSSProfile(responseJSON: value)
                     completionHandler(profile, statusCode, nil)
                 case .failure(let error):
-                    print("resp: ", String(data: response.data!, encoding: .utf8))
                     completionHandler(nil, statusCode, error)
                 }
         }

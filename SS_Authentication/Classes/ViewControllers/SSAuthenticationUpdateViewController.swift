@@ -15,9 +15,6 @@ public protocol SSAuthenticationUpdateDelegate: class {
 open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewController {
     open weak var delegate: SSAuthenticationUpdateDelegate?
     
-    fileprivate var baseScrollView: UIScrollView?
-    fileprivate var textFieldsStackView: UIStackView?
-    fileprivate var buttonsStackView: UIStackView?
     fileprivate var updateButton: UIButton?
     
     open var isUpdateEmail = true
@@ -194,26 +191,6 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     
     // MARK: - Subviews
     
-    fileprivate func setupBaseScrollView() {
-        self.baseScrollView = UIScrollView()
-    }
-
-    fileprivate func setupTextFieldsStackView() {
-        self.textFieldsStackView = UIStackView()
-        self.textFieldsStackView?.axis = .vertical
-        self.textFieldsStackView?.alignment = .center
-        self.textFieldsStackView!.distribution = .equalSpacing
-        self.textFieldsStackView?.spacing = GENERAL_SPACING
-    }
-    
-    fileprivate func setupButtonsStackView() {
-        self.buttonsStackView = UIStackView()
-        self.buttonsStackView!.axis = .vertical
-        self.buttonsStackView!.alignment = .center
-        self.buttonsStackView!.distribution = .equalSpacing
-        self.buttonsStackView?.spacing = GENERAL_SPACING
-    }
-    
     fileprivate func setupUpdateButton() {
         self.updateButton = UIButton(type: .system)
         self.updateButton?.backgroundColor = .white
@@ -226,14 +203,6 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     override func setupSubviews() {
         super.setupSubviews()
         
-        self.setupBaseScrollView()
-        self.baseScrollView?.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.baseScrollView!)
-
-        self.setupTextFieldsStackView()
-        self.textFieldsStackView?.translatesAutoresizingMaskIntoConstraints = false
-        self.baseScrollView?.addSubview(self.textFieldsStackView!)
-        
         self.emailTextField.translatesAutoresizingMaskIntoConstraints = false
         self.textFieldsStackView?.addArrangedSubview(self.emailTextField)
         
@@ -243,10 +212,6 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         
         self.confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         self.textFieldsStackView?.addArrangedSubview(self.confirmPasswordTextField)
-        
-        self.setupButtonsStackView()
-        self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false
-        self.baseScrollView?.addSubview(self.buttonsStackView!)
         
         self.setupUpdateButton()
         self.updateButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -258,12 +223,9 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views: [String: Any] = ["base": self.baseScrollView!,
-                                        "texts": self.textFieldsStackView!,
-                                        "email": self.emailTextField,
+            let views: [String: Any] = ["email": self.emailTextField,
                                         "password": self.passwordTextField,
                                         "confirm": self.confirmPasswordTextField,
-                                        "buttons": self.buttonsStackView!,
                                         "update": self.updateButton!]
             
             let metrics = ["SPACING": GENERAL_SPACING,
@@ -272,24 +234,6 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
                            "HEIGHT": ((IS_IPHONE_4S) ? (GENERAL_ITEM_HEIGHT - 10.0) : GENERAL_ITEM_HEIGHT),
                            "BUTTON_HEIGHT": GENERAL_ITEM_HEIGHT]
 
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[base]|", options: .directionMask, metrics: nil, views: views))
-            
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[base]|", options: .directionMask, metrics: nil, views: views))
-
-            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[texts]", options: .directionMask, metrics: nil, views: views))
-            
-            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[buttons]", options: .directionMask, metrics: nil, views: views))
-            
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(SPACING)-[texts]-(LARGE_SPACING)-[buttons]|", options: .directionMask, metrics: metrics, views: views))
-            
-            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
-            
-            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-            
-            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-            
-            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
-            
             self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[email]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
             
             self.textFieldsStackView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(LARGE_SPACING)-[password]-(LARGE_SPACING)-|", options: .directionMask, metrics: metrics, views: views))
@@ -316,8 +260,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         
         let top = self.topLayoutGuide.length
         let bottom = self.bottomLayoutGuide.length
-        let newInsets = UIEdgeInsetsMake(top, 0, bottom, 0)
-        self.baseScrollView?.contentInset = newInsets
+        self.baseScrollView?.contentInset = UIEdgeInsetsMake(top, 0.0, bottom, 0.0)
     }
 
     // MARK: - View lifecycle

@@ -36,6 +36,10 @@ enum ValidationError: Error {
 open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDelegate {
     fileprivate var loadingView: SSAuthenticationLoadingView?
     
+    var baseScrollView: UIScrollView?
+    var textFieldsStackView: UIStackView?
+    var buttonsStackView: UIStackView?
+    
     var hideStatusBar = false
     var isEmailValid = false
     var isPasswordValid = false
@@ -274,12 +278,44 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     // MARK: - Subviews
     
+    fileprivate func setupBaseScrollView() {
+        self.baseScrollView = UIScrollView()
+    }
+
+    fileprivate func setupTextFieldsStackView() {
+        self.textFieldsStackView = UIStackView()
+        self.textFieldsStackView?.axis = .vertical
+        self.textFieldsStackView?.alignment = .center
+        self.textFieldsStackView!.distribution = .equalSpacing
+        self.textFieldsStackView?.spacing = GENERAL_SPACING
+    }
+    
+    fileprivate func setupButtonsStackView() {
+        self.buttonsStackView = UIStackView()
+        self.buttonsStackView!.axis = .vertical
+        self.buttonsStackView!.alignment = .center
+        self.buttonsStackView!.distribution = .equalSpacing
+        self.buttonsStackView?.spacing = GENERAL_SPACING
+    }
+    
     fileprivate func setupLoadingView() {
         self.loadingView = SSAuthenticationLoadingView()
         self.loadingView?.alpha = 0.0
     }
     
     func setupSubviews() {
+        self.setupBaseScrollView()
+        self.baseScrollView?.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.baseScrollView!)
+        
+        self.setupTextFieldsStackView()
+        self.textFieldsStackView?.translatesAutoresizingMaskIntoConstraints = false
+        self.baseScrollView?.addSubview(self.textFieldsStackView!)
+
+        self.setupButtonsStackView()
+        self.buttonsStackView?.translatesAutoresizingMaskIntoConstraints = false
+        self.baseScrollView?.addSubview(self.buttonsStackView!)
+        
         self.setupLoadingView()
         self.loadingView!.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.loadingView!)
@@ -295,15 +331,38 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     override open func updateViewConstraints() {
         if (!self.hasLoadedConstraints) {
-            let views: [String: Any] = ["loading": self.loadingView!]
+            let views: [String: Any] = ["base": self.baseScrollView!,
+                                        "texts": self.textFieldsStackView!,
+                                        "buttons": self.buttonsStackView!,
+                                        "loading": self.loadingView!]
             
+            let metrics = ["LARGE_SPACING": LARGE_SPACING]
+
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[base]|", options: .directionMask, metrics: nil, views: views))
+
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[loading]", options: .directionMask, metrics: nil, views: views))
-            
+
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[base]|", options: .directionMask, metrics: nil, views: views))
+
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[loading]", options: .directionMask, metrics: nil, views: views))
             
             self.view.addConstraint(NSLayoutConstraint(item: self.loadingView!, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0))
             
             self.view.addConstraint(NSLayoutConstraint(item: self.loadingView!, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[texts]", options: .directionMask, metrics: nil, views: views))
+            
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[buttons]", options: .directionMask, metrics: nil, views: views))
+            
+            self.baseScrollView!.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(SPACING)-[texts]-(LARGE_SPACING)-[buttons]|", options: .directionMask, metrics: metrics, views: views))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.textFieldsStackView!, attribute: .centerX, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .centerX, multiplier: 1.0, constant: 0.0))
+            
+            self.baseScrollView!.addConstraint(NSLayoutConstraint(item: self.buttonsStackView!, attribute: .width, relatedBy: .equal, toItem: self.baseScrollView!, attribute: .width, multiplier: 1.0, constant: 0.0))
             
             self.hasLoadedConstraints = true
         }

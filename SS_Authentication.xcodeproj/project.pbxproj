@@ -17,7 +17,6 @@
 		3882E0891CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0791CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift */; };
 		3882E08B1CF6EF5F007528BA /* SSAuthenticationRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E07B1CF6EF5F007528BA /* SSAuthenticationRegisterViewController.swift */; };
 		3882E08D1CF6EF5F007528BA /* SSAuthenticationUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E07D1CF6EF5F007528BA /* SSAuthenticationUpdateViewController.swift */; };
-		3882E08F1CF6EF5F007528BA /* SSAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E07F1CF6EF5F007528BA /* SSAuthenticationViewController.swift */; };
 		3882E0A11CF6FCF1007528BA /* SSAuthenticationLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0A01CF6FCF1007528BA /* SSAuthenticationLoadingView.swift */; };
 		3882E0A31CF7392F007528BA /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3882E0A21CF7392F007528BA /* Common.swift */; };
 		38BD88B31D2BB6D200CD7DC1 /* SSProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BD88B21D2BB6D200CD7DC1 /* SSProfile.swift */; };
@@ -41,7 +40,6 @@
 		3882E0791CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationLoginViewController.swift; sourceTree = "<group>"; };
 		3882E07B1CF6EF5F007528BA /* SSAuthenticationRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationRegisterViewController.swift; sourceTree = "<group>"; };
 		3882E07D1CF6EF5F007528BA /* SSAuthenticationUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationUpdateViewController.swift; sourceTree = "<group>"; };
-		3882E07F1CF6EF5F007528BA /* SSAuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationViewController.swift; sourceTree = "<group>"; };
 		3882E0A01CF6FCF1007528BA /* SSAuthenticationLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSAuthenticationLoadingView.swift; sourceTree = "<group>"; };
 		3882E0A21CF7392F007528BA /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		38BD88B21D2BB6D200CD7DC1 /* SSProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSProfile.swift; sourceTree = "<group>"; };
@@ -103,20 +101,12 @@
 		383775E51CF6E6B9001156AC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				383775E71CF6E6B9001156AC /* Extensions */,
 				383775E81CF6E6B9001156AC /* Managers */,
 				383775EA1CF6E6B9001156AC /* Models */,
 				3882E06A1CF6EE65007528BA /* ViewControllers */,
 				3882E06B1CF6EE65007528BA /* Views */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		383775E71CF6E6B9001156AC /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		383775E81CF6E6B9001156AC /* Managers */ = {
@@ -150,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				3882E0751CF6EF5F007528BA /* SSAuthenticationBaseViewController.swift */,
-				3882E07F1CF6EF5F007528BA /* SSAuthenticationViewController.swift */,
 				3882E07B1CF6EF5F007528BA /* SSAuthenticationRegisterViewController.swift */,
 				3882E0791CF6EF5F007528BA /* SSAuthenticationLoginViewController.swift */,
 				3882E0771CF6EF5F007528BA /* SSAuthenticationResetPasswordViewController.swift */,
@@ -326,7 +315,6 @@
 				3882E0A31CF7392F007528BA /* Common.swift in Sources */,
 				3882E08B1CF6EF5F007528BA /* SSAuthenticationRegisterViewController.swift in Sources */,
 				3882E08D1CF6EF5F007528BA /* SSAuthenticationUpdateViewController.swift in Sources */,
-				3882E08F1CF6EF5F007528BA /* SSAuthenticationViewController.swift in Sources */,
 				383775EE1CF6E6B9001156AC /* SSAuthenticationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
