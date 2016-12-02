@@ -336,7 +336,8 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
                                         "buttons": self.buttonsStackView!,
                                         "loading": self.loadingView!]
             
-            let metrics = ["LARGE_SPACING": LARGE_SPACING]
+            let metrics = ["SPACING": GENERAL_SPACING,
+                           "LARGE_SPACING": LARGE_SPACING]
 
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[base]|", options: .directionMask, metrics: nil, views: views))
 
