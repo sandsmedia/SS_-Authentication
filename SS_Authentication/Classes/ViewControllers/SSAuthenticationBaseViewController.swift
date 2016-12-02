@@ -383,6 +383,8 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
