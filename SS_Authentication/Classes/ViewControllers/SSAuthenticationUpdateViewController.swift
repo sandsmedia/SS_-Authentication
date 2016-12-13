@@ -196,8 +196,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         self.updateButton?.backgroundColor = .white
         self.updateButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
         self.updateButton?.addTarget(self, action: .updateButtonAction, for: .touchUpInside)
-        self.updateButton?.layer.borderWidth = 1.0
-        self.updateButton?.layer.borderColor = UIColor.black.cgColor
+        self.updateButton?.layer.cornerRadius = GENERAL_ITEM_RADIUS
     }
     
     override func setupSubviews() {

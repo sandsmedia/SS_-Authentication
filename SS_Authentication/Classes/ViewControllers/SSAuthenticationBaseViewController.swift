@@ -96,8 +96,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _emailTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.email"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
         _emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         _emailTextField.leftViewMode = .always
-        _emailTextField.layer.borderColor = UIColor.gray.cgColor
-        _emailTextField.layer.borderWidth = 1.0
+        _emailTextField.layer.cornerRadius = 5.0
         _emailTextField.font = FONT_MEDIUM
         _emailTextField.textColor = FONT_COLOUR_BLACK
         var rules = ValidationRuleSet<String>()
@@ -123,8 +122,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.password"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
         _passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         _passwordTextField.leftViewMode = .always
-        _passwordTextField.layer.borderColor = UIColor.gray.cgColor
-        _passwordTextField.layer.borderWidth = 1.0
+        _passwordTextField.layer.cornerRadius = 5.0
         _passwordTextField.font = FONT_MEDIUM
         _passwordTextField.textColor = FONT_COLOUR_BLACK
         var rules = ValidationRuleSet<String>()
@@ -150,8 +148,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirmPassword"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
         _confirmPasswordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         _confirmPasswordTextField.leftViewMode = .always
-        _confirmPasswordTextField.layer.borderColor = UIColor.gray.cgColor
-        _confirmPasswordTextField.layer.borderWidth = 1.0
+        _confirmPasswordTextField.layer.cornerRadius = 5.0
         _confirmPasswordTextField.font = FONT_MEDIUM
         _confirmPasswordTextField.textColor = FONT_COLOUR_BLACK
         var rules = ValidationRuleSet<String>()

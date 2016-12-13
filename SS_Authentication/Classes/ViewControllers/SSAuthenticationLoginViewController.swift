@@ -146,8 +146,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
         self.loginButton?.backgroundColor = .white
         self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
         self.loginButton?.addTarget(self, action: .loginButtonAction, for: .touchUpInside)
-        self.loginButton?.layer.borderWidth = 1.0
-        self.loginButton?.layer.borderColor = UIColor.black.cgColor
+        self.loginButton?.layer.cornerRadius = GENERAL_ITEM_RADIUS
     }
     
     fileprivate func setupResetButton() {
