@@ -82,19 +82,19 @@ class SSAuthenticationLoadingView: UIView {
     
     fileprivate func setupDotOne() {
         self.dotOne = UIImageView()
-        self.dotOne?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColor
+        self.dotOne?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColour
         self.dotOne?.layer.cornerRadius = LOADING_RADIUS
     }
     
     fileprivate func setupDotTwo() {
         self.dotTwo = UIImageView()
-        self.dotTwo?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColor
+        self.dotTwo?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColour
         self.dotTwo?.layer.cornerRadius = LOADING_RADIUS
     }
     
     fileprivate func setupDotThree() {
         self.dotThree = UIImageView()
-        self.dotThree?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColor
+        self.dotThree?.backgroundColor = SSAuthenticationManager.sharedInstance.loadingViewColour
         self.dotThree?.layer.cornerRadius = LOADING_RADIUS
     }
     

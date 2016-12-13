@@ -18,7 +18,13 @@ open class SSAuthenticationManager {
     
     open var baseURL = ""
     open var mailgunKey = ""
-    open var loadingViewColor = UIColor.gray
+    open var loadingViewColour = UIColor.gray
+    open var textFieldBackgroundColour = UIColor.white
+    open var textFieldPlaceholderFontAttribute = FONT_ATTR_MEDIUM_LIGHT_GRAY
+    open var textFieldFont = FONT_MEDIUM
+    open var textFieldFontColour = FONT_COLOUR_BLACK
+    open var buttonBackgroundColour = UIColor.white
+    open var buttonFontAttribute = FONT_ATTR_LARGE_BLACK_BOLD
     open var user: SSUser?
     open var profile: SSProfile?
     open var email = UserDefaults.standard.object(forKey: SS_AUTHENTICATION_EMAIL_KEY) as? String

@@ -112,8 +112,8 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     
     fileprivate func setupResetButton() {
         self.resetButton = UIButton(type: .system)
-        self.resetButton?.backgroundColor = .white
-        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.resetButton?.backgroundColor = SSAuthenticationManager.sharedInstance.buttonBackgroundColour
+        self.resetButton?.setAttributedTitle(NSAttributedString.init(string: self.localizedString(key: "user.restore"), attributes: SSAuthenticationManager.sharedInstance.buttonFontAttribute), for: UIControlState())
         self.resetButton?.addTarget(self, action: .resetButtonAction, for: .touchUpInside)
         self.resetButton?.layer.cornerRadius = GENERAL_ITEM_RADIUS
     }

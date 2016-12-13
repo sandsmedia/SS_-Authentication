@@ -193,8 +193,8 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     
     fileprivate func setupUpdateButton() {
         self.updateButton = UIButton(type: .system)
-        self.updateButton?.backgroundColor = .white
-        self.updateButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.update"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.updateButton?.backgroundColor = SSAuthenticationManager.sharedInstance.buttonBackgroundColour
+        self.updateButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.update"), attributes: SSAuthenticationManager.sharedInstance.buttonFontAttribute), for: UIControlState())
         self.updateButton?.addTarget(self, action: .updateButtonAction, for: .touchUpInside)
         self.updateButton?.layer.cornerRadius = GENERAL_ITEM_RADIUS
     }
@@ -206,7 +206,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         self.textFieldsStackView?.addArrangedSubview(self.emailTextField)
         
         self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
+        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField)
         
         self.confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false

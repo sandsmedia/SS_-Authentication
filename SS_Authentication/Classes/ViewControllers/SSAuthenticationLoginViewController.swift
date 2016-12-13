@@ -143,8 +143,8 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     fileprivate func setupLoginButton() {
         self.loginButton = UIButton(type: .system)
-        self.loginButton?.backgroundColor = .white
-        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: FONT_ATTR_LARGE_BLACK_BOLD), for: UIControlState())
+        self.loginButton?.backgroundColor = SSAuthenticationManager.sharedInstance.buttonBackgroundColour
+        self.loginButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.login"), attributes: SSAuthenticationManager.sharedInstance.buttonFontAttribute), for: UIControlState())
         self.loginButton?.addTarget(self, action: .loginButtonAction, for: .touchUpInside)
         self.loginButton?.layer.cornerRadius = GENERAL_ITEM_RADIUS
     }

@@ -87,18 +87,18 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     fileprivate(set) lazy var emailTextField: UITextField = {
         let _emailTextField = UITextField()
-        _emailTextField.backgroundColor = .white
+        _emailTextField.backgroundColor = SSAuthenticationManager.sharedInstance.textFieldBackgroundColour
         _emailTextField.delegate = self
         _emailTextField.keyboardType = .emailAddress
         _emailTextField.spellCheckingType = .no
         _emailTextField.autocorrectionType = .no
         _emailTextField.autocapitalizationType = .none
-        _emailTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.email"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
-        _emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        _emailTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.email"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
+        _emailTextField.leftView = UIView(frame: TEXT_FIELD_LEFT_VIEW_FRAME)
         _emailTextField.leftViewMode = .always
-        _emailTextField.layer.cornerRadius = 5.0
-        _emailTextField.font = FONT_MEDIUM
-        _emailTextField.textColor = FONT_COLOUR_BLACK
+        _emailTextField.layer.cornerRadius = TEXT_FIELD_RADIUS
+        _emailTextField.font = SSAuthenticationManager.sharedInstance.textFieldFont
+        _emailTextField.textColor = SSAuthenticationManager.sharedInstance.textFieldFontColour
         var rules = ValidationRuleSet<String>()
         let emailRule = ValidationRulePattern(pattern: EmailValidationPattern.standard, error: ValidationError.invalid(self.localizedString(key: "emailFormatError.message")))
         rules.add(rule: emailRule)
@@ -112,19 +112,19 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     fileprivate(set) lazy var passwordTextField: UITextField = {
         let _passwordTextField = UITextField()
-        _passwordTextField.backgroundColor = .white
+        _passwordTextField.backgroundColor = SSAuthenticationManager.sharedInstance.textFieldBackgroundColour
         _passwordTextField.delegate = self
         _passwordTextField.spellCheckingType = .no
         _passwordTextField.autocorrectionType = .no
         _passwordTextField.autocapitalizationType = .none
         _passwordTextField.isSecureTextEntry = true
         _passwordTextField.clearsOnBeginEditing = true
-        _passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.password"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
-        _passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        _passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.password"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
+        _passwordTextField.leftView = UIView(frame: TEXT_FIELD_LEFT_VIEW_FRAME)
         _passwordTextField.leftViewMode = .always
-        _passwordTextField.layer.cornerRadius = 5.0
-        _passwordTextField.font = FONT_MEDIUM
-        _passwordTextField.textColor = FONT_COLOUR_BLACK
+        _passwordTextField.layer.cornerRadius = TEXT_FIELD_RADIUS
+        _passwordTextField.font = SSAuthenticationManager.sharedInstance.textFieldFont
+        _passwordTextField.textColor = SSAuthenticationManager.sharedInstance.textFieldFontColour
         var rules = ValidationRuleSet<String>()
         let passwordRule = ValidationRulePattern(pattern: PASSWORD_VALIDATION_REGEX, error: ValidationError.invalid(self.localizedString(key: "passwordValidFail.message")))
         rules.add(rule: passwordRule)
@@ -138,19 +138,19 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     fileprivate(set) lazy var confirmPasswordTextField: UITextField = {
         let _confirmPasswordTextField = UITextField()
-        _confirmPasswordTextField.backgroundColor = .white
+        _confirmPasswordTextField.backgroundColor = SSAuthenticationManager.sharedInstance.textFieldBackgroundColour
         _confirmPasswordTextField.delegate = self
         _confirmPasswordTextField.spellCheckingType = .no
         _confirmPasswordTextField.autocorrectionType = .no
         _confirmPasswordTextField.autocapitalizationType = .none
         _confirmPasswordTextField.isSecureTextEntry = true
         _confirmPasswordTextField.clearsOnBeginEditing = true
-        _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirmPassword"), attributes: FONT_ATTR_MEDIUM_LIGHT_GRAY)
-        _confirmPasswordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirmPassword"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
+        _confirmPasswordTextField.leftView = UIView(frame: TEXT_FIELD_LEFT_VIEW_FRAME)
         _confirmPasswordTextField.leftViewMode = .always
-        _confirmPasswordTextField.layer.cornerRadius = 5.0
-        _confirmPasswordTextField.font = FONT_MEDIUM
-        _confirmPasswordTextField.textColor = FONT_COLOUR_BLACK
+        _confirmPasswordTextField.layer.cornerRadius = TEXT_FIELD_RADIUS
+        _confirmPasswordTextField.font = SSAuthenticationManager.sharedInstance.textFieldFont
+        _confirmPasswordTextField.textColor = SSAuthenticationManager.sharedInstance.textFieldFontColour
         var rules = ValidationRuleSet<String>()
         let confirmPasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, error: ValidationError.invalid(self.localizedString(key: "passwordNotMatchError.message")))
         rules.add(rule: confirmPasswordRule)
@@ -371,7 +371,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     
     override open func loadView() {
         self.view = UIView()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
         self.view.translatesAutoresizingMaskIntoConstraints = true
         
         self.setupSubviews()
