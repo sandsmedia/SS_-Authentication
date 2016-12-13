@@ -25,6 +25,7 @@ open class SSAuthenticationManager {
     open var textFieldFontColour = FONT_COLOUR_BLACK
     open var buttonBackgroundColour = UIColor.white
     open var buttonFontAttribute = FONT_ATTR_LARGE_BLACK_BOLD
+    open var resetButtonAttribute = FONT_ATTR_SMALL_WHITE
     open var user: SSUser?
     open var profile: SSProfile?
     open var email = UserDefaults.standard.object(forKey: SS_AUTHENTICATION_EMAIL_KEY) as? String
