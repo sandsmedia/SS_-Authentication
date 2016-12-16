@@ -14,6 +14,7 @@
 
 "user.update" = "Aktualisieren";
 
+"user.update_password" = "Passwort ändern";
 "user.email" = "E-Mail";
 "user.password" = "Passwort";
 "user.forget_password" = "Passwort vergessen?";

@@ -14,6 +14,7 @@
 
 "user.update" = "Update";
 
+"user.update_password" = "Change Password";
 "user.email" = "Email";
 "user.password" = "Password";
 "user.forget_password" = "Forgot your password?";
