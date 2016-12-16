@@ -267,12 +267,12 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
             self.passwordTextField.removeFromSuperview()
             self.textFieldsStackView?.removeArrangedSubview(self.confirmPasswordTextField)
             self.confirmPasswordTextField.removeFromSuperview()
-            self.title = self.localizedString(key: "user.updateEmail")
+            self.title = self.localizedString(key: "user.update_email")
             self.emailTextField.returnKeyType = .go
         } else {
             self.textFieldsStackView?.removeArrangedSubview(self.emailTextField)
             self.emailTextField.removeFromSuperview()
-            self.title = self.localizedString(key: "user.updatePassword")
+            self.title = self.localizedString(key: "user.update_password")
             self.passwordTextField.returnKeyType = .next
             self.confirmPasswordTextField.returnKeyType = .go
         }

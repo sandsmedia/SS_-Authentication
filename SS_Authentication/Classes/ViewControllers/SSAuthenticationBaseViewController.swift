@@ -145,7 +145,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _confirmPasswordTextField.autocapitalizationType = .none
         _confirmPasswordTextField.isSecureTextEntry = true
         _confirmPasswordTextField.clearsOnBeginEditing = true
-        _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirmPassword"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
+        _confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.confirm_password"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
         _confirmPasswordTextField.leftView = UIView(frame: TEXT_FIELD_LEFT_VIEW_FRAME)
         _confirmPasswordTextField.leftViewMode = .always
         _confirmPasswordTextField.layer.cornerRadius = TEXT_FIELD_RADIUS

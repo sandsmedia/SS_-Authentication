@@ -17,6 +17,7 @@
 "user.email" = "Email";
 "user.password" = "Password";
 "user.forget_password" = "Forgot your password?";
+
 "courses.title" = "Courses";
 "tutorials.title" = "Tutorials";
 "lessons.title" = "Lessons";
@@ -84,3 +85,49 @@
 "email_update_fail.message" = "Your email address cannot be changed right now.\nPlease try again later.";
 
 "password_update_fail.message" = "Your password cannot be changed.\nPlease try again later.";
+
+
+
+// DIALOGS
+
+
+
+
+
+
+
+
+
+
+// REGISTRATION ERRORS
+
+
+
+
+
+
+
+// SHARE
+
+
+
+
+
+
+
+
+
+
+"email_update_success.message" = "Your email address has been updated successfully.";
+
+
+"password_update_success.message" = "Your password has been updated successfully.";
+
+
+
+// SETTINGS
+
+
+
+
+"user.update_email" = "Change Email";

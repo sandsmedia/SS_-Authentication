@@ -151,7 +151,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     
     fileprivate func setupResetButton() {
         self.resetButton = UIButton(type: .system)
-        self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forgetPassword"), attributes: SSAuthenticationManager.sharedInstance.resetButtonAttribute), for: UIControlState())
+        self.resetButton?.setAttributedTitle(NSAttributedString(string: self.localizedString(key: "user.forget_password"), attributes: SSAuthenticationManager.sharedInstance.resetButtonAttribute), for: UIControlState())
         self.resetButton?.addTarget(self, action: .resetButtonAction, for: .touchUpInside)
     }
 
