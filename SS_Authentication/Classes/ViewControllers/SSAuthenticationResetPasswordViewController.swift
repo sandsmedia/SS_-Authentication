@@ -92,7 +92,7 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     }
     
     func tapAction() {
-        for textField in self.view.subviews {
+        for textField in (self.textFieldsStackView?.arrangedSubviews)! {
             textField.resignFirstResponder()
         }
     }
