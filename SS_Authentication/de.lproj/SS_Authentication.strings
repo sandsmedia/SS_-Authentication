@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  SS_Authentication
-
-  Created by Eddie Li on 01/06/16.
-  Copyright © 2016 Software and Support Media GmbH. All rights reserved.
-*/
-
 // AUTHENTICATION
 "user.skip" = "Später";
 "user.login" = "Anmelden";
@@ -69,8 +61,7 @@
 "password_not_match.message" = "Passwörter stimmen nicht überein.";
 "no_account_alert.message" = "Bitte melden Sie sich zuerst an";
 "no_access_alert.message" = "Sie haben momentan keinen Zugang zu diesem Video";
-"""no_proper_connection_alert.message"" = ""Wiedergabe mit mobilen Daten ist deaktiviert
-"";"
+"no_proper_connection_alert.message" = "Wiedergabe mit mobilen Daten ist deaktiviert";
 "purchase_failed_alert.message" = "Problem beim Kaufvorgang. Bitte versuchen Sie es später erneut";
 "logout_failed_alert.message" = "Abmelden fehlgeschlagen. Bitte versuchen Sie es später erneut.";
 "chapter_not_found_alert.message" = "Auf dieses Kapitel kann nicht mehr zugegriffen werden.";
