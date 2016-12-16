@@ -6,46 +6,81 @@
   Copyright © 2016 Software and Support Media GmbH. All rights reserved.
 */
 
-// User
+// AUTHENTICATION
 "user.skip" = "Later";
 "user.login" = "Sign in";
+
 "user.register" = "Sign up";
+
 "user.update" = "Update";
-"user.updateEmail" = "Change Email";
-"user.updatePassword" = "Change Password";
+
 "user.email" = "Email";
 "user.password" = "Password";
-"user.confirmPassword" = "Confirm Password";
-"user.forgetPassword" = "Forgot your password?";
-"user.restore" = "Reset";
-"user.newPassword" = "New Password";
+"user.forget_password" = "Forgot your password?";
+"courses.title" = "Courses";
+"tutorials.title" = "Tutorials";
+"lessons.title" = "Lessons";
+"chapters.title" = "Chapters";
+"purchase.title" = "Purchase";
+"search.title" = "Search";
 
-"cancelButtonTitle" = "OK";
-// No Internet Connection Error
-"noInternetConnectionError.message" = "Please enable an Internet connection and try again.";
-// User Register Failure
-"userRegisterFail.message" = "Sign up failed.\nPlease try again.";
-// Email Format Error
-"emailFormatError.message" = "Invalid email address.";
-// Email Exist Error
-"emailExistError.message" = "Email address exists.\nPlease sign in.";
-// Invalid Credentials Error
-"invalidCredentials.message" = "Invalid sign in credentials.\nPlease try again.";
-// User Login Failure
-"userLoginFail.message" = "Sign in failed.\nPlease try again.";
-// User Forgot Password Failure
-"forgotPasswordFail.message" = "Restoring your password failed.\nPlease try again.";
-// User Forgot Password Success
-"forgotPasswordSuccess.message" = "Please check your email for instructions.";
-// User Email Update Success
-"emailUpdateSuccess.message" = "Your email address has been updated successfully.";
-// User Email Update Failure
-"emailUpdateFail.message" = "Your email address cannot be changed right now.\nPlease try again later.";
-// User Password Update Success
-"passwordUpdateSuccess.message" = "Your password has been updated successfully.";
-// User Password Update Failure
-"passwordUpdateFail.message" = "Your password cannot be changed.\nPlease try again later.";
-// Password Valid Failure
-"passwordValidFail.message" = "Make your password more secure by including upper & lower case letters and numbers.\nUse 8-20 characters.";
-// Password Not Match Error
-"passwordNotMatchError.message" = "Passwords do not match.";
+// USER AREA
+"settings.title" = "Settings";
+"settings.settings" = "Settings";
+"settings.account" = "Account";
+"settings.login" = "Sign in";
+"settings.create_account" = "Create an account";
+"settings.update_password" = "Change Password";
+"settings.logout" = "Logout";
+"settings.notes" = "Notes";
+"settings.favourites" = "Favourites";
+"settings.mobile_data" = "Video streaming with mobile data";
+"settings.login_create_account" = "Login or create an account";
+"no_results.title" = "No results";
+"ok.title" = "OK";
+"cancel.title" = "Cancel";
+"retry.title" = "Retry";
+"save.title" = "Save";
+"enable.title" = "Enable";
+"delete.title" = "Delete";
+"edit.title" = "Edit";
+"my_tutorials.title" = "My Tutorials";
+"unowned_tutorials.title" = "These Tutorials May Interest You";
+"add_note.title" = "Add Note";
+"watch_trailer.title" = "Watch trailer";
+"technical_spec.title" = "Technical Requirement";
+"read_more.title" = "READ MORE";
+"read_less.title" = "READ LESS";
+"hour.title" = " hr";
+"minute.title" = " min";
+"videos.title" = " Videos";
+"presented_by.title" = "PRESENTED BY";
+"about.title" = "About";
+"social.title" = "Social";
+"no_internet_connection_error.message" = "Please enable an Internet connection and try again.";
+"user_register_fail.message" = "Sign up failed.\nPlease try again.";
+"email_format_error.message" = "Invalid email address.";
+"email_exist_error.message" = "Email address exists.\nPlease sign in.";
+"invalid_credentials.message" = "Invalid sign in credentials.\nPlease try again.";
+"user_login_fail.message" = "Sign in failed.\nPlease try again.";
+"forgot_password_fail.message" = "Restoring your password failed.\nPlease try again.";
+"forgot_password_success.message" = "Please check your email for instructions.";
+"password_valid_fail.message" = "Make your password more secure by including upper & lower case letters and numbers.\nUse 8-20 characters.";
+"password_not_match.message" = "Passwords do not match.";
+"no_account_alert.message" = "Please sign in to use this feature";
+"no_access_alert.message" = "You don't currently have access to this video";
+"no_proper_connection_alert.message" = "Mobile data playback is disabled";
+"purchase_failed_alert.message" = "Problem while purchasing. Please try again later.";
+"logout_failed_alert.message" = "Couldn't log out. Please try again later";
+"chapter_not_found_alert.message" = "This chapter can no longer be accessed.";
+"onboarding.app.01" = "onboarding_app01_de";
+"onboarding.app.02" = "onboarding_app02_de";
+"onboarding.favs.01" = "onboarding_favs01_de";
+"onboarding.favs.02" = "onboarding_favs02_de";
+"onboarding.notes.01" = "onboarding_notes01_de";
+"onboarding.notes.02" = "onboarding_notes02_de";
+"onboarding.notes.03" = "onboarding_notes03_de";
+
+"email_update_fail.message" = "Your email address cannot be changed right now.\nPlease try again later.";
+
+"password_update_fail.message" = "Your password cannot be changed.\nPlease try again later.";

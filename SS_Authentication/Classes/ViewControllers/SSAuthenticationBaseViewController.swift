@@ -100,7 +100,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _emailTextField.font = SSAuthenticationManager.sharedInstance.textFieldFont
         _emailTextField.textColor = SSAuthenticationManager.sharedInstance.textFieldFontColour
         var rules = ValidationRuleSet<String>()
-        let emailRule = ValidationRulePattern(pattern: EmailValidationPattern.standard, error: ValidationError.invalid(self.localizedString(key: "emailFormatError.message")))
+        let emailRule = ValidationRulePattern(pattern: EmailValidationPattern.standard, error: ValidationError.invalid(self.localizedString(key: "email_format_error.message")))
         rules.add(rule: emailRule)
         _emailTextField.validationRules = rules
         _emailTextField.validationHandler = { result in
@@ -126,7 +126,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _passwordTextField.font = SSAuthenticationManager.sharedInstance.textFieldFont
         _passwordTextField.textColor = SSAuthenticationManager.sharedInstance.textFieldFontColour
         var rules = ValidationRuleSet<String>()
-        let passwordRule = ValidationRulePattern(pattern: PASSWORD_VALIDATION_REGEX, error: ValidationError.invalid(self.localizedString(key: "passwordValidFail.message")))
+        let passwordRule = ValidationRulePattern(pattern: PASSWORD_VALIDATION_REGEX, error: ValidationError.invalid(self.localizedString(key: "password_valid_fail.message")))
         rules.add(rule: passwordRule)
         _passwordTextField.validationRules = rules
         _passwordTextField.validationHandler = { result in
@@ -152,7 +152,7 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _confirmPasswordTextField.font = SSAuthenticationManager.sharedInstance.textFieldFont
         _confirmPasswordTextField.textColor = SSAuthenticationManager.sharedInstance.textFieldFontColour
         var rules = ValidationRuleSet<String>()
-        let confirmPasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, error: ValidationError.invalid(self.localizedString(key: "passwordNotMatchError.message")))
+        let confirmPasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, error: ValidationError.invalid(self.localizedString(key: "password_not_match.message")))
         rules.add(rule: confirmPasswordRule)
         _confirmPasswordTextField.validationRules = rules
         _confirmPasswordTextField.validationHandler = { result in
@@ -163,8 +163,8 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     }()
     
     open lazy var emailFailureAlertController: UIAlertController = {
-        let _emailFailureAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailFormatError.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _emailFailureAlertController = UIAlertController(title: nil, message: self.localizedString(key: "email_format_error.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _emailFailureAlertController.addAction(cancelAction)
@@ -172,8 +172,8 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     }()
     
     open lazy var passwordValidFailAlertController: UIAlertController = {
-        let _passwordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordValidFail.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _passwordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "password_valid_fail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.passwordTextField.text = nil
             self.passwordTextField.becomeFirstResponder()
         })
@@ -182,8 +182,8 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     }()
     
     open lazy var confirmPasswordValidFailAlertController: UIAlertController = {
-        let _confirmPasswordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordNotMatchError.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _confirmPasswordValidFailAlertController = UIAlertController(title: nil, message: self.localizedString(key: "password_not_match.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.confirmPasswordTextField.text = nil
             self.confirmPasswordTextField.becomeFirstResponder()
         })
@@ -192,8 +192,8 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
     }()
     
     fileprivate(set) lazy var noInternetAlertController: UIAlertController = {
-        let _noInternetAlertController = UIAlertController(title: nil, message: self.localizedString(key: "noInternetConnectionError.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _noInternetAlertController = UIAlertController(title: nil, message: self.localizedString(key: "no_internet_connection_error.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             
         })
         _noInternetAlertController.addAction(cancelAction)

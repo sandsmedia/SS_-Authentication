@@ -44,8 +44,8 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     // MARK: - Accessors
     
     fileprivate(set) lazy var forgotPasswordSuccessAlertController: UIAlertController = {
-        let _forgotPasswordSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordSuccess.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _forgotPasswordSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgot_password_success.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             let _ = self.navigationController?.popViewController(animated: true)
         })
         _forgotPasswordSuccessAlertController.addAction(cancelAction)
@@ -53,8 +53,8 @@ class SSAuthenticationResetPasswordViewController: SSAuthenticationBaseViewContr
     }()
 
     fileprivate(set) lazy var forgotPasswordFailedAlertController: UIAlertController = {
-        let _forgotPasswordFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgotPasswordFail.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _forgotPasswordFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "forgot_password_fail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _forgotPasswordFailedAlertController.addAction(cancelAction)

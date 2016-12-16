@@ -44,8 +44,8 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
     // MARK: - Accessors
 
     fileprivate(set) lazy var emailAlreadyExistAlertController: UIAlertController = {
-        let _emailAlreadyExistAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailExistError.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _emailAlreadyExistAlertController = UIAlertController(title: nil, message: self.localizedString(key: "email_exist_error.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _emailAlreadyExistAlertController.addAction(cancelAction)
@@ -53,8 +53,8 @@ open class SSAuthenticationRegisterViewController: SSAuthenticationBaseViewContr
     }()
 
     fileprivate(set) lazy var registerFailedAlertController: UIAlertController = {
-        let _registerFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "userRegisterFail.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _registerFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "user_register_fail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _registerFailedAlertController.addAction(cancelAction)

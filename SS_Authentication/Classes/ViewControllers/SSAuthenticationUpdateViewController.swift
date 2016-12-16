@@ -45,18 +45,9 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     
     // MARK: - Accessors
     
-    fileprivate(set) lazy var emailAlreadyExistAlertController: UIAlertController = {
-        let _emailAlreadyExistAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailExistError.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
-            self.emailTextField.becomeFirstResponder()
-        })
-        _emailAlreadyExistAlertController.addAction(cancelAction)
-        return _emailAlreadyExistAlertController
-    }()
-
     fileprivate(set) lazy var emailUpdateSuccessAlertController: UIAlertController = {
-        let _emailUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailUpdateSuccess.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _emailUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "email_update_success.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             let _ = self.navigationController?.popViewController(animated: true)
         })
         _emailUpdateSuccessAlertController.addAction(cancelAction)
@@ -64,8 +55,8 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     }()
     
     fileprivate(set) lazy var emailUpdateFailedAlertController: UIAlertController = {
-        let _emailUpdateFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "emailUpdateFail.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _emailUpdateFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "email_update_fail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _emailUpdateFailedAlertController.addAction(cancelAction)
@@ -73,8 +64,8 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     }()
 
     fileprivate(set) lazy var passwordUpdateSuccessAlertController: UIAlertController = {
-        let _passwordUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordUpdateSuccess.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _passwordUpdateSuccessAlertController = UIAlertController(title: nil, message: self.localizedString(key: "password_update_success.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             let _ = self.navigationController?.popViewController(animated: true)
         })
         _passwordUpdateSuccessAlertController.addAction(cancelAction)
@@ -82,8 +73,8 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
     }()
     
     fileprivate(set) lazy var passwordUpdateFailedAlertController: UIAlertController = {
-        let _passwordUpdateFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "passwordUpdateFail.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _passwordUpdateFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "password_update_fail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _passwordUpdateFailedAlertController.addAction(cancelAction)

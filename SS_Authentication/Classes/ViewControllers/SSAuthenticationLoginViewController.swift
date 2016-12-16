@@ -45,8 +45,8 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     // MARK: - Accessors
     
     fileprivate(set) lazy var credentialsIncorrectAlertController: UIAlertController = {
-        let _credentialsIncorrectAlertController = UIAlertController(title: nil, message: self.localizedString(key: "invalidCredentials.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _credentialsIncorrectAlertController = UIAlertController(title: nil, message: self.localizedString(key: "invalid_credentials.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _credentialsIncorrectAlertController.addAction(cancelAction)
@@ -54,8 +54,8 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     }()
 
     fileprivate(set) lazy var loginFailedAlertController: UIAlertController = {
-        let _loginFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "userLoginFail.message"), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: self.localizedString(key: "cancelButtonTitle"), style: .cancel, handler: { (action) in
+        let _loginFailedAlertController = UIAlertController(title: nil, message: self.localizedString(key: "user_login_fail.message"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.localizedString(key: "ok.title"), style: .cancel, handler: { (action) in
             self.emailTextField.becomeFirstResponder()
         })
         _loginFailedAlertController.addAction(cancelAction)
@@ -227,7 +227,7 @@ open class SSAuthenticationLoginViewController: SSAuthenticationBaseViewControll
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        self.passwordValidFailAlertController.message = self.localizedString(key: "invalidCredentials.message")
+        self.passwordValidFailAlertController.message = self.localizedString(key: "invalid_credentials.message")
         self.title = self.localizedString(key: "user.login")
         self.emailTextField.returnKeyType = .next
         self.passwordTextField.returnKeyType = .go

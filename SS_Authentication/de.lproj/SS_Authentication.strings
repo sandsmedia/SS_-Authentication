@@ -6,46 +6,82 @@
   Copyright © 2016 Software and Support Media GmbH. All rights reserved.
 */
 
-// User
+// AUTHENTICATION
 "user.skip" = "Später";
 "user.login" = "Anmelden";
+
 "user.register" = "Registrieren";
-"user.update" = "Update";
-"user.updateEmail" = "E-Mail ändern";
-"user.updatePassword" = "Passwort ändern";
+
+"user.update" = "Aktualisieren";
+
 "user.email" = "E-Mail";
 "user.password" = "Passwort";
-"user.confirmPassword" = "Passwort bestätigen";
-"user.forgetPassword" = "Passwort vergessen?";
-"user.restore" = "Zurücksetzen";
-"user.newPassword" = "Neues Passwort";
+"user.forget_password" = "Passwort vergessen?";
+"courses.title" = "Kurse";
+"tutorials.title" = "Tutorien";
+"lessons.title" = "Lektionen";
+"chapters.title" = "Kapitel";
+"purchase.title" = "Kaufen";
+"search.title" = "Suche";
 
-"cancelButtonTitle" = "OK";
-// No Internet Connection Error
-"noInternetConnectionError.message" = "Bitte aktivieren Sie Ihre Internetverbindung und versuchen Sie es erneut.";
-// User Register Failure
-"userRegisterFail.message" = "Registrierung fehlgeschlagen.\nBitte versuchen Sie es erneut.";
-// Email Format Error
-"emailFormatError.message" = "Diese E-Mail-Adresse ist ungültig.";
-// Email Exist Error
-"emailExistError.message" = "Diese E-Mail-Adresse existiert bereits, bitte melden Sie sich an.";
-// Invalid Credentials Error
-"invalidCredentials.message" = "Ungültige Zugangsdaten.\nBitte versuchen Sie es erneut.";
-// User Login Failure
-"userLoginFail.message" = "Login fehlgeschlagen.\nBitte versuchen Sie es erneut.";
-// User Forgot Password Failure
-"forgotPasswordFail.message" = "Das Passwort konnte nicht zurückgesetzt werden, bitte versuchen Sie es erneut.";
-// User Forgot Password Success
-"forgotPasswordSuccess.message" = "Bitte überprüfen Sie Ihre E-Mails für weitere Anweisungen.";
-// User Email Update Success
-"emailUpdateSuccess.message" = "Ihre E-Mail-Adresse wurde erfolgreich aktualisiert.";
-// User Email Update Failure
-"emailUpdateFail.message" = "Ihre E-Mail-Adresse kann momentan nicht geändert werden, bitte versuchen Sie es später noch einmal.";
-// User Password Update Success
-"passwordUpdateSuccess.message" = "Ihr Passwort wurde erfolgreich aktualisiert.";
-// User Password Update Failure
-"passwordUpdateFail.message" = "Ihr Passwort kann momentan nicht geändert werden, bitte versuchen Sie es später noch einmal.";
-// Password Valid Failure
-"passwordValidFail.message" = "Bitte erhöhen Sie die Sicherheit Ihres Passwortes, indem Sie Groß- und Kleinbuchstaben sowie Nummern verwenden.\nDas Passwort sollte 8-20 Zeichen lang sein.";
-// Password Not Match Error
-"passwordNotMatchError.message" = "Passwörter stimmen nicht überein.";
+// USER AREA
+"settings.title" = "Einstellungen";
+"settings.settings" = "Einstellungen";
+"settings.account" = "Konto";
+"settings.login" = "Anmelden";
+"settings.create_account" = "ein Benutzerkonto erstellen";
+"settings.update_password" = "Passwort ändern";
+"settings.logout" = "Abmelden";
+"settings.notes" = "Notizen";
+"settings.favourites" = "Favoriten";
+"settings.mobile_data" = "Video mit mobilen Daten streamen";
+"settings.login_create_account" = "Anmelden oder ein Benutzerkonto erstellen";
+"no_results.title" = "Keine Ergebnisse";
+"ok.title" = "OK";
+"cancel.title" = "Abbrechen";
+"retry.title" = "Wiederholen";
+"save.title" = "Speichern";
+"enable.title" = "Aktivieren";
+"delete.title" = "Löschen";
+"edit.title" = "Bearbeiten";
+"my_tutorials.title" = "Meine Tutorials";
+"unowned_tutorials.title" = "Das könnte Dich auch Interessieren";
+"add_note.title" = "Notiz hinzufügen";
+"watch_trailer.title" = "Trailer ansehen";
+"technical_spec.title" = "Technische Voraussetzungen";
+"read_more.title" = "MEHR LESEN";
+"read_less.title" = "WENIGER LESEN";
+"hour.title" = " Std.";
+"minute.title" = " min";
+"videos.title" = " Videos";
+"presented_by.title" = "PRÄSENTIERT VON";
+"about.title" = "Über";
+"social.title" = "Soziale Netzwerke";
+"no_internet_connection_error.message" = "Bitte aktivieren Sie Ihre Internetverbindung und versuchen Sie es erneut.";
+"user_register_fail.message" = "Registrierung fehlgeschlagen.\nBitte versuchen Sie es erneut.";
+"email_format_error.message" = "Diese E-Mail-Adresse ist ungültig.";
+"email_exist_error.message" = "Diese E-Mail-Adresse existiert bereits, bitte melden Sie sich an.";
+"invalid_credentials.message" = "Ungültige Zugangsdaten.\nBitte versuchen Sie es erneut.";
+"user_login_fail.message" = "Login fehlgeschlagen.\nBitte versuchen Sie es erneut.";
+"forgot_password_fail.message" = "Das Passwort konnte nicht zurückgesetzt werden, bitte versuchen Sie es erneut.";
+"forgot_password_success.message" = "Bitte überprüfen Sie Ihre E-Mails für weitere Anweisungen.";
+"password_valid_fail.message" = "Bitte erhöhen Sie die Sicherheit Ihres Passwortes, indem Sie Groß- und Kleinbuchstaben sowie Nummern verwenden.\nDas Passwort sollte 8-20 Zeichen lang sein.";
+"password_not_match.message" = "Passwörter stimmen nicht überein.";
+"no_account_alert.message" = "Bitte melden Sie sich zuerst an";
+"no_access_alert.message" = "Sie haben momentan keinen Zugang zu diesem Video";
+"""no_proper_connection_alert.message"" = ""Wiedergabe mit mobilen Daten ist deaktiviert
+"";"
+"purchase_failed_alert.message" = "Problem beim Kaufvorgang. Bitte versuchen Sie es später erneut";
+"logout_failed_alert.message" = "Abmelden fehlgeschlagen. Bitte versuchen Sie es später erneut.";
+"chapter_not_found_alert.message" = "Auf dieses Kapitel kann nicht mehr zugegriffen werden.";
+"onboarding.app.01" = "onboarding_app01_de";
+"onboarding.app.02" = "onboarding_app02_de";
+"onboarding.favs.01" = "onboarding_favs01_de";
+"onboarding.favs.02" = "onboarding_favs02_de";
+"onboarding.notes.01" = "onboarding_notes01_de";
+"onboarding.notes.02" = "onboarding_notes02_de";
+"onboarding.notes.03" = "onboarding_notes03_de";
+
+"email_update_fail.message" = "Ihre E-Mail-Adresse kann momentan nicht geändert werden, bitte versuchen Sie es später noch einmal.";
+
+"password_update_fail.message" = "Ihr Passwort kann momentan nicht geändert werden, bitte versuchen Sie es später noch einmal.";
