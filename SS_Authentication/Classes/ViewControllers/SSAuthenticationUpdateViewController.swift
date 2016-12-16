@@ -197,7 +197,7 @@ open class SSAuthenticationUpdateViewController: SSAuthenticationBaseViewControl
         self.textFieldsStackView?.addArrangedSubview(self.emailTextField)
         
         self.passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.newPassword"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
+        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: self.localizedString(key: "user.new_password"), attributes: SSAuthenticationManager.sharedInstance.textFieldPlaceholderFontAttribute)
         self.textFieldsStackView?.addArrangedSubview(self.passwordTextField)
         
         self.confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false

@@ -17,7 +17,8 @@
 "user.email" = "Email";
 "user.password" = "Password";
 "user.forget_password" = "Forgot your password?";
-
+"user.new_password" = "New Password";
+"user.confirm_password" = "Confirm Password";
 "courses.title" = "Courses";
 "tutorials.title" = "Tutorials";
 "lessons.title" = "Lessons";
@@ -98,7 +99,7 @@
 
 
 
-
+"user.restore" = "Reset";
 // REGISTRATION ERRORS
 
 
