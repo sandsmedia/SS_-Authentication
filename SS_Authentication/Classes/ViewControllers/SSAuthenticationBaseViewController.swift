@@ -153,7 +153,9 @@ open class SSAuthenticationBaseViewController: UIViewController, UITextFieldDele
         _confirmPasswordTextField.textColor = SSAuthenticationManager.sharedInstance.textFieldFontColour
         var rules = ValidationRuleSet<String>()
         let confirmPasswordRule = ValidationRuleEquality(dynamicTarget: { return self.passwordTextField.text ?? "" }, error: ValidationError.invalid(self.localizedString(key: "password_not_match.message")))
+        let passwordRule = ValidationRulePattern(pattern: PASSWORD_VALIDATION_REGEX, error: ValidationError.invalid(self.localizedString(key: "password_valid_fail.message")))
         rules.add(rule: confirmPasswordRule)
+        rules.add(rule: passwordRule)
         _confirmPasswordTextField.validationRules = rules
         _confirmPasswordTextField.validationHandler = { result in
             self.isConfirmPasswordValid = result.isValid
